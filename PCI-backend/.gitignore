@@ -1,0 +1,24 @@
+### Node.js ###
+dist/
+node_modules/
+drizzle/
+
+### Jest ###
+coverage/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### VS Code ###
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+
+### Mac OS ###
+.DS_Store
+
+# Env files
+.env

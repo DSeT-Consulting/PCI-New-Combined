@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:16.1
+    restart: always
+    environment:
+      - POSTGRES_DB=pci
+      - POSTGRES_USER=pci
+      - POSTGRES_PASSWORD=pciwebsite@123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backups:/backups
+
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - "8000:8080"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
+    driver: local
