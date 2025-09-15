@@ -12,6 +12,30 @@ import {
 // Banner Slides
 export const BANNER_SLIDES: BannerSlide[] = [
     {
+        id: 6,
+        imageUrl: '/assets/home/pci-hero-slider6.png',
+        title: '',
+        subtitle: "",
+        buttonText: '',
+        buttonLink: '',
+    },
+    {
+        id: 5,
+        imageUrl: '/assets/home/pci-hero-slider5.png',
+        title: '',
+        subtitle: "",
+        buttonText: '',
+        buttonLink: '',
+    },
+    {
+        id: 4,
+        imageUrl: '/assets/home/pci-hero-slider4.png',
+        title: '',
+        subtitle: "",
+        buttonText: '',
+        buttonLink: '',
+    },
+    {
         id: 1,
         imageUrl: '/assets/home/pci-hero-slider3.png',
         title: 'Champions',

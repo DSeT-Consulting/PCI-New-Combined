@@ -24,7 +24,7 @@ export default function AboutSection() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text content */}
-          <div className="max-w-xl">
+          <div className="lg:max-w-xl">
             <div className="inline-block bg-paralympic-yellow px-4 py-1 rounded-full mb-4">
               <span className="text-paralympic-navy font-semibold">
                 {ABOUT_CONTENT.subheading}
@@ -35,7 +35,7 @@ export default function AboutSection() {
               {ABOUT_CONTENT.heading}
             </h2>
             
-            <p className="text-lg text-gray-700 mb-8">
+            <p className="text-lg text-gray-700 mb-8 text-justify">
               {ABOUT_CONTENT.description}
             </p>
             
