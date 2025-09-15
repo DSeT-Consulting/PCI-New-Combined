@@ -243,40 +243,40 @@ const AboutUsPage = () => {
             <Navbar />
             <div className="min-h-screen bg-white">
                 {/* Hero Section */}
-                <section className="relative min-h-screen sm:h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-paralympic-green py-16 sm:py-20">
+                <section className="relative h-[70vh] sm:h-[80vh] lg:h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-paralympic-green">
                     <div className="absolute inset-0">
-                        <div className="absolute top-10 left-5 sm:top-20 sm:left-20 w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64 bg-paralympic-yellow/20 rounded-full blur-3xl animate-pulse"></div>
-                        <div className="absolute bottom-10 right-5 sm:bottom-20 sm:right-20 w-40 h-40 sm:w-60 sm:h-60 lg:w-80 lg:h-80 bg-paralympic-red/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-white/10 rounded-full blur-3xl animate-bounce-slow"></div>
+                        <div className="absolute top-8 left-3 sm:top-16 sm:left-16 lg:top-20 lg:left-20 w-24 h-24 sm:w-40 sm:h-40 lg:w-64 lg:h-64 bg-paralympic-yellow/20 rounded-full blur-3xl animate-pulse"></div>
+                        <div className="absolute bottom-8 right-3 sm:bottom-16 sm:right-16 lg:bottom-20 lg:right-20 w-28 h-28 sm:w-48 sm:h-48 lg:w-80 lg:h-80 bg-paralympic-red/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 sm:w-56 sm:h-56 lg:w-96 lg:h-96 bg-white/10 rounded-full blur-3xl animate-bounce-slow"></div>
                     </div>
 
-                    <div className="relative z-10 text-center text-white max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="mb-6 sm:mb-8">
-                            <div className="inline-flex items-center bg-white/10 backdrop-blur-sm px-3 py-2 sm:px-4 sm:py-2.5 lg:px-6 lg:py-3 rounded-full mb-4 sm:mb-6">
+                    <div className="relative z-10 text-center text-white max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+                        <div className="mb-4 sm:mb-6">
+                            <div className="inline-flex items-center bg-white/10 backdrop-blur-sm px-3 py-1.5 sm:px-4 sm:py-2 lg:px-6 lg:py-3 rounded-full mb-3 sm:mb-4">
                                 <span className="text-paralympic-yellow font-bold text-xs sm:text-sm lg:text-lg">PARALYMPIC COMMITTEE OF INDIA</span>
                             </div>
                         </div>
 
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-3 sm:mb-4 lg:mb-6 leading-tight">
                             About the
-                            <span className="block bg-gradient-to-r from-paralympic-yellow to-paralympic-green bg-clip-text text-transparent pb-2">
+                            <span className="block bg-gradient-to-r from-paralympic-yellow to-paralympic-green bg-clip-text text-transparent pb-1 sm:pb-2">
                                 Paralympic Committee of India
                             </span>
                         </h1>
 
-                        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-paralympic-gray max-w-2xl sm:max-w-3xl lg:max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed">
+                        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-paralympic-gray max-w-xl sm:max-w-2xl lg:max-w-3xl mx-auto mb-6 sm:mb-8 lg:mb-10 leading-relaxed">
                             Empowering India&apos;s para-athletes, fostering inclusivity, and driving excellence to place the nation at the forefront of the global Paralympic movement.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center max-w-lg sm:max-w-none mx-auto">
-                            <Link href="/committee-members" className="w-full sm:w-auto">
-                                <button className="w-full sm:w-auto bg-paralympic-yellow text-paralympic-navy px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-sm sm:text-base hover:bg-white transition-all duration-300 transform hover:scale-105">
+                        <div className="flex flex-row gap-3 sm:gap-4 justify-center items-center max-w-md sm:max-w-lg mx-auto">
+                            <Link href="/committee-members" className="flex-1">
+                                <button className="w-full bg-paralympic-yellow text-paralympic-navy px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold text-xs sm:text-sm lg:text-base hover:bg-white transition-all duration-300 transform hover:scale-105">
                                     Committee Members
                                 </button>
                             </Link>
-                            <Link href="/partners" className="w-full sm:w-auto">
-                                <button className="w-full sm:w-auto border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-sm sm:text-base hover:bg-white hover:text-paralympic-navy transition-all duration-300 transform hover:scale-105">
-                                    Explore Our Partners
+                            <Link href="/partners" className="flex-1">
+                                <button className="w-full border-2 border-white text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold text-xs sm:text-sm lg:text-base hover:bg-white hover:text-paralympic-navy transition-all duration-300 transform hover:scale-105">
+                                    Our Partners
                                 </button>
                             </Link>
                         </div>
