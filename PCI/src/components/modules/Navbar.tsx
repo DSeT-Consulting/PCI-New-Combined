@@ -42,7 +42,7 @@ const MENU_GROUPS: MenuGroup[] = [
     children: [
       { name: 'All Sports', href: '/sports' },
       { name: 'Classification', href: '/classification' },
-      { name: 'Athletes', href: '/athletes' },
+      // { name: 'Athletes', href: '/athletes' },
     ]
   },
   {
@@ -52,14 +52,14 @@ const MENU_GROUPS: MenuGroup[] = [
       { name: 'Latest Updates', href: '/latest-updates' },
     ]
   },
-  {
-    name: 'Events',
-    href: '/events',
-    children: [
-      { name: 'All Events', href: '/events' },
-      { name: 'Gallery', href: '/gallery' },
-    ]
-  },
+  // {
+  //   name: 'Events',
+  //   href: '/events',
+  //   children: [
+  //     { name: 'All Events', href: '/events' },
+  //     { name: 'Gallery', href: '/gallery' },
+  //   ]
+  // },
   {
     name: 'Contact',
     href: '/contact',

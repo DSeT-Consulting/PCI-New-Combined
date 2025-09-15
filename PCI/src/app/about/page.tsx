@@ -707,7 +707,7 @@ const AboutUsPage = () => {
                 </section>
 
                 {/* Leadership Team Section */}
-                <section className="py-24 bg-gradient-to-br from-paralympic-gray to-white">
+                {/* <section className="py-24 bg-gradient-to-br from-paralympic-gray to-white">
                     <div className="container mx-auto px-4">
                         <div className="text-center mb-16">
                             <div className="inline-block bg-gradient-to-r from-paralympic-navy to-paralympic-blue px-6 py-2 rounded-full mb-6">
@@ -743,7 +743,7 @@ const AboutUsPage = () => {
                             ))}
                         </div>
                     </div>
-                </section>
+                </section> */}
 
                 {/* Contact CTA Section */}
                 <section className="py-24 bg-gradient-to-r from-paralympic-blue via-paralympic-green to-paralympic-yellow">

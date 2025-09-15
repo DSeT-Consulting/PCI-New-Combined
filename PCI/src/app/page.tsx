@@ -39,16 +39,16 @@ export default function HomePage() {
         <AthletesSection />
 
         {/* World Rankings Section - Colorful teal/cyan section */}
-        <WorldRankingsSection />
+        {/* <WorldRankingsSection /> */}
 
         {/* Events Section */}
-        <EventsSection />
+        {/* <EventsSection /> */}
 
         {/* Highlight Reel Section - Video highlights with gradient background */}
-        <HighlightReelSection />
+        {/* <HighlightReelSection /> */}
 
         {/* Gallery Section */}
-        <GallerySection />
+        {/* <GallerySection /> */}
 
         {/* Sponsors Section */}
         <SponsorsSection />
