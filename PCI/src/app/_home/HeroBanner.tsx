@@ -187,7 +187,7 @@ export default function HeroBanner() {
       {/* Navigation controls */}
       <div className="absolute bottom-4 sm:bottom-6 lg:bottom-8 left-0 right-0 z-30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row items-center justify-between">
+          <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row items-center sm:justify-between justify-center">
             {/* Slide indicators */}
             <div className="flex space-x-2 sm:space-x-3 order-2 sm:order-1">
               {BANNER_SLIDES.map((_, index) => (
@@ -203,19 +203,19 @@ export default function HeroBanner() {
               ))}
             </div>
 
-            {/* Prev/Next buttons */}
-            <div className="flex space-x-3 sm:space-x-4 order-1 sm:order-2">
+            {/* Prev/Next buttons - Hidden on mobile */}
+            <div className="hidden sm:flex space-x-4 order-1 sm:order-2">
               <button
                 onClick={toggleAutoPlay}
-                className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 active:bg-white/40 transition-colors touch-manipulation"
+                className="h-12 w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 active:bg-white/40 transition-colors touch-manipulation"
                 aria-label={isAutoPlaying ? 'Pause slideshow' : 'Play slideshow'}
               >
                 {isAutoPlaying ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
                   </svg>
                 ) : (
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
                   </svg>
                 )}
@@ -223,20 +223,20 @@ export default function HeroBanner() {
 
               <button
                 onClick={prevSlide}
-                className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 active:bg-white/40 transition-colors touch-manipulation"
+                className="h-12 w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 active:bg-white/40 transition-colors touch-manipulation"
                 aria-label="Previous slide"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                 </svg>
               </button>
 
               <button
                 onClick={nextSlide}
-                className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 active:bg-white/40 transition-colors touch-manipulation"
+                className="h-12 w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 active:bg-white/40 transition-colors touch-manipulation"
                 aria-label="Next slide"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                 </svg>
               </button>
