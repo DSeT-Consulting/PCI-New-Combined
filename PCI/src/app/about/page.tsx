@@ -293,7 +293,7 @@ const AboutUsPage = () => {
                 <section
                     ref={journeyRef}
                     id="journey"
-                    className="py-24 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden"
+                    className="py-12 sm:py-16 lg:py-24 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden"
                 >
                     <div className="absolute inset-0">
                         <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -304,28 +304,39 @@ const AboutUsPage = () => {
                             </defs>
                             <rect width="100" height="100" fill="url(#grid)" />
                         </svg>
+                        {/* Mobile background elements */}
+                        <div className="sm:hidden absolute top-8 right-4 w-20 h-20 bg-paralympic-yellow/10 rounded-full blur-2xl animate-pulse"></div>
+                        <div className="sm:hidden absolute bottom-16 left-4 w-24 h-24 bg-paralympic-blue/10 rounded-full blur-2xl animate-pulse" style={{animationDelay: '1s'}}></div>
                     </div>
 
-                    <div className="container mx-auto px-4 relative z-10">
-                        <div className="text-center mb-16">
-                            <div className="inline-block bg-gradient-to-r from-paralympic-blue to-paralympic-green px-6 py-2 rounded-full mb-6">
-                                <span className="text-white font-bold">OUR JOURNEY</span>
+                    <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+                            <div className="inline-block bg-gradient-to-r from-paralympic-blue to-paralympic-green px-4 py-2 sm:px-6 sm:py-2 rounded-full mb-4 sm:mb-6">
+                                <span className="text-white font-bold text-sm sm:text-base">OUR JOURNEY</span>
                             </div>
-                            <h2 className="text-4xl md:text-6xl font-bold text-paralympic-navy mb-6">
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-paralympic-navy mb-4 sm:mb-6 leading-tight">
                                 Decades of
                                 <span className="block bg-gradient-to-r from-paralympic-blue to-paralympic-green bg-clip-text text-transparent">
                                     Paralympic Excellence
                                 </span>
                             </h2>
-                            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                            <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed">
                                 From humble beginnings to Paralympic glory - witness the incredible transformation and growth of India&apos;s Paralympic movement through decades of dedication and achievements.
                             </p>
                         </div>
 
                         {/* Timeline */}
                         <div className="relative">
-                            {/* Progress line */}
-                            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gray-200 rounded-full">
+                            {/* Mobile Progress line - Left positioned */}
+                            <div className="sm:hidden absolute left-6 top-0 w-0.5 h-full bg-gray-200 rounded-full">
+                                <div
+                                    className="bg-gradient-to-b from-paralympic-blue to-paralympic-green w-full rounded-full transition-all duration-1000 ease-out"
+                                    style={{ height: `${Math.min(journeyProgress, 85)}%` }}
+                                ></div>
+                            </div>
+
+                            {/* Tablet & Desktop Progress line */}
+                            <div className="hidden sm:block absolute sm:left-8 lg:left-1/2 transform lg:-translate-x-1/2 w-1 h-full bg-gray-200 rounded-full">
                                 <div
                                     className="bg-gradient-to-b from-paralympic-blue to-paralympic-green w-full rounded-full transition-all duration-1000 ease-out"
                                     style={{ height: `${Math.min(journeyProgress, 85)}%` }}
@@ -333,14 +344,18 @@ const AboutUsPage = () => {
                             </div>
 
                             {/* Milestones */}
-                            <div className="space-y-24">
+                            <div className="space-y-8 sm:space-y-16 lg:space-y-24">
                                 {JOURNEY_MILESTONES.map((milestone, index) => (
                                     <div
                                         key={milestone.year}
-                                        className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'} group`}
+                                        className={`flex flex-col sm:flex-row lg:items-center ${index % 2 === 0 || window?.innerWidth < 1024 ? 'sm:flex-row' : 'lg:flex-row-reverse'} group relative`}
                                     >
+                                        {/* Mobile Timeline Dot */}
+                                        <div className="sm:hidden absolute left-6 top-4 transform -translate-x-1/2 z-20">
+                                            <div className={`w-3 h-3 bg-gradient-to-r ${milestone.color} rounded-full shadow-lg border-2 border-white transform transition-all duration-500 group-hover:scale-150`}></div>
+                                        </div>
                                         {/* Content Card */}
-                                        <div className={`w-5/12 ${index % 2 === 0 ? 'pr-8' : 'pl-8'}`}>
+                                        <div className={`w-full sm:flex-1 lg:w-5/12 pl-16 sm:pl-0 ${index % 2 === 0 && window?.innerWidth >= 1024 ? 'lg:pr-8' : window?.innerWidth >= 1024 ? 'lg:pl-8' : 'sm:ml-16 lg:ml-0'}`}>
                                             <div
                                                 className={`transform transition-all duration-1000 ease-out ${journeyVisible
                                                     ? 'translate-y-0 opacity-100'
@@ -348,25 +363,33 @@ const AboutUsPage = () => {
                                                     }`}
                                                 style={{ transitionDelay: `${index * 300}ms` }}
                                             >
-                                                <div className={`bg-gradient-to-r ${milestone.color} p-8 rounded-2xl text-white shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-105`}>
-                                                    <div className="text-6xl mb-4">{milestone.icon}</div>
-                                                    <div className="text-3xl font-bold mb-3">{milestone.year}</div>
-                                                    <h3 className="text-2xl font-bold mb-4">{milestone.title}</h3>
-                                                    <p className="text-lg mb-6 opacity-90 leading-relaxed">{milestone.description}</p>
-                                                    <div className="text-sm font-semibold bg-white/20 px-4 py-2 rounded-full inline-block">
+                                                <div className={`bg-gradient-to-r ${milestone.color} p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl text-white shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-105 relative overflow-hidden`}>
+                                                    {/* Mobile year badge - top right */}
+                                                    <div className="sm:hidden absolute top-3 right-3 bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-lg text-xs font-bold border border-white/30">
+                                                        {milestone.year}
+                                                    </div>
+
+                                                    <div className="text-3xl sm:text-4xl lg:text-6xl mb-2 sm:mb-4">{milestone.icon}</div>
+                                                    <div className="hidden sm:block text-xl sm:text-2xl lg:text-3xl font-bold mb-2 sm:mb-3">{milestone.year}</div>
+                                                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-2 sm:mb-4 leading-tight pr-12 sm:pr-0">{milestone.title}</h3>
+                                                    <p className="text-sm sm:text-base lg:text-lg mb-4 sm:mb-6 opacity-90 leading-relaxed">{milestone.description}</p>
+                                                    <div className="text-xs sm:text-sm font-semibold bg-white/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full inline-block">
                                                         {milestone.achievement}
                                                     </div>
+
+                                                    {/* Decorative corner accent for mobile */}
+                                                    <div className="sm:hidden absolute bottom-0 left-0 w-8 h-8 bg-white/10 transform rotate-45 -translate-x-4 translate-y-4"></div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        {/* Center point */}
-                                        <div className="relative z-10 flex-shrink-0 mx-4">
-                                            <div className={`w-6 h-6 bg-gradient-to-r ${milestone.color} rounded-full transform transition-all duration-500 group-hover:scale-150 shadow-lg`}></div>
+                                        {/* Center point - Tablet & Desktop only */}
+                                        <div className="hidden sm:block relative z-10 flex-shrink-0 sm:mx-4 lg:mx-4 sm:self-start sm:mt-8 lg:self-center lg:mt-0">
+                                            <div className={`w-4 h-4 sm:w-6 sm:h-6 bg-gradient-to-r ${milestone.color} rounded-full transform transition-all duration-500 group-hover:scale-150 shadow-lg border-2 border-white`}></div>
                                         </div>
 
                                         {/* Image */}
-                                        <div className={`w-5/12 ${index % 2 === 0 ? 'pl-8' : 'pr-8'}`}>
+                                        <div className={`w-full sm:flex-1 lg:w-5/12 mt-4 sm:mt-0 ${index % 2 === 0 && window?.innerWidth >= 1024 ? 'lg:pl-8' : window?.innerWidth >= 1024 ? 'lg:pr-8' : ''}`}>
                                             <div
                                                 className={`transform transition-all duration-1000 ease-out ${journeyVisible
                                                     ? 'translate-y-0 opacity-100'
@@ -374,7 +397,7 @@ const AboutUsPage = () => {
                                                     }`}
                                                 style={{ transitionDelay: `${index * 300 + 150}ms` }}
                                             >
-                                                <div className="relative w-full h-80 rounded-2xl overflow-hidden shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-105">
+                                                <div className="relative w-full h-48 sm:h-64 lg:h-80 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-105">
                                                     <Image
                                                         src={milestone.image}
                                                         alt={`${milestone.year} - ${milestone.title}`}
@@ -382,6 +405,9 @@ const AboutUsPage = () => {
                                                         className="object-cover object-center"
                                                     />
                                                     <div className={`absolute inset-0 bg-gradient-to-t ${milestone.color} opacity-20 group-hover:opacity-30 transition-opacity duration-300`}></div>
+
+                                                    {/* Mobile connecting line to timeline */}
+                                                    <div className="sm:hidden absolute -left-10 top-1/2 w-6 h-0.5 bg-gradient-to-r from-gray-300 to-transparent transform -translate-y-1/2"></div>
                                                 </div>
                                             </div>
                                         </div>
