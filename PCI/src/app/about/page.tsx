@@ -185,10 +185,16 @@ const AboutUsPage = () => {
     const [missionVisible, setMissionVisible] = useState(false);
     const [goalsVisible, setGoalsVisible] = useState(false);
     const [journeyProgress, setJourneyProgress] = useState(0);
+    const [isClient, setIsClient] = useState(false);
 
     const journeyRef = useRef<HTMLElement>(null);
     const missionRef = useRef<HTMLElement>(null);
     const goalsRef = useRef<HTMLElement>(null);
+
+    // Check if we're on the client side
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
 
     // Simple intersection observer
     useEffect(() => {
@@ -348,14 +354,14 @@ const AboutUsPage = () => {
                                 {JOURNEY_MILESTONES.map((milestone, index) => (
                                     <div
                                         key={milestone.year}
-                                        className={`flex flex-col sm:flex-row lg:items-center ${index % 2 === 0 || window?.innerWidth < 1024 ? 'sm:flex-row' : 'lg:flex-row-reverse'} group relative`}
+                                        className={`flex flex-col sm:flex-row lg:items-center ${index % 2 === 0 || !isClient || window?.innerWidth < 1024 ? 'sm:flex-row' : 'lg:flex-row-reverse'} group relative`}
                                     >
                                         {/* Mobile Timeline Dot */}
                                         <div className="sm:hidden absolute left-6 top-4 transform -translate-x-1/2 z-20">
                                             <div className={`w-3 h-3 bg-gradient-to-r ${milestone.color} rounded-full shadow-lg border-2 border-white transform transition-all duration-500 group-hover:scale-150`}></div>
                                         </div>
                                         {/* Content Card */}
-                                        <div className={`w-full sm:flex-1 lg:w-5/12 pl-16 sm:pl-0 ${index % 2 === 0 && window?.innerWidth >= 1024 ? 'lg:pr-8' : window?.innerWidth >= 1024 ? 'lg:pl-8' : 'sm:ml-16 lg:ml-0'}`}>
+                                        <div className={`w-full sm:flex-1 lg:w-5/12 pl-16 sm:pl-0 ${index % 2 === 0 && isClient && window?.innerWidth >= 1024 ? 'lg:pr-8' : isClient && window?.innerWidth >= 1024 ? 'lg:pl-8' : 'sm:ml-16 lg:ml-0'}`}>
                                             <div
                                                 className={`transform transition-all duration-1000 ease-out ${journeyVisible
                                                     ? 'translate-y-0 opacity-100'
@@ -389,7 +395,7 @@ const AboutUsPage = () => {
                                         </div>
 
                                         {/* Image */}
-                                        <div className={`w-full sm:flex-1 lg:w-5/12 mt-4 sm:mt-0 ${index % 2 === 0 && window?.innerWidth >= 1024 ? 'lg:pl-8' : window?.innerWidth >= 1024 ? 'lg:pr-8' : ''}`}>
+                                        <div className={`w-full sm:flex-1 lg:w-5/12 mt-4 sm:mt-0 ${index % 2 === 0 && isClient && window?.innerWidth >= 1024 ? 'lg:pl-8' : isClient && window?.innerWidth >= 1024 ? 'lg:pr-8' : ''}`}>
                                             <div
                                                 className={`transform transition-all duration-1000 ease-out ${journeyVisible
                                                     ? 'translate-y-0 opacity-100'

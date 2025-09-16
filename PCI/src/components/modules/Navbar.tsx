@@ -423,7 +423,7 @@ export default function Navbar() {
                       ) : (
                         /* Items without children - show as direct link */
                         <Link
-                          href={group.href || '/'}
+                          href={group.href ?? '/'}
                           className="text-paralympic-navy font-medium hover:text-paralympic-blue active:text-paralympic-green hover:bg-gradient-to-r hover:from-paralympic-blue/8 hover:to-paralympic-green/8 active:bg-gradient-to-r active:from-paralympic-green/10 active:to-paralympic-blue/10 px-2 sm:px-3 md:px-4 py-2.5 sm:py-3 md:py-3.5 rounded-lg transition-all duration-300 flex items-center justify-between touch-manipulation text-sm sm:text-base md:text-lg min-h-[44px]"
                           onClick={() => setMobileMenuOpen(false)}
                         >

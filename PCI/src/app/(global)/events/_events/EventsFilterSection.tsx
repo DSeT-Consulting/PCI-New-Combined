@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { EventsPageFilters } from '../eventsPage'
+import { type EventsPageFilters } from '../eventsPage'
 
 interface EventsFilterSectionProps {
   filters: EventsPageFilters;

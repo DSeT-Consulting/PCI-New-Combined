@@ -1,6 +1,6 @@
 // src/app/events/page.tsx
 
-import { Metadata } from 'next';
+import { type Metadata } from 'next';
 import EventsPage from './eventsPage';
 
 // SEO Metadata for the events page

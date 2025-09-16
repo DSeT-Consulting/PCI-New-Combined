@@ -1,6 +1,6 @@
 // src/app/gallery/page.tsx
 
-import { Metadata } from 'next';
+import { type Metadata } from 'next';
 import GalleryPage from './galleryPage';
 
 // SEO Metadata for the gallery page

@@ -3,8 +3,8 @@
 import React, { useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Event } from '~/lib/types';
-import { EventsPageFilters } from '../eventsPage';
+import { type Event } from '~/lib/types';
+import { type EventsPageFilters } from '../eventsPage';
 import { formatDateRange, getDaysRemaining } from '~/lib/utils';
 
 interface EventsGridSectionProps {

@@ -11,6 +11,8 @@
     "db:studio": "drizzle-kit studio",
     "dev": "next dev",
     "lint": "next lint",
+    "eslint": "eslint src",
+    "eslint:fix": "eslint src --fix",
     "start": "next start"
   },
   "dependencies": {

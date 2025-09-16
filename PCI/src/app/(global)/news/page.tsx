@@ -8,12 +8,12 @@ import Navbar from "~/components/modules/Navbar";
 import Footer from "~/components/modules/Footer";
 import { formatDate } from "~/lib/utils";
 import {
-  Category,
+  type Category,
   newsAPI,
-  NewsArticle,
-  NewsPageData,
-  NewsSection,
-  SearchFilters,
+  type NewsArticle,
+  type NewsPageData,
+  type NewsSection,
+  type SearchFilters,
 } from "./api";
 
 // Remove static data - will be replaced with dynamic API calls
@@ -117,14 +117,14 @@ export default function NewsPage() {
   }, [displayedNews, regularArticles.length]);
 
   useEffect(() => {
-    loadInitialData();
+    void loadInitialData();
   }, []);
 
   // Search effect (debounced)
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (searchQuery.trim() || selectedCategory !== "All") {
-        handleSearch();
+        void handleSearch();
       } else {
         // Reset to initial sections view
         setIsSearchMode(false);
@@ -159,7 +159,7 @@ export default function NewsPage() {
     }
   };
 
-  const handleSearch = async (resetOffset: boolean = true) => {
+  const handleSearch = async (resetOffset = true) => {
     try {
       setIsLoadingSearch(true);
       if (resetOffset) setSearchOffset(0);
@@ -677,7 +677,7 @@ export default function NewsPage() {
                       {/* Image with advanced hover effects */}
                       <div className="relative h-64 w-full overflow-hidden">
                         <Image
-                          src={item.featuredImage || "/assets/home/news1.png"}
+                          src={item.featuredImage ?? "/assets/home/news1.png"}
                           alt={item.title}
                           fill
                           className={`object-cover transition-all duration-700 ${
@@ -796,7 +796,7 @@ export default function NewsPage() {
                           <div className="relative h-56 w-full overflow-hidden">
                             <Image
                               src={
-                                item.featuredImage || "/assets/home/news1.png"
+                                item.featuredImage ?? "/assets/home/news1.png"
                               }
                               alt={item.title}
                               fill
@@ -955,7 +955,7 @@ export default function NewsPage() {
                               <div className="relative h-56 w-full overflow-hidden">
                                 <Image
                                   src={
-                                    item.featuredImage ||
+                                    item.featuredImage ??
                                     "/assets/home/news1.png"
                                   }
                                   alt={item.title}

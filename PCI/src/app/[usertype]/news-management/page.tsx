@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   X,
   Search,
@@ -15,17 +15,15 @@ import {
   ChevronDown,
   Settings,
   Eye,
-  Calendar,
   Tag,
   BookOpen,
   Star,
   AlertCircle,
-  Upload,
   Save,
   Copy,
-  GripVertical,
 } from "lucide-react";
 import { Editor } from "@tinymce/tinymce-react";
+import Image from "next/image";
 import AdminLayout from "../_layout/AdminLayout";
 import {
   newsAPI,
@@ -38,6 +36,12 @@ import {
 import { tagsAPI } from "../tags-management/api";
 import ImageUpload from "~/components/ImageUpload";
 
+interface Tag {
+  id: number;
+  name: string;
+  isActive: boolean;
+}
+
 interface ClassificationSelectorProps {
   selectedClassifications: number[];
   availableClassifications: NewsClassification[];
@@ -47,9 +51,9 @@ interface ClassificationSelectorProps {
 
 interface TagSelectorProps {
   selectedTags: number[];
-  availableTags: any[];
+  availableTags: Tag[];
   onSelectionChange: (selected: number[]) => void;
-  onCreateNew: (name: string) => Promise<any>;
+  onCreateNew: (name: string) => Promise<Tag>;
 }
 
 const TagSelector: React.FC<TagSelectorProps> = ({
@@ -98,7 +102,7 @@ const TagSelector: React.FC<TagSelectorProps> = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleSelectTag = (tag: any) => {
+  const handleSelectTag = (tag: Tag) => {
     onSelectionChange([...selectedTags, tag.id]);
     setInputValue("");
     setIsDropdownOpen(false);
@@ -109,6 +113,7 @@ const TagSelector: React.FC<TagSelectorProps> = ({
   };
 
   const handleCreateNew = async () => {
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     if (!inputValue.trim() || exactMatch || isCreating) return;
 
     try {
@@ -127,9 +132,9 @@ const TagSelector: React.FC<TagSelectorProps> = ({
     if (e.key === "Enter") {
       e.preventDefault();
       if (filteredTags.length === 1) {
-        handleSelectTag(filteredTags[0]);
+        handleSelectTag(filteredTags[0]!);
       } else if (inputValue.trim() && !exactMatch) {
-        handleCreateNew();
+        void handleCreateNew();
       }
     } else if (e.key === "Escape") {
       setIsDropdownOpen(false);
@@ -322,6 +327,7 @@ const ClassificationSelector: React.FC<ClassificationSelectorProps> = ({
   };
 
   const handleCreateNew = async () => {
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     if (!inputValue.trim() || exactMatch || isCreating) return;
 
     try {
@@ -342,7 +348,7 @@ const ClassificationSelector: React.FC<ClassificationSelectorProps> = ({
       if (filteredClassifications.length === 1) {
         handleSelectClassification(filteredClassifications[0]!);
       } else if (inputValue.trim() && !exactMatch) {
-        handleCreateNew();
+        void handleCreateNew();
       }
     } else if (e.key === "Escape") {
       setIsDropdownOpen(false);
@@ -507,7 +513,7 @@ const NewsContent = () => {
   const [classifications, setClassifications] = useState<NewsClassification[]>(
     [],
   );
-  const [availableTags, setAvailableTags] = useState<any[]>([]);
+  const [availableTags, setAvailableTags] = useState<Tag[]>([]);
 
   // Loading States
   const [isLoading, setIsLoading] = useState(true);
@@ -525,8 +531,8 @@ const NewsContent = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [categoryFilter, setCategoryFilter] = useState("all");
-  const [classificationFilter, setClassificationFilter] = useState([]);
-  const [selectedArticles, setSelectedArticles] = useState([]);
+  const [classificationFilter] = useState([]);
+  const [selectedArticles] = useState([]);
 
   // Form states (keep existing ones)
   const [newCategoryName, setNewCategoryName] = useState("");
@@ -593,30 +599,18 @@ const NewsContent = () => {
 
   const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
 
-  const [isLoadingNews, setIsLoadingNews] = useState(true);
+  const [isLoadingNews] = useState(true);
   const [isCreatingArticle, setIsCreatingArticle] = useState(false);
   const [isUpdatingArticle, setIsUpdatingArticle] = useState(false);
   const [isDeletingArticle, setIsDeletingArticle] = useState(false);
 
-  useEffect(() => {
-    loadNewsArticles();
-    loadCategories();
-    loadClassifications();
-    loadTags();
-    loadStats();
-  }, []);
-
-  useEffect(() => {
-    loadNewsArticles();
-  }, [searchQuery, statusFilter, categoryFilter]);
-
   // Data loading functions
-  const loadNewsArticles = async () => {
+  const loadNewsArticles = useCallback(async () => {
     try {
       setIsLoading(true);
       setError("");
 
-      const filters: any = {
+      const filters: Record<string, string | number> = {
         sortBy: "createdAt",
         sortOrder: "desc",
       };
@@ -632,9 +626,9 @@ const NewsContent = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [searchQuery, statusFilter, categoryFilter]);
 
-  const loadCategories = async () => {
+  const loadCategories = useCallback(async () => {
     try {
       setIsLoadingCategories(true);
       const fetchedCategories = await categoriesAPI.getAll({
@@ -649,9 +643,9 @@ const NewsContent = () => {
     } finally {
       setIsLoadingCategories(false);
     }
-  };
+  }, []);
 
-  const loadClassifications = async () => {
+  const loadClassifications = useCallback(async () => {
     try {
       setIsLoadingClassifications(true);
       const fetchedClassifications = await classificationsAPI.getAll({
@@ -666,9 +660,9 @@ const NewsContent = () => {
     } finally {
       setIsLoadingClassifications(false);
     }
-  };
+  }, []);
 
-  const loadTags = async () => {
+  const loadTags = useCallback(async () => {
     try {
       const fetchedTags = await tagsAPI.getAll({
         isActive: true,
@@ -679,9 +673,9 @@ const NewsContent = () => {
     } catch (err) {
       console.error("Failed to load tags:", err);
     }
-  };
+  }, []);
 
-  const loadStats = async () => {
+  const loadStats = useCallback(async () => {
     try {
       const newsStats = await newsAPI.getStats();
       const categoryStats = await categoriesAPI.getStats();
@@ -695,7 +689,19 @@ const NewsContent = () => {
     } catch (err) {
       console.error("Failed to load stats:", err);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    void loadNewsArticles();
+    void loadCategories();
+    void loadClassifications();
+    void loadTags();
+    void loadStats();
+  }, [loadNewsArticles, loadCategories, loadClassifications, loadTags, loadStats]);
+
+  useEffect(() => {
+    void loadNewsArticles();
+  }, [searchQuery, statusFilter, categoryFilter, loadNewsArticles]);
 
   // Show success message helper
   const showSuccess = (message: string) => {
@@ -709,10 +715,7 @@ const NewsContent = () => {
   const filteredCategories = categories.filter(
     (category) =>
       category.name.toLowerCase().includes(categorySearchQuery.toLowerCase()) ||
-      (category.description &&
-        category.description
-          .toLowerCase()
-          .includes(categorySearchQuery.toLowerCase())),
+      (category.description?.toLowerCase().includes(categorySearchQuery.toLowerCase())),
   );
 
   // Format date
@@ -985,13 +988,13 @@ const NewsContent = () => {
           content: articleForm.content,
           categoryId: Number(articleForm.categoryId),
           status: articleForm.status,
-          metaDescription: articleForm.metaDescription || undefined,
-          metaKeywords: articleForm.metaKeywords || undefined,
-          publishedAt: articleForm.publishedAt || undefined,
+          metaDescription: articleForm.metaDescription ?? undefined,
+          metaKeywords: articleForm.metaKeywords ?? undefined,
+          publishedAt: articleForm.publishedAt ?? undefined,
           selectedTags: articleForm.selectedTags,
           selectedClassifications: articleForm.selectedClassifications,
         },
-        selectedImageFile || undefined,
+        selectedImageFile ?? undefined,
       ); // Pass the selected file
 
       showSuccess("Article created successfully!");
@@ -1020,13 +1023,13 @@ const NewsContent = () => {
           content: articleForm.content,
           categoryId: Number(articleForm.categoryId),
           status: articleForm.status,
-          metaDescription: articleForm.metaDescription || undefined,
-          metaKeywords: articleForm.metaKeywords || undefined,
-          publishedAt: articleForm.publishedAt || undefined,
+          metaDescription: articleForm.metaDescription ?? undefined,
+          metaKeywords: articleForm.metaKeywords ?? undefined,
+          publishedAt: articleForm.publishedAt ?? undefined,
           selectedTags: articleForm.selectedTags,
           selectedClassifications: articleForm.selectedClassifications,
         },
-        selectedImageFile || undefined,
+        selectedImageFile ?? undefined,
       ); // Pass the selected file
 
       showSuccess("Article updated successfully!");
@@ -1265,7 +1268,7 @@ const NewsContent = () => {
           )}
         </div>
 
-        {isLoadingNews && newsArticles.length === 0 ? (
+        {isLoading && newsArticles.length === 0 ? (
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             {Array.from({ length: 6 }).map((_, i) => (
               <div
@@ -1300,7 +1303,7 @@ const NewsContent = () => {
               </div>
             ))}
           </div>
-        ) : !isLoadingNews && filteredArticles.length === 0 ? (
+        ) : !isLoading && filteredArticles.length === 0 ? (
           <div className="py-12 text-center">
             <FileText className="mx-auto mb-4 h-12 w-12 text-gray-400" />
             <h3 className="mb-2 text-lg font-medium text-gray-900">
@@ -1320,19 +1323,22 @@ const NewsContent = () => {
                 className="rounded-lg border border-gray-200 p-4 transition-shadow hover:shadow-md"
               >
                 <div className="flex gap-4">
-                  <img
-                    src={
-                      article.featuredImage
-                        ? `${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8080"}${article.featuredImage}`
-                        : "/assets/placeholder-image.png" // Add a placeholder image in your public folder
-                    }
-                    alt={article.title}
-                    className="h-20 w-20 rounded-lg object-cover"
-                    onError={(e) => {
-                      // Fallback to placeholder if image fails to load
-                      e.currentTarget.src = "/assets/placeholder-image.png";
-                    }}
-                  />
+                  <div className="relative h-20 w-20 rounded-lg overflow-hidden">
+                    <Image
+                      src={
+                        article.featuredImage
+                          ? `${process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:8080"}${article.featuredImage}`
+                          : "/assets/placeholder-image.png" // Add a placeholder image in your public folder
+                      }
+                      alt={article.title}
+                      fill
+                      className="object-cover"
+                      onError={(e) => {
+                        // Fallback to placeholder if image fails to load
+                        e.currentTarget.src = "/assets/placeholder-image.png";
+                      }}
+                    />
+                  </div>
                   <div className="flex-1">
                     <div className="mb-2 flex items-start justify-between">
                       <h4 className="line-clamp-2 font-semibold text-gray-900">
@@ -1492,7 +1498,7 @@ const NewsContent = () => {
                     <Editor
                       apiKey="v1bpwn8hii7h2sv30oawk071p52jn5slqyr4hemib8okdzaf"
                       value={articleForm.content}
-                      onEditorChange={(content: any) =>
+                      onEditorChange={(content: string) =>
                         setArticleForm({
                           ...articleForm,
                           content: content,
@@ -1544,7 +1550,7 @@ const NewsContent = () => {
                   <ImageUpload
                     currentImageUrl={
                       articleForm.featuredImage
-                        ? `${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8080"}${articleForm.featuredImage}`
+                        ? `${process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:8080"}${articleForm.featuredImage}`
                         : undefined
                     }
                     onFileSelect={(file) => setSelectedImageFile(file)}
@@ -1709,7 +1715,7 @@ const NewsContent = () => {
                         });
 
                         showSuccess(`Tag "${name}" created successfully!`);
-                        return newTag;
+                        return newTag as Tag;
                       } catch (err) {
                         setError(
                           err instanceof Error
@@ -1758,9 +1764,9 @@ const NewsContent = () => {
               <button
                 onClick={() => {
                   if (showAddArticleModal) {
-                    handleCreateArticle();
+                    void handleCreateArticle();
                   } else {
-                    handleUpdateArticle();
+                    void handleUpdateArticle();
                   }
                 }}
                 disabled={

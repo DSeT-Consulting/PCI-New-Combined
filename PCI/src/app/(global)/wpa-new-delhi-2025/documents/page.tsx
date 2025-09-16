@@ -106,7 +106,7 @@ const DOCUMENT_CATEGORIES = [
 
 // Page Header Component
 const PageHeader: React.FC = () => (
-    <section className="relative bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-purple-900 text-white py-16 sm:py-20">
+    <section className="relative bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-purple-900 text-white py-12 sm:py-20">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
             <div className="absolute top-20 left-10 w-32 h-32 bg-purple-500 rounded-full blur-xl"></div>
@@ -127,12 +127,12 @@ const PageHeader: React.FC = () => (
                     <span className="font-medium text-sm">Key Documents</span>
                 </div>
 
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
                     Essential
                     <span className="block text-purple-300">Documents</span>
                 </h1>
 
-                <p className="text-xl text-blue-100 leading-relaxed">
+                <p className="text-lg sm:text-xl text-blue-100 leading-relaxed">
                     Access all important documents including qualification criteria, competition schedules, accreditation guides, and accommodation information.
                 </p>
             </div>
@@ -230,7 +230,7 @@ const DocumentsSection: React.FC = () => {
                     </div>
 
                     {/* Category Filters */}
-                    <div className="flex flex-wrap gap-3 justify-center">
+                    {/* <div className="flex flex-wrap gap-3 justify-center">
                         {DOCUMENT_CATEGORIES.map((category) => (
                             <button
                                 key={category.id}
@@ -248,7 +248,7 @@ const DocumentsSection: React.FC = () => {
                                 </span>
                             </button>
                         ))}
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* Documents Grid */}
@@ -260,7 +260,7 @@ const DocumentsSection: React.FC = () => {
                                     <div className="p-3 bg-purple-100 rounded-xl group-hover:bg-purple-200 transition-colors">
                                         {getCategoryIcon(doc.category)}
                                     </div>
-                                    <div className="flex gap-2">
+                                    {/* <div className="flex gap-2">
                                         {doc.isNew && (
                                             <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-full font-semibold">
                                                 NEW
@@ -269,19 +269,19 @@ const DocumentsSection: React.FC = () => {
                                         <span className={`text-xs px-2 py-1 rounded-full font-medium ${getPriorityColor(doc.priority)}`}>
                                             {doc.priority.charAt(0).toUpperCase() + doc.priority.slice(1)}
                                         </span>
-                                    </div>
+                                    </div> */}
                                 </div>
 
                                 <h3 className="text-lg font-bold text-gray-900 mb-3">{doc.title}</h3>
                                 <p className="text-gray-600 text-sm mb-4 line-clamp-3">{doc.description}</p>
 
-                                <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
+                                {/* <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
                                     <span className="flex items-center gap-1">
                                         <Clock className="h-3 w-3" />
                                         Updated {doc.lastUpdated}
                                     </span>
                                     <span className="uppercase font-medium">{doc.type}</span>
-                                </div>
+                                </div> */}
 
                                 <Link href={doc.link} target='_blank' className="block">
                                     <button className="w-full flex items-center justify-center gap-2 bg-purple-600 text-white px-4 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors group">
@@ -312,7 +312,7 @@ const ImportantNotice: React.FC = () => (
         <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
                 <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-yellow-500">
-                    <div className="flex items-start gap-4">
+                    <div className="flex flex-col md:flex-row items-start gap-4">
                         <div className="p-3 bg-yellow-100 rounded-full">
                             <AlertCircle className="h-6 w-6 text-yellow-600" />
                         </div>
@@ -345,30 +345,30 @@ const RelatedLinks: React.FC = () => (
     <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="container mx-auto px-4 sm:px-6">
             <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Related Information</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
                 <Link href="/wpa-new-delhi-2025/competition-info" className="block">
-                    <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <div className="h-full bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                         <Trophy className="h-8 w-8 text-paralympic-blue mb-4" />
                         <h3 className="font-bold text-gray-900 mb-2">Competition Info</h3>
                         <p className="text-gray-600 text-sm">Event details and venue information</p>
                     </div>
                 </Link>
                 <Link href="/wpa-new-delhi-2025/timeline" className="block">
-                    <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <div className="h-full bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                         <Clock className="h-8 w-8 text-paralympic-red mb-4" />
                         <h3 className="font-bold text-gray-900 mb-2">Timeline</h3>
                         <p className="text-gray-600 text-sm">Important dates and deadlines</p>
                     </div>
                 </Link>
                 <Link href="/wpa-new-delhi-2025/classification" className="block">
-                    <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <div className="h-full bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                         <Users className="h-8 w-8 text-paralympic-green mb-4" />
                         <h3 className="font-bold text-gray-900 mb-2">Classification</h3>
                         <p className="text-gray-600 text-sm">Classification requirements and process</p>
                     </div>
                 </Link>
                 <Link href="/wpa-new-delhi-2025/support" className="block">
-                    <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <div className="h-full bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                         <Globe className="h-8 w-8 text-orange-600 mb-4" />
                         <h3 className="font-bold text-gray-900 mb-2">Support</h3>
                         <p className="text-gray-600 text-sm">Get help with team questions</p>

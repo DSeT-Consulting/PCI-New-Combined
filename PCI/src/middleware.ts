@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
 // Define public paths that don't require authentication
 const publicPaths = ['/login', '/api/auth/login'];

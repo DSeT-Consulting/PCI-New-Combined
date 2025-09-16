@@ -9,7 +9,7 @@ import EventsGridSection from './_events/EventsGridSection';
 import FeaturedEventsBanner from './_events/FeaturedEventsBanner';
 import EventsCalendarSection from './_events/EventsCalendarSection';
 import EventsCTASection from './_events/EventsCTASection';
-import { Event } from '~/lib/types';
+import { type Event } from '~/lib/types';
 import { FEATURED_EVENTS, UPCOMING_EVENTS } from '~/lib/data';
 
 export interface EventsPageFilters {

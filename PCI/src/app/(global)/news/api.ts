@@ -1,6 +1,6 @@
 // API Configuration
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8080";
+  process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:8080";
 
 // Types for API responses
 export interface NewsArticle {
@@ -68,14 +68,14 @@ export const newsAPI = {
   getPageData: async (): Promise<NewsPageData> => {
     const response = await fetch(`${API_BASE_URL}/api/news/public/page-data`);
     if (!response.ok) throw new Error("Failed to fetch news page data");
-    return response.json();
+    return response.json() as Promise<NewsPageData>;
   },
 
   // Get active categories for filtering
   getCategories: async (): Promise<Category[]> => {
     const response = await fetch(`${API_BASE_URL}/api/news/public/categories`);
     if (!response.ok) throw new Error("Failed to fetch categories");
-    return response.json();
+    return response.json() as Promise<Category[]>;
   },
 
   // Search published news with filters
@@ -93,17 +93,17 @@ export const newsAPI = {
     params.append("offset", filters.offset.toString());
 
     const response = await fetch(
-      `${API_BASE_URL}/api/news/public/search?${params}`,
+      `${API_BASE_URL}/api/news/public/search?${params.toString()}`,
     );
     if (!response.ok) throw new Error("Failed to search news");
-    return response.json();
+    return response.json() as Promise<NewsArticle[]>;
   },
 
   // Get more articles for a specific section/classification
   getSectionArticles: async (
     classificationId: number,
-    limit: number = 6,
-    offset: number = 0,
+    limit = 6,
+    offset = 0,
   ) => {
     const response = await fetch(
       `${API_BASE_URL}/api/news/public/section/${classificationId}?limit=${limit}&offset=${offset}`,

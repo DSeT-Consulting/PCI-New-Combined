@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { PropsWithChildren } from "react";
-import { NewsItemComplete } from "./types";
+import { type PropsWithChildren } from "react";
+import { type NewsItemComplete } from "./types";
 
 function NewsImage({ src, alt }: { src: string; alt: string }) {
     return (

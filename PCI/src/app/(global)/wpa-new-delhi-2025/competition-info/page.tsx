@@ -138,7 +138,7 @@ const EventDetails: React.FC = () => (
                                     <div className="font-semibold text-gray-900">Medal Events</div>
                                     <div className="text-gray-600">{CHAMPIONSHIP_INFO.medalEvents} total</div>
                                     <div className="text-sm text-gray-500 mt-1">
-                                        {CHAMPIONSHIP_INFO.menEvents} men's • {CHAMPIONSHIP_INFO.womenEvents} women's • {CHAMPIONSHIP_INFO.mixedEvents} mixed
+                                        {CHAMPIONSHIP_INFO.menEvents} men&apos;s • {CHAMPIONSHIP_INFO.womenEvents} women&apos;s • {CHAMPIONSHIP_INFO.mixedEvents} mixed
                                     </div>
                                 </div>
                             </div>
@@ -278,30 +278,30 @@ const RelatedLinks: React.FC = () => (
     <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="container mx-auto px-4 sm:px-6">
             <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Related Information</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
                 <Link href="/wpa-new-delhi-2025/timeline" className="block">
-                    <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <div className="h-full bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                         <Clock className="h-8 w-8 text-paralympic-red mb-4" />
                         <h3 className="font-bold text-gray-900 mb-2">Timeline & Deadlines</h3>
                         <p className="text-gray-600 text-sm">Important dates and entry deadlines</p>
                     </div>
                 </Link>
                 <Link href="/wpa-new-delhi-2025/classification" className="block">
-                    <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <div className="h-full bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                         <Users className="h-8 w-8 text-paralympic-green mb-4" />
                         <h3 className="font-bold text-gray-900 mb-2">Classification</h3>
                         <p className="text-gray-600 text-sm">Classification requirements and process</p>
                     </div>
                 </Link>
                 <Link href="/wpa-new-delhi-2025/documents" className="block">
-                    <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <div className="h-full bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                         <ExternalLink className="h-8 w-8 text-purple-600 mb-4" />
                         <h3 className="font-bold text-gray-900 mb-2">Documents</h3>
                         <p className="text-gray-600 text-sm">Access qualification criteria and guides</p>
                     </div>
                 </Link>
                 <Link href="/contact" className="block">
-                    <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <div className="h-full bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                         <ExternalLink className="h-8 w-8 text-orange-600 mb-4" />
                         <h3 className="font-bold text-gray-900 mb-2">Support</h3>
                         <p className="text-gray-600 text-sm">Get help with team questions</p>

@@ -32,12 +32,12 @@ interface RelatedArticle {
 // API function to get article by slug
 const getArticleBySlug = async (slug: string): Promise<NewsArticle | null> => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8080"}/api/news/public/article/${slug}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:8080"}/api/news/public/article/${slug}`);
         if (!response.ok) {
             if (response.status === 404) return null;
             throw new Error('Failed to fetch article');
         }
-        return response.json();
+        return response.json() as Promise<NewsArticle>;
     } catch (error) {
         console.error('Error fetching article:', error);
         throw error;
@@ -45,16 +45,16 @@ const getArticleBySlug = async (slug: string): Promise<NewsArticle | null> => {
 };
 
 // API function to get related articles
-const getRelatedArticles = async (slug: string, limit: number = 3): Promise<RelatedArticle[]> => {
+const getRelatedArticles = async (slug: string, limit = 3): Promise<RelatedArticle[]> => {
     try {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8080"}/api/news/public/related/${slug}?limit=${limit}`
+            `${process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:8080"}/api/news/public/related/${slug}?limit=${limit}`
         );
         if (!response.ok) {
             console.warn('Failed to fetch related articles');
             return [];
         }
-        return response.json();
+        return response.json() as Promise<RelatedArticle[]>;
     } catch (error) {
         console.warn('Error fetching related articles:', error);
         return [];
@@ -136,7 +136,7 @@ const NewsArticle: React.FC<NewsArticleProps> = ({ article }) => {
             {/* Featured Image */}
             <div className="relative mb-8">
                 <Image
-                    src={article.featuredImage || "/assets/home/news1.png"}
+                    src={article.featuredImage ?? "/assets/home/news1.png"}
                     alt={article.title}
                     width="1000"
                     height="500"
@@ -234,7 +234,7 @@ const RelatedArticles: React.FC<RelatedArticlesProps> = ({ articles }) => {
                     >
                         <div className="relative h-48 overflow-hidden">
                             <img
-                                src={article.featuredImage || "/assets/home/news1.png"}
+                                src={article.featuredImage ?? "/assets/home/news1.png"}
                                 alt={article.title}
                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             />

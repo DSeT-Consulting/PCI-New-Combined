@@ -170,12 +170,12 @@ const PageHeader: React.FC = () => (
                     <span className="font-medium text-sm">Team Support</span>
                 </div>
 
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
                     Team Support &
                     <span className="block text-orange-300">Question Box</span>
                 </h1>
 
-                <p className="text-xl text-blue-100 leading-relaxed">
+                <p className="text-lg sm:text-xl text-blue-100 leading-relaxed">
                     Get help with registration, qualification questions, event logistics, and any other inquiries about the New Delhi 2025 World Para Athletics Championships.
                 </p>
             </div>
@@ -367,7 +367,7 @@ const TeamQuestionForm: React.FC = () => (
                 <div className="text-center mb-12">
                     <h2 className="text-3xl font-bold text-gray-900 mb-4">Submit a Team Question</h2>
                     <p className="text-lg text-gray-600">
-                        Can't find the answer you're looking for? Submit your question directly to our support team
+                        Can&apos;t find the answer you&apos;re looking for? Submit your question directly to our support team
                     </p>
                 </div>
 

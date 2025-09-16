@@ -1,6 +1,6 @@
 // Common data types for the Paralympics website
 
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 // Banner
 export interface BannerSlide {

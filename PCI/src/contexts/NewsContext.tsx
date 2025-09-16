@@ -1,7 +1,7 @@
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { NewsItemComplete } from '~/lib/types';
+import React, { createContext, useContext, useState, type ReactNode } from 'react';
+import { type NewsItemComplete } from '~/lib/types';
 
 interface NewsContextType {
   selectedNews: NewsItemComplete | null;

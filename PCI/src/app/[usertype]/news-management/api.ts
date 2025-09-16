@@ -112,7 +112,7 @@ export const newsAPI = {
     if (filters.limit) params.append("limit", filters.limit.toString());
     if (filters.offset) params.append("offset", filters.offset.toString());
 
-    const response = await fetch(`${API_BASE}?${params}`);
+    const response = await fetch(`${API_BASE}?${params.toString()}`);
     if (!response.ok) throw new Error("Failed to fetch news articles");
     return response.json() as Promise<NewsArticle[]>;
   },
@@ -315,7 +315,7 @@ export const categoriesAPI = {
     if (filters.sortBy) params.append("sortBy", filters.sortBy);
     if (filters.sortOrder) params.append("sortOrder", filters.sortOrder);
 
-    const response = await fetch(`${CATEGORIES_API_BASE}?${params}`);
+    const response = await fetch(`${CATEGORIES_API_BASE}?${params.toString()}`);
     if (!response.ok) throw new Error("Failed to fetch categories");
     return response.json() as Promise<Category[]>;
   },
@@ -419,7 +419,7 @@ export const classificationsAPI = {
     if (filters.sortBy) params.append("sortBy", filters.sortBy);
     if (filters.sortOrder) params.append("sortOrder", filters.sortOrder);
 
-    const response = await fetch(`${CLASSIFICATIONS_API_BASE}?${params}`);
+    const response = await fetch(`${CLASSIFICATIONS_API_BASE}?${params.toString()}`);
     if (!response.ok) throw new Error("Failed to fetch classifications");
     return response.json() as Promise<NewsClassification[]>;
   },

@@ -2,7 +2,7 @@
 "use client"
 
 import React, { useState, useRef } from 'react';
-import { Flame, Snowflake, Trophy, Calendar, MapPin, Users, Star, LucideIcon, Search, Target, Award, Medal, Heart } from 'lucide-react';
+import { Flame, Snowflake, Trophy, Calendar, MapPin, Users, Star, type LucideIcon, Search, Target, Award, Medal, Heart } from 'lucide-react';
 import Navbar from '~/components/modules/Navbar';
 import Footer from '~/components/modules/Footer';
 

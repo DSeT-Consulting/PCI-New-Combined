@@ -4,7 +4,7 @@
 import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { GalleryEvent } from '~/lib/types';
+import { type GalleryEvent } from '~/lib/types';
 import { formatDate } from '~/lib/utils';
 
 interface GalleryFoldersSectionProps {

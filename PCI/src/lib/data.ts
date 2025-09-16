@@ -1,11 +1,11 @@
 import {
-    BannerSlide,
-    NewsItem,
-    Athlete,
-    Event,
-    GalleryEvent,
-    Sponsor,
-    MenuItem,
+    type BannerSlide,
+    type NewsItem,
+    type Athlete,
+    type Event,
+    type GalleryEvent,
+    type Sponsor,
+    type MenuItem,
     FooterSection
 } from './types';
 

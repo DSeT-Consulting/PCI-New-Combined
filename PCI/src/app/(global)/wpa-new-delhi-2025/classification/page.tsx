@@ -119,7 +119,7 @@ const IMPAIRMENT_CATEGORIES = [
 
 // Page Header Component
 const PageHeader: React.FC = () => (
-    <section className="relative bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-purple-900 text-white py-16 sm:py-20">
+    <section className="relative bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-purple-900 text-white py-12 sm:py-20">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
             <div className="absolute top-20 left-10 w-32 h-32 bg-paralympic-green rounded-full blur-xl"></div>
@@ -140,12 +140,12 @@ const PageHeader: React.FC = () => (
                     <span className="font-medium text-sm">Classification Information</span>
                 </div>
 
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
                     Classification
                     <span className="block text-paralympic-green">Information</span>
                 </h1>
 
-                <p className="text-xl text-blue-100 leading-relaxed">
+                <p className="text-lg sm:text-xl text-blue-100 leading-relaxed">
                     Everything you need to know about the classification process, schedule, requirements, and procedures for the New Delhi 2025 Championships.
                 </p>
             </div>
@@ -157,7 +157,7 @@ const PageHeader: React.FC = () => (
 const QuickOverview: React.FC = () => (
     <section className="py-12 bg-gradient-to-r from-gray-50 to-gray-100">
         <div className="container mx-auto px-4 sm:px-6">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
                     <Calendar className="h-8 w-8 text-paralympic-blue mx-auto mb-4" />
                     <div className="text-lg font-bold text-gray-900 mb-2">4 Days</div>
@@ -291,12 +291,16 @@ const ClassificationRequirements: React.FC = () => (
             <div className="max-w-4xl mx-auto space-y-8">
                 {CLASSIFICATION_REQUIREMENTS.map((requirement: ClassificationRequirement, index: number) => (
                     <div key={index} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                        <div className="flex items-start gap-6">
-                            <div className="p-4 bg-paralympic-blue/10 rounded-xl flex-shrink-0">
-                                <requirement.icon className="h-8 w-8 text-paralympic-blue" />
+                        <div className="flex flex-col md:flex-row items-start gap-6">
+                            <div className="flex gap-4 items-center md:flex-shrink-0">
+                                <div className="p-4 bg-paralympic-blue/10 rounded-xl flex-shrink-0">
+                                    <requirement.icon className="h-8 w-8 text-paralympic-blue" />
+                                </div>
+                                <h4 className="md:hidden text-xl font-bold text-gray-900">{requirement.title}</h4>
                             </div>
+
                             <div className="flex-grow">
-                                <h4 className="text-xl font-bold text-gray-900 mb-3">{requirement.title}</h4>
+                                <h4 className="hidden md:block text-xl font-bold text-gray-900 mb-3">{requirement.title}</h4>
                                 <p className="text-gray-600 mb-4">{requirement.description}</p>
                                 <div className="bg-gray-50 rounded-lg p-4">
                                     <h5 className="font-semibold text-gray-900 mb-3">Additional Details:</h5>
@@ -364,30 +368,30 @@ const RelatedLinks: React.FC = () => (
     <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="container mx-auto px-4 sm:px-6">
             <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Related Information</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
                 <Link href="/wpa-new-delhi-2025/competition-info" className="block">
-                    <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <div className="h-full bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                         <Calendar className="h-8 w-8 text-paralympic-blue mb-4" />
                         <h3 className="font-bold text-gray-900 mb-2">Competition Info</h3>
                         <p className="text-gray-600 text-sm">Event details and venue information</p>
                     </div>
                 </Link>
                 <Link href="/wpa-new-delhi-2025/timeline" className="block">
-                    <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <div className="h-full bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                         <Clock className="h-8 w-8 text-paralympic-red mb-4" />
                         <h3 className="font-bold text-gray-900 mb-2">Timeline</h3>
                         <p className="text-gray-600 text-sm">Important dates and deadlines</p>
                     </div>
                 </Link>
                 <Link href="/wpa-new-delhi-2025/documents" className="block">
-                    <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <div className="h-full bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                         <FileText className="h-8 w-8 text-purple-600 mb-4" />
                         <h3 className="font-bold text-gray-900 mb-2">Documents</h3>
                         <p className="text-gray-600 text-sm">Access qualification criteria and guides</p>
                     </div>
                 </Link>
                 <Link href="/wpa-new-delhi-2025/support" className="block">
-                    <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <div className="h-full bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                         <Globe className="h-8 w-8 text-orange-600 mb-4" />
                         <h3 className="font-bold text-gray-900 mb-2">Support</h3>
                         <p className="text-gray-600 text-sm">Get help with team questions</p>

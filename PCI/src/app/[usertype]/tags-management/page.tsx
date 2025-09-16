@@ -129,7 +129,7 @@ const TagsContent = () => {
   // Filter tags based on search and active filter
   const filteredTags = React.useMemo(() => {
     return tags.filter((tag: Tag) => {
-      const matchesSearch = (tag.name as string)
+      const matchesSearch = (tag.name)
         .toLowerCase()
         .includes(searchQuery.toLowerCase());
       const matchesFilter =
