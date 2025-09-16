@@ -359,6 +359,201 @@ const QuickInfoSection: React.FC = () => (
     </section>
 );
 
+// Next Events Preview Section
+const NextEventsPreviewSection: React.FC = () => {
+    const [isMobile, setIsMobile] = React.useState(false);
+    const [isTablet, setIsTablet] = React.useState(false);
+
+    React.useEffect(() => {
+        const checkScreenSize = () => {
+            setIsMobile(window.innerWidth < 640); // sm breakpoint
+            setIsTablet(window.innerWidth >= 640 && window.innerWidth < 1280); // between sm and xl
+        };
+
+        checkScreenSize();
+        window.addEventListener('resize', checkScreenSize);
+        return () => window.removeEventListener('resize', checkScreenSize);
+    }, []);
+
+    const events = [
+        {
+            id: 1,
+            title: "Opening Ceremony",
+            date: "27 Sep",
+            day: "Friday",
+            time: "19:00",
+            type: "ceremony",
+            description: "Grand opening ceremony with cultural performances",
+            color: "from-paralympic-blue to-purple-600"
+        },
+        {
+            id: 2,
+            title: "Track Events - Day 1",
+            date: "28 Sep",
+            day: "Saturday",
+            time: "09:00",
+            type: "track",
+            description: "100m, 400m, 800m heats and finals",
+            color: "from-paralympic-green to-teal-600"
+        },
+        {
+            id: 3,
+            title: "Field Events - Day 1",
+            date: "28 Sep",
+            day: "Saturday",
+            time: "10:30",
+            type: "field",
+            description: "Shot put, Long jump, High jump competitions",
+            color: "from-paralympic-red to-orange-600"
+        },
+        {
+            id: 4,
+            title: "Marathon Events",
+            date: "29 Sep",
+            day: "Sunday",
+            time: "07:00",
+            type: "marathon",
+            description: "Men's and Women's marathon competitions",
+            color: "from-purple-600 to-pink-600"
+        },
+        {
+            id: 5,
+            title: "Finals Week",
+            date: "01-05 Oct",
+            day: "Multiple Days",
+            time: "Various",
+            type: "finals",
+            description: "Medal events and closing ceremonies",
+            color: "from-paralympic-yellow to-orange-500"
+        }
+    ];
+
+    // Filter events based on screen size
+    const getDisplayEvents = () => {
+        if (isMobile) {
+            return events.slice(0, 3);
+        } else if (isTablet) {
+            return events.slice(0, 5);
+        }
+        return events; // Show all events on desktop
+    };
+
+    const getEventIcon = (type: string) => {
+        switch (type) {
+            case 'ceremony': return Trophy;
+            case 'track': return Clock;
+            case 'field': return Medal;
+            case 'marathon': return Users;
+            case 'finals': return Star;
+            default: return Calendar;
+        }
+    };
+
+    return (
+        <section className="py-12 sm:py-16 bg-gradient-to-br from-gray-50 to-blue-50/30">
+            <div className="container mx-auto px-4 sm:px-6">
+                <div className="text-center mb-8 sm:mb-12">
+                    <div className="inline-flex items-center gap-2 bg-paralympic-blue/10 px-4 py-2 rounded-full mb-4">
+                        <Calendar className="h-4 w-4 text-paralympic-blue" />
+                        <span className="text-sm font-medium text-paralympic-blue">Upcoming Events</span>
+                    </div>
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                        Next Events Preview
+                    </h2>
+                    <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+                        Stay updated with the upcoming events and competitions throughout the championship
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 sm:gap-6">
+                    {getDisplayEvents().map((event, index) => {
+                        const IconComponent = getEventIcon(event.type);
+                        return (
+                            <div
+                                key={event.id}
+                                className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 hover:border-gray-200"
+                            >
+                                <div className={`w-12 h-12 bg-gradient-to-br ${event.color} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                                    <IconComponent className="h-6 w-6 text-white" />
+                                </div>
+
+                                <div className="space-y-3">
+                                    <div>
+                                        <h3 className="font-bold text-gray-900 text-sm sm:text-base group-hover:text-paralympic-blue transition-colors duration-200">
+                                            {event.title}
+                                        </h3>
+                                        <p className="text-xs text-gray-500 mt-1 line-clamp-2">
+                                            {event.description}
+                                        </p>
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-1">
+                                                <Calendar className="h-3 w-3 text-gray-400" />
+                                                <span className="text-xs text-gray-600">{event.date}</span>
+                                            </div>
+                                            <span className="text-xs font-medium text-paralympic-blue bg-blue-50 px-2 py-1 rounded-full">
+                                                {event.day}
+                                            </span>
+                                        </div>
+
+                                        <div className="flex items-center gap-1">
+                                            <Clock className="h-3 w-3 text-gray-400" />
+                                            <span className="text-xs text-gray-600">{event.time}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
+
+                    {/* View Complete Schedule Card - Always visible */}
+                    <div className="group bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-purple-900 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer border border-transparent hover:border-white/20 relative overflow-hidden">
+                        {/* Background Pattern */}
+                        <div className="absolute inset-0 opacity-20">
+                            <div className="absolute top-4 right-4 w-16 h-16 bg-paralympic-yellow rounded-full blur-xl"></div>
+                            <div className="absolute bottom-2 left-2 w-12 h-12 bg-paralympic-green rounded-full blur-lg"></div>
+                        </div>
+
+                        <div className="relative z-10">
+                            <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                                <Calendar className="h-6 w-6 text-white" />
+                            </div>
+
+                            <div className="space-y-3 text-white">
+                                <div>
+                                    <h3 className="font-bold text-sm sm:text-base group-hover:text-paralympic-yellow transition-colors duration-200">
+                                        Complete Schedule
+                                    </h3>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-xs">9 Days</span>
+                                        <span className="text-xs">
+                                            186 Events
+                                        </span>
+                                    </div>
+
+                                    <div className="flex items-center gap-1">
+                                        <Clock className="h-3 w-3 text-paralympic-green" />
+                                        <span className="text-xs text-blue-200">Full Details</span>
+                                    </div>
+                                </div>
+
+                                <div className="pt-2 border-t border-white/20 flex items-center justify-center">
+                                    <ArrowRight className="h-4 w-4 text-white group-hover:text-paralympic-yellow group-hover:translate-x-1 transition-all duration-200" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
 // Essential Information Overview Section
 const EssentialInfoSection: React.FC = () => (
     <section id="essential-info" className="py-12 sm:py-16 lg:py-20 bg-white">
@@ -692,6 +887,9 @@ const WPADelhi2025Page: React.FC = () => {
 
             {/* Quick Info Section */}
             <QuickInfoSection />
+
+            {/* Next Events Preview */}
+            <NextEventsPreviewSection />
 
             {/* Essential Information Overview */}
             <EssentialInfoSection />
