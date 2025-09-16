@@ -359,343 +359,189 @@ const QuickInfoSection: React.FC = () => (
     </section>
 );
 
-// Competition Information Component
-const CompetitionInfoSection: React.FC = () => (
-    <section id="competition-info" className="py-12 sm:py-16 lg:py-20 bg-white">
+// Essential Information Overview Section
+const EssentialInfoSection: React.FC = () => (
+    <section id="essential-info" className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6">
             <div className="text-center mb-12 sm:mb-16">
-                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Competition Information</h2>
+                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Essential Information</h2>
                 <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-                    Essential details about the New Delhi 2025 World Para Athletics Championships
+                    Everything you need to know about participating in the New Delhi 2025 World Para Athletics Championships
                 </p>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 {/* Competition Details */}
-                <div className="space-y-6 sm:space-y-8">
-                    <div className="bg-gradient-to-br from-paralympic-blue/5 to-paralympic-green/5 rounded-xl sm:rounded-2xl p-6 sm:p-8">
-                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Event Details</h3>
-                        <div className="space-y-3 sm:space-y-4">
-                            <div className="flex items-start gap-3 sm:gap-4">
-                                <Calendar className="h-5 w-5 sm:h-6 sm:w-6 text-paralympic-blue mt-1" />
-                                <div>
-                                    <div className="text-sm sm:text-base font-semibold text-gray-900">Competition Dates</div>
-                                    <div className="text-sm sm:text-base text-gray-600">{CHAMPIONSHIP_INFO.competitionDates} (9 days of competition)</div>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-3 sm:gap-4">
-                                <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-paralympic-green mt-1" />
-                                <div>
-                                    <div className="text-sm sm:text-base font-semibold text-gray-900">Venue</div>
-                                    <div className="text-sm sm:text-base text-gray-600">{CHAMPIONSHIP_INFO.venue} in {CHAMPIONSHIP_INFO.location}</div>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-3 sm:gap-4">
-                                <Trophy className="h-5 w-5 sm:h-6 sm:w-6 text-paralympic-red mt-1" />
-                                <div>
-                                    <div className="text-sm sm:text-base font-semibold text-gray-900">Medal Events</div>
-                                    <div className="text-sm sm:text-base text-gray-600">{CHAMPIONSHIP_INFO.medalEvents} total ({CHAMPIONSHIP_INFO.menEvents} men&apos;s, {CHAMPIONSHIP_INFO.womenEvents} women&apos;s, {CHAMPIONSHIP_INFO.mixedEvents} mixed)</div>
-                                </div>
-                            </div>
+                <div className="bg-gradient-to-br from-paralympic-blue/5 to-paralympic-green/5 rounded-xl p-6 border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="p-2 bg-paralympic-blue/10 rounded-lg">
+                            <Trophy className="h-6 w-6 text-paralympic-blue" />
+                        </div>
+                        <h3 className="text-lg font-bold text-gray-900">Competition Info</h3>
+                    </div>
+                    <p className="text-gray-600 text-sm mb-4">
+                        Complete details about venue, dates, medal events, and historical significance of this landmark championship.
+                    </p>
+                    <div className="space-y-2 mb-4">
+                        <div className="text-xs text-gray-500">
+                            📅 {CHAMPIONSHIP_INFO.competitionDates}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                            📍 {CHAMPIONSHIP_INFO.venue}, {CHAMPIONSHIP_INFO.location}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                            🏆 {CHAMPIONSHIP_INFO.medalEvents} Medal Events
                         </div>
                     </div>
+                    <Link href="/wpa-new-delhi-2025/competition-info">
+                        <button className="w-full bg-paralympic-blue text-white px-4 py-2 rounded-lg font-semibold hover:bg-paralympic-navy transition-colors text-sm">
+                            View Competition Details
+                        </button>
+                    </Link>
+                </div>
 
-                    <div className="bg-gradient-to-br from-paralympic-yellow/5 to-orange-100/50 rounded-xl sm:rounded-2xl p-6 sm:p-8">
-                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Venue Information</h3>
-                        <p className="text-sm sm:text-base text-gray-700 mb-4">
-                            The JLN Stadium was constructed to host the Asian Games in 1982 and later renovated and upgraded for hosting the 2010 Commonwealth Games. The venue has a seating capacity to accommodate {CHAMPIONSHIP_INFO.seatingCapacity} spectators and is maintained by the Sports Authority of India on behalf of the Ministry of Sports and Youth Affairs.
-                        </p>
-                        <Link href="https://sportsauthorityofindia.nic.in/sai/stadiaJln" className='flex w-fit' target='_blank'>
-                            <div className="flex items-center gap-2 text-xs sm:text-sm text-paralympic-blue">
-                                <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4" />
-                                <span>Learn more about the venue</span>
+                {/* Timeline & Deadlines */}
+                <div className="bg-gradient-to-br from-paralympic-red/5 to-orange-50 rounded-xl p-6 border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="p-2 bg-paralympic-red/10 rounded-lg">
+                            <Clock className="h-6 w-6 text-paralympic-red" />
+                        </div>
+                        <h3 className="text-lg font-bold text-gray-900">Timeline & Deadlines</h3>
+                    </div>
+                    <p className="text-gray-600 text-sm mb-4">
+                        Important qualification periods, entry deadlines, and key dates for athletes and teams.
+                    </p>
+                    <div className="space-y-2 mb-4">
+                        <div className="text-xs text-gray-500">
+                            🎯 Entry by Number: March 14, 2025
+                        </div>
+                        <div className="text-xs text-gray-500">
+                            📝 Final Entry: August 8, 2025
+                        </div>
+                        <div className="text-xs text-gray-500">
+                            💰 Payment Due: September 8, 2025
+                        </div>
+                    </div>
+                    <Link href="/wpa-new-delhi-2025/timeline">
+                        <button className="w-full bg-paralympic-red text-white px-4 py-2 rounded-lg font-semibold hover:bg-red-700 transition-colors text-sm">
+                            View Full Timeline
+                        </button>
+                    </Link>
+                </div>
+
+                {/* Classification */}
+                <div className="bg-gradient-to-br from-paralympic-green/5 to-teal-50 rounded-xl p-6 border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="p-2 bg-paralympic-green/10 rounded-lg">
+                            <User className="h-6 w-6 text-paralympic-green" />
+                        </div>
+                        <h3 className="text-lg font-bold text-gray-900">Classification</h3>
+                    </div>
+                    <p className="text-gray-600 text-sm mb-4">
+                        Classification schedule, requirements, and essential information for athletes needing classification.
+                    </p>
+                    <div className="space-y-2 mb-4">
+                        <div className="text-xs text-gray-500">
+                            📅 {CHAMPIONSHIP_INFO.classificationDates}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                            📋 5 Key Requirements
+                        </div>
+                        <div className="text-xs text-gray-500">
+                            ✉️ classification@worldparaathletics.org
+                        </div>
+                    </div>
+                    <Link href="/wpa-new-delhi-2025/classification">
+                        <button className="w-full bg-paralympic-green text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-700 transition-colors text-sm">
+                            View Classification Info
+                        </button>
+                    </Link>
+                </div>
+
+                {/* Documents */}
+                <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-6 border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="p-2 bg-purple-600/10 rounded-lg">
+                            <FileText className="h-6 w-6 text-purple-600" />
+                        </div>
+                        <h3 className="text-lg font-bold text-gray-900">Key Documents</h3>
+                    </div>
+                    <p className="text-gray-600 text-sm mb-4">
+                        Access qualification criteria, event programme, accommodation packages, and accreditation guides.
+                    </p>
+                    <div className="space-y-2 mb-4">
+                        <div className="text-xs text-gray-500">
+                            📄 {KEY_DOCUMENTS.length} Essential Documents
+                        </div>
+                        <div className="text-xs text-gray-500">
+                            🆕 Recently Updated Files
+                        </div>
+                        <div className="text-xs text-gray-500">
+                            📋 Competition Schedule Available
+                        </div>
+                    </div>
+                    <Link href="/wpa-new-delhi-2025/documents">
+                        <button className="w-full bg-purple-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-purple-700 transition-colors text-sm">
+                            Access Documents
+                        </button>
+                    </Link>
+                </div>
+
+                {/* Support & Contact */}
+                <div className="bg-gradient-to-br from-paralympic-yellow/5 to-orange-50 rounded-xl p-6 border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="p-2 bg-paralympic-yellow/20 rounded-lg">
+                            <Heart className="h-6 w-6 text-orange-600" />
+                        </div>
+                        <h3 className="text-lg font-bold text-gray-900">Team Support</h3>
+                    </div>
+                    <p className="text-gray-600 text-sm mb-4">
+                        Get help with registration, qualification questions, event logistics, and other team inquiries.
+                    </p>
+                    <div className="space-y-2 mb-4">
+                        <div className="text-xs text-gray-500">
+                            🎯 Dedicated Support Team
+                        </div>
+                        <div className="text-xs text-gray-500">
+                            💬 24/7 Question Box
+                        </div>
+                        <div className="text-xs text-gray-500">
+                            🌐 Multilingual Assistance
+                        </div>
+                    </div>
+                    <Link href="/wpa-new-delhi-2025/support">
+                        <button className="w-full bg-orange-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-orange-700 transition-colors text-sm">
+                            Get Support
+                        </button>
+                    </Link>
+                </div>
+
+                {/* Quick Access */}
+                <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow duration-300">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="p-2 bg-gray-200 rounded-lg">
+                            <ArrowRight className="h-6 w-6 text-gray-600" />
+                        </div>
+                        <h3 className="text-lg font-bold text-gray-900">Quick Links</h3>
+                    </div>
+                    <p className="text-gray-600 text-sm mb-4">
+                        Fast access to frequently needed information and external resources for teams and athletes.
+                    </p>
+                    <div className="space-y-2">
+                        <Link href="/contact" className="block">
+                            <div className="text-xs text-paralympic-blue hover:underline">
+                                → Contact PCI Support
                             </div>
                         </Link>
-                    </div>
-                </div>
-
-                {/* Historical Context */}
-                <div className="space-y-6 sm:space-y-8">
-                    <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl sm:rounded-2xl p-6 sm:p-8">
-                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Historical Significance</h3>
-                        <p className="text-sm sm:text-base text-gray-700 mb-4">
-                            This will be the {CHAMPIONSHIP_INFO.edition} edition of the World Para Athletics Championships and the largest Para sport event ever held in India.
-                        </p>
-                        <p className="text-sm sm:text-base text-gray-700 mb-4 sm:mb-6">
-                            Asia has hosted the World Championships in four occasions, at Doha 2015 in Qatar, Dubai 2019 in the United Arab Emirates and Kobe 2024 in Japan.
-                        </p>
-                        <div className="bg-white/60 rounded-lg sm:rounded-xl p-3 sm:p-4">
-                            <div className="text-base sm:text-lg font-semibold text-gray-900 mb-2">Did you know?</div>
-                            <p className="text-gray-700 text-xs sm:text-sm">
-                                The competition programme will feature 15 more medal events than at the last edition of the championships in Kobe.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-xl sm:rounded-2xl p-6 sm:p-8">
-                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Impairment Types</h3>
-                        <div className="space-y-2 sm:space-y-3">
-                            {CHAMPIONSHIP_INFO.impairmentTypes.map((type: string, index: number) => (
-                                <div key={index} className="flex items-center gap-2 sm:gap-3 bg-white/60 rounded-lg p-2 sm:p-3">
-                                    <Accessibility className="h-4 w-4 sm:h-5 sm:w-5 text-paralympic-green" />
-                                    <span className="text-sm sm:text-base font-medium text-gray-800">{type}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-);
-
-// Timeline Component
-const TimelineSection: React.FC = () => {
-    const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set());
-
-    const toggleExpand = (index: number): void => {
-        const newExpanded = new Set(expandedItems);
-        if (newExpanded.has(index)) {
-            newExpanded.delete(index);
-        } else {
-            newExpanded.add(index);
-        }
-        setExpandedItems(newExpanded);
-    };
-
-    const getTypeColor = (type: TimelineEvent['type']): string => {
-        switch (type) {
-            case 'qualification': return 'bg-paralympic-green text-white';
-            case 'entry': return 'bg-paralympic-blue text-white';
-            case 'deadline': return 'bg-paralympic-red text-white';
-            case 'invitation': return 'bg-purple-600 text-white';
-            case 'system': return 'bg-paralympic-yellow text-black';
-            case 'confirmation': return 'bg-teal-600 text-white';
-            case 'payment': return 'bg-orange-600 text-white';
-            default: return 'bg-gray-600 text-white';
-        }
-    };
-
-    return (
-        <section id="timeline" className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-blue-50">
-            <div className="container mx-auto px-4 sm:px-6">
-                <div className="text-center mb-12 sm:mb-16">
-                    <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Qualification and Entry Timeline</h2>
-                    <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-                        Important dates and deadlines for athletes and teams participating in the championships
-                    </p>
-                </div>
-
-                <div className="max-w-4xl mx-auto">
-                    <div className="space-y-4 sm:space-y-6">
-                        {TIMELINE_EVENTS.map((event: TimelineEvent, index: number) => (
-                            <div key={index} className="bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                                <div className="p-4 sm:p-6">
-                                    <div className="flex items-start gap-3 sm:gap-4">
-                                        <div className="flex-shrink-0">
-                                            <div className={`px-2 sm:px-3 py-1 rounded-full text-xs font-semibold ${getTypeColor(event.type)}`}>
-                                                {event.type.charAt(0).toUpperCase() + event.type.slice(1)}
-                                            </div>
-                                        </div>
-                                        <div className="flex-grow min-w-0">
-                                            <div className="flex items-start justify-between">
-                                                <div className="flex-grow min-w-0">
-                                                    <div className="text-xs sm:text-sm font-semibold text-paralympic-blue mb-2">{event.date}</div>
-                                                    <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2 leading-tight">{event.title}</h3>
-                                                    {event.description && (
-                                                        <div className="text-gray-600">
-                                                            {expandedItems.has(index) ? (
-                                                                <p className="text-sm sm:text-base">{event.description}</p>
-                                                            ) : (
-                                                                <p className="text-sm sm:text-base line-clamp-2">{event.description}</p>
-                                                            )}
-                                                        </div>
-                                                    )}
-                                                </div>
-                                                {/* {event.description && (
-                                                    <button
-                                                        onClick={() => toggleExpand(index)}
-                                                        className="ml-4 p-2 rounded-lg hover:bg-gray-100 transition-colors"
-                                                    >
-                                                        {expandedItems.has(index) ?
-                                                            <ChevronUp className="h-5 w-5 text-gray-500" /> :
-                                                            <ChevronDown className="h-5 w-5 text-gray-500" />
-                                                        }
-                                                    </button>
-                                                )} */}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <Link href="https://sportsauthorityofindia.nic.in/sai/stadiaJln" target="_blank" className="block">
+                            <div className="text-xs text-paralympic-blue hover:underline">
+                                → JLN Stadium Information
                             </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
-};
-
-// Classification Section Component
-const ClassificationSection: React.FC = () => (
-    <section id="classification" className="py-12 sm:py-16 lg:py-20 bg-white">
-        <div className="container mx-auto px-4 sm:px-6">
-            <div className="text-center mb-12 sm:mb-16">
-                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Classification</h2>
-                <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-                    Essential information about the classification process and requirements
-                </p>
-            </div>
-
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-                {/* Classification Details */}
-                <div className="space-y-6 sm:space-y-8">
-                    <div className="bg-gradient-to-br from-paralympic-blue/5 to-purple-50 rounded-xl sm:rounded-2xl p-6 sm:p-8">
-                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Classification Schedule</h3>
-                        <div className="space-y-3 sm:space-y-4">
-                            <div className="flex items-center gap-3 sm:gap-4">
-                                <Calendar className="h-5 w-5 sm:h-6 sm:w-6 text-paralympic-blue" />
-                                <div>
-                                    <div className="text-sm sm:text-base font-semibold text-gray-900">Classification Days</div>
-                                    <div className="text-sm sm:text-base text-gray-600">{CHAMPIONSHIP_INFO.classificationDates}</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-yellow-50 border border-yellow-200 rounded-lg sm:rounded-xl">
-                            <div className="flex items-start gap-2 sm:gap-3">
-                                <Info className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-600 mt-0.5" />
-                                <div>
-                                    <div className="text-sm sm:text-base font-semibold text-yellow-800">Important Notice</div>
-                                    <p className="text-yellow-700 text-xs sm:text-sm mt-1">
-                                        We are expecting that all athletes who need classification will be present for all days of classification. Therefore, please make sure to plan for this in your travel arrangements.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="mt-4 sm:mt-6">
-                            <p className="text-gray-700 text-xs sm:text-sm">
-                                The first version of the classification schedule is due at the end of August 2025.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-xl sm:rounded-2xl p-6 sm:p-8">
-                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Contact Information</h3>
-                        <div className="space-y-3 sm:space-y-4">
-                            <div>
-                                <div className="text-sm sm:text-base font-semibold text-gray-900 mb-2">Classification Team</div>
-                                <div className="flex items-center gap-2 text-paralympic-blue">
-                                    <LinkIcon className="h-3 w-3 sm:h-4 sm:w-4" />
-                                    <span className="text-sm sm:text-base break-all">classification@worldparaathletics.org</span>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="text-sm sm:text-base font-semibold text-gray-900 mb-2">Questions?</div>
-                                <p className="text-gray-600 text-xs sm:text-sm">
-                                    For teams that have questions, please contact World Para Athletics through the provided link.
-                                </p>
-                                <Link
-                                    href="https://forms.office.com/pages/responsepage.aspx?id=0bw-rXQtCEmH-W51IjGQgg3w0_8mbTpNsffaUdGn8a1UQVBBOUdXMUVRMlFXU0dTTEFDSEhBU0gzNS4u&route=shorturl"
-                                    className='text-xs sm:text-sm text-paralympic-blue hover:underline font-semibold flex items-center gap-1 mt-2 w-fit'
-                                    target='_blank'
-                                >
-                                    Click Here
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Classification Requirements */}
-                <div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8">Classification Requirements</h3>
-                    <div className="space-y-4 sm:space-y-6">
-                        {CLASSIFICATION_REQUIREMENTS.map((requirement: ClassificationRequirement, index: number) => (
-                            <div key={index} className="bg-gradient-to-r from-white to-gray-50 rounded-lg sm:rounded-xl p-4 sm:p-6 border border-gray-100 hover:shadow-lg transition-shadow duration-300">
-                                <div className="flex items-start gap-3 sm:gap-4">
-                                    <div className="p-2 sm:p-3 bg-paralympic-blue/10 rounded-lg sm:rounded-xl flex-shrink-0">
-                                        <requirement.icon className="h-5 w-5 sm:h-6 sm:w-6 text-paralympic-blue" />
-                                    </div>
-                                    <div className="min-w-0">
-                                        <h4 className="text-sm sm:text-base font-bold text-gray-900 mb-2">{requirement.title}</h4>
-                                        <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">{requirement.description}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-);
-
-// Key Documents Section Component
-const KeyDocumentsSection: React.FC = () => (
-    <section id="documents" className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div className="container mx-auto px-4 sm:px-6">
-            <div className="text-center mb-12 sm:mb-16">
-                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Key Documents</h2>
-                <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-                    Access important documents and resources for the championships
-                </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                {KEY_DOCUMENTS.map((doc: KeyDocument, index: number) => (
-                    <div key={index} className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-all duration-300 group hover:scale-105">
-                        <div className="flex items-start justify-between mb-3 sm:mb-4">
-                            <div className="p-2 sm:p-3 bg-paralympic-blue/10 rounded-lg sm:rounded-xl group-hover:bg-paralympic-blue/20 transition-colors">
-                                <FileText className="h-5 w-5 sm:h-6 sm:w-6 text-paralympic-blue" />
-                            </div>
-                            {doc.isNew && (
-                                <span className="bg-paralympic-green text-white text-xs px-1.5 sm:px-2 py-1 rounded-full font-semibold">
-                                    NEW
-                                </span>
-                            )}
-                        </div>
-                        <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2">{doc.title}</h3>
-                        <p className="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">{doc.description}</p>
-                        <Link href={doc.link} target='_blank'>
-                            <button className="flex items-center gap-2 text-paralympic-blue hover:text-paralympic-navy font-semibold text-xs sm:text-sm group">
-                                {/* <Download className="h-4 w-4" /> */}
-                                <span>View Document</span>
-                                <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
-                            </button>
                         </Link>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
-);
-
-// Team Question Box Component
-const TeamQuestionSection: React.FC = () => (
-    <section className="py-12 sm:py-16 bg-gradient-to-r from-paralympic-blue to-paralympic-navy text-white">
-        <div className="container mx-auto px-4 sm:px-6">
-            <div className="max-w-4xl mx-auto text-center">
-                <div className="mb-6 sm:mb-8">
-                    <Heart className="h-10 w-10 sm:h-12 sm:w-12 text-paralympic-yellow mx-auto mb-4" />
-                    <h2 className="text-2xl sm:text-3xl font-bold mb-4">Team Question Box</h2>
-                    <p className="text-lg sm:text-xl text-blue-100">
-                        For teams that have questions, please contact World Para Athletics through our support channels.
-                    </p>
-                </div>
-
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6">
-                    <h3 className="text-lg sm:text-xl font-bold mb-4">Need Help?</h3>
-                    <p className="text-blue-100 text-sm sm:text-base mb-4">
-                        Our dedicated support team is here to assist teams with any questions about registration, qualification, or event logistics.
-                    </p>
-
-                    <div className='flex items-center justify-center'>
-                        <Link href="/contact" className='flex w-fit'>
-                            <button className="bg-paralympic-yellow text-paralympic-navy px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-yellow-300 transition-colors">
-                                Contact Support Team
-                            </button>
+                        <Link href="https://forms.office.com/pages/responsepage.aspx?id=0bw-rXQtCEmH-W51IjGQgg3w0_8mbTpNsffaUdGn8a1UQVBBOUdXMUVRMlFXU0dTTEFDSEhBU0gzNS4u&route=shorturl" target="_blank" className="block">
+                            <div className="text-xs text-paralympic-blue hover:underline">
+                                → Team Questions Form
+                            </div>
                         </Link>
                     </div>
                 </div>
@@ -703,6 +549,10 @@ const TeamQuestionSection: React.FC = () => (
         </div>
     </section>
 );
+
+
+
+
 
 // Additional Sections Component
 const AdditionalInfoSection: React.FC = () => (
@@ -843,22 +693,10 @@ const WPADelhi2025Page: React.FC = () => {
             {/* Quick Info Section */}
             <QuickInfoSection />
 
-            {/* Competition Information */}
-            <CompetitionInfoSection />
-
-            {/* Timeline Section */}
-            <TimelineSection />
+            {/* Essential Information Overview */}
+            <EssentialInfoSection />
 
             <GradientSection />
-
-            {/* Classification Section */}
-            <ClassificationSection />
-
-            {/* Key Documents */}
-            <KeyDocumentsSection />
-
-            {/* Team Question Box */}
-            <TeamQuestionSection />
 
             {/* Additional Information */}
             <AdditionalInfoSection />
