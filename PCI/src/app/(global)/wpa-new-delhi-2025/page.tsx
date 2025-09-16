@@ -304,9 +304,9 @@ const GradientSection: React.FC = () => (
 
 // Quick Info Section Component
 const QuickInfoSection: React.FC = () => (
-    <section className="py-12 sm:py-16 bg-gradient-to-r from-gray-50 to-gray-100">
+    <section className="py-10 sm:py-16 bg-gradient-to-r from-gray-50 to-gray-100">
         <div className="container mx-auto px-4 sm:px-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-6 sm:gap-8">
                 <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
                     <div className="flex items-center gap-3 sm:gap-4">
                         <div className="p-2 sm:p-3 bg-paralympic-blue/10 rounded-lg sm:rounded-xl">

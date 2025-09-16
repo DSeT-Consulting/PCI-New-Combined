@@ -37,7 +37,7 @@ const CHAMPIONSHIP_INFO = {
 
 // Page Header Component
 const PageHeader: React.FC = () => (
-    <section className="relative bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-purple-900 text-white py-16 sm:py-20">
+    <section className="relative bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-purple-900 text-white py-12 sm:py-20">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
             <div className="absolute top-20 left-10 w-32 h-32 bg-paralympic-yellow rounded-full blur-xl"></div>
@@ -58,12 +58,12 @@ const PageHeader: React.FC = () => (
                     <span className="font-medium text-sm">Competition Information</span>
                 </div>
 
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
                     Competition
                     <span className="block text-paralympic-yellow">Information</span>
                 </h1>
 
-                <p className="text-xl text-blue-100 leading-relaxed">
+                <p className="text-lg sm:text-xl text-blue-100 leading-relaxed">
                     Comprehensive details about the New Delhi 2025 World Para Athletics Championships, including venue information, event structure, and historical significance.
                 </p>
             </div>
@@ -300,7 +300,7 @@ const RelatedLinks: React.FC = () => (
                         <p className="text-gray-600 text-sm">Access qualification criteria and guides</p>
                     </div>
                 </Link>
-                <Link href="/wpa-new-delhi-2025/support" className="block">
+                <Link href="/contact" className="block">
                     <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                         <ExternalLink className="h-8 w-8 text-orange-600 mb-4" />
                         <h3 className="font-bold text-gray-900 mb-2">Support</h3>
