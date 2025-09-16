@@ -204,20 +204,23 @@ const CLASSIFICATION_REQUIREMENTS: ClassificationRequirement[] = [
 ];
 
 const HeroSection: React.FC = () => (
-    <section className='w-full h-full'>
-        <Image
-            src="/assets/wpa-new-delhi-2025-hero-bg.png"
-            alt="New Delhi 2025 World Para Athletics Championships"
-            className="object-cover w-full h-auto"
-            width="1600"
-            height="900"
-        />
+    <section className='w-full h-auto overflow-hidden'>
+        <div className="relative w-full">
+            <Image
+                src="/assets/wpa-new-delhi-2025-hero-bg.png"
+                alt="New Delhi 2025 World Para Athletics Championships"
+                className="object-cover w-full h-auto max-h-[60vh] sm:max-h-[70vh] md:max-h-[80vh] lg:max-h-none"
+                width="1600"
+                height="900"
+                priority
+            />
+        </div>
     </section>
 );
 
 // Hero Section Component
 const GradientSection: React.FC = () => (
-    <section className="relative min-h-[80vh] bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-purple-900 text-white overflow-hidden">
+    <section className="relative min-h-[60vh] sm:min-h-[70vh] lg:min-h-[80vh] bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-purple-900 text-white overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
             <div className="absolute top-20 left-10 w-32 h-32 bg-paralympic-yellow rounded-full blur-xl"></div>
@@ -225,16 +228,16 @@ const GradientSection: React.FC = () => (
             <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-paralympic-red rounded-full blur-2xl"></div>
         </div>
 
-        <div className="container mx-auto px-6 py-20 relative z-10">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16 lg:py-20 relative z-10">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                 {/* Content */}
-                <div className="space-y-8">
+                <div className="space-y-6 sm:space-y-8">
                     <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
                         <Star className="h-4 w-4 text-paralympic-yellow" />
                         <span className="font-medium">12th Edition</span>
                     </div>
 
-                    <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                         New Delhi 2025
                         <span className="block text-paralympic-yellow">World Para Athletics</span>
                         <span className="block text-transparent bg-clip-text bg-gradient-to-r from-paralympic-green to-paralympic-yellow">
@@ -242,11 +245,11 @@ const GradientSection: React.FC = () => (
                         </span>
                     </h1>
 
-                    <p className="text-xl text-gray-200 leading-relaxed">
+                    <p className="text-lg sm:text-xl text-gray-200 leading-relaxed">
                         The largest Para sport event ever held in India. Join us as over 1,000 athletes from around the world compete in 186 medal events at the prestigious Jawaharlal Nehru Stadium.
                     </p>
 
-                    <div className="flex flex-wrap gap-6 text-sm">
+                    <div className="flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-6 text-sm">
                         <div className="flex items-center gap-2">
                             <Calendar className="h-5 w-5 text-paralympic-yellow" />
                             <span>{CHAMPIONSHIP_INFO.competitionDates}</span>
@@ -272,23 +275,23 @@ const GradientSection: React.FC = () => (
                 </div>
 
                 {/* Visual Element */}
-                <div className="relative">
-                    <div className="relative bg-white/10 backdrop-blur-sm rounded-3xl p-8 transform rotate-3 hover:rotate-0 transition-transform duration-500">
-                        <div className="grid grid-cols-2 gap-6">
+                <div className="relative mt-8 lg:mt-0">
+                    <div className="relative bg-white/10 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-6 sm:p-8 transform rotate-1 sm:rotate-3 hover:rotate-0 transition-transform duration-500">
+                        <div className="grid grid-cols-2 gap-4 sm:gap-6">
                             <div className="text-center">
-                                <div className="text-4xl font-bold text-paralympic-yellow">{CHAMPIONSHIP_INFO.athletes}</div>
+                                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-paralympic-yellow">{CHAMPIONSHIP_INFO.athletes}</div>
                                 <div className="text-sm text-gray-300">Athletes</div>
                             </div>
                             <div className="text-center">
-                                <div className="text-4xl font-bold text-paralympic-green">{CHAMPIONSHIP_INFO.medalEvents}</div>
+                                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-paralympic-green">{CHAMPIONSHIP_INFO.medalEvents}</div>
                                 <div className="text-sm text-gray-300">Medal Events</div>
                             </div>
                             <div className="text-center">
-                                <div className="text-4xl font-bold text-paralympic-red">{CHAMPIONSHIP_INFO.seatingCapacity}</div>
+                                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-paralympic-red">{CHAMPIONSHIP_INFO.seatingCapacity}</div>
                                 <div className="text-sm text-gray-300">Seating Capacity</div>
                             </div>
                             <div className="text-center">
-                                <div className="text-4xl font-bold text-white">{CHAMPIONSHIP_INFO.edition}</div>
+                                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">{CHAMPIONSHIP_INFO.edition}</div>
                                 <div className="text-sm text-gray-300">Edition</div>
                             </div>
                         </div>
@@ -301,53 +304,53 @@ const GradientSection: React.FC = () => (
 
 // Quick Info Section Component
 const QuickInfoSection: React.FC = () => (
-    <section className="py-16 bg-gradient-to-r from-gray-50 to-gray-100">
-        <div className="container mx-auto px-6">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <div className="flex items-center gap-4">
-                        <div className="p-3 bg-paralympic-blue/10 rounded-xl">
-                            <Trophy className="h-6 w-6 text-paralympic-blue" />
+    <section className="py-12 sm:py-16 bg-gradient-to-r from-gray-50 to-gray-100">
+        <div className="container mx-auto px-4 sm:px-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div className="flex items-center gap-3 sm:gap-4">
+                        <div className="p-2 sm:p-3 bg-paralympic-blue/10 rounded-lg sm:rounded-xl">
+                            <Trophy className="h-5 w-5 sm:h-6 sm:w-6 text-paralympic-blue" />
                         </div>
                         <div>
-                            <div className="text-2xl font-bold text-gray-900">{CHAMPIONSHIP_INFO.medalEvents}</div>
-                            <div className="text-sm text-gray-600">Medal Events</div>
+                            <div className="text-xl sm:text-2xl font-bold text-gray-900">{CHAMPIONSHIP_INFO.medalEvents}</div>
+                            <div className="text-xs sm:text-sm text-gray-600">Medal Events</div>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <div className="flex items-center gap-4">
-                        <div className="p-3 bg-paralympic-green/10 rounded-xl">
-                            <Users className="h-6 w-6 text-paralympic-green" />
+                <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div className="flex items-center gap-3 sm:gap-4">
+                        <div className="p-2 sm:p-3 bg-paralympic-green/10 rounded-lg sm:rounded-xl">
+                            <Users className="h-5 w-5 sm:h-6 sm:w-6 text-paralympic-green" />
                         </div>
                         <div>
-                            <div className="text-2xl font-bold text-gray-900">{CHAMPIONSHIP_INFO.athletes}</div>
-                            <div className="text-sm text-gray-600">Athletes Expected</div>
+                            <div className="text-xl sm:text-2xl font-bold text-gray-900">{CHAMPIONSHIP_INFO.athletes}</div>
+                            <div className="text-xs sm:text-sm text-gray-600">Athletes Expected</div>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <div className="flex items-center gap-4">
-                        <div className="p-3 bg-paralympic-red/10 rounded-xl">
-                            <Globe className="h-6 w-6 text-paralympic-red" />
+                <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div className="flex items-center gap-3 sm:gap-4">
+                        <div className="p-2 sm:p-3 bg-paralympic-red/10 rounded-lg sm:rounded-xl">
+                            <Globe className="h-5 w-5 sm:h-6 sm:w-6 text-paralympic-red" />
                         </div>
                         <div>
-                            <div className="text-2xl font-bold text-gray-900">100+</div>
-                            <div className="text-sm text-gray-600">Countries</div>
+                            <div className="text-xl sm:text-2xl font-bold text-gray-900">100+</div>
+                            <div className="text-xs sm:text-sm text-gray-600">Countries</div>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <div className="flex items-center gap-4">
-                        <div className="p-3 bg-purple-500/10 rounded-xl">
-                            <Calendar className="h-6 w-6 text-purple-600" />
+                <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div className="flex items-center gap-3 sm:gap-4">
+                        <div className="p-2 sm:p-3 bg-purple-500/10 rounded-lg sm:rounded-xl">
+                            <Calendar className="h-5 w-5 sm:h-6 sm:w-6 text-purple-600" />
                         </div>
                         <div>
-                            <div className="text-2xl font-bold text-gray-900">9</div>
-                            <div className="text-sm text-gray-600">Competition Days</div>
+                            <div className="text-xl sm:text-2xl font-bold text-gray-900">9</div>
+                            <div className="text-xs sm:text-sm text-gray-600">Competition Days</div>
                         </div>
                     </div>
                 </div>
@@ -358,53 +361,53 @@ const QuickInfoSection: React.FC = () => (
 
 // Competition Information Component
 const CompetitionInfoSection: React.FC = () => (
-    <section id="competition-info" className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-            <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold text-gray-900 mb-4">Competition Information</h2>
-                <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+    <section id="competition-info" className="py-12 sm:py-16 lg:py-20 bg-white">
+        <div className="container mx-auto px-4 sm:px-6">
+            <div className="text-center mb-12 sm:mb-16">
+                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Competition Information</h2>
+                <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
                     Essential details about the New Delhi 2025 World Para Athletics Championships
                 </p>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-12">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
                 {/* Competition Details */}
-                <div className="space-y-8">
-                    <div className="bg-gradient-to-br from-paralympic-blue/5 to-paralympic-green/5 rounded-2xl p-8">
-                        <h3 className="text-2xl font-bold text-gray-900 mb-6">Event Details</h3>
-                        <div className="space-y-4">
-                            <div className="flex items-start gap-4">
-                                <Calendar className="h-6 w-6 text-paralympic-blue mt-1" />
+                <div className="space-y-6 sm:space-y-8">
+                    <div className="bg-gradient-to-br from-paralympic-blue/5 to-paralympic-green/5 rounded-xl sm:rounded-2xl p-6 sm:p-8">
+                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Event Details</h3>
+                        <div className="space-y-3 sm:space-y-4">
+                            <div className="flex items-start gap-3 sm:gap-4">
+                                <Calendar className="h-5 w-5 sm:h-6 sm:w-6 text-paralympic-blue mt-1" />
                                 <div>
-                                    <div className="font-semibold text-gray-900">Competition Dates</div>
-                                    <div className="text-gray-600">{CHAMPIONSHIP_INFO.competitionDates} (9 days of competition)</div>
+                                    <div className="text-sm sm:text-base font-semibold text-gray-900">Competition Dates</div>
+                                    <div className="text-sm sm:text-base text-gray-600">{CHAMPIONSHIP_INFO.competitionDates} (9 days of competition)</div>
                                 </div>
                             </div>
-                            <div className="flex items-start gap-4">
-                                <MapPin className="h-6 w-6 text-paralympic-green mt-1" />
+                            <div className="flex items-start gap-3 sm:gap-4">
+                                <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-paralympic-green mt-1" />
                                 <div>
-                                    <div className="font-semibold text-gray-900">Venue</div>
-                                    <div className="text-gray-600">{CHAMPIONSHIP_INFO.venue} in {CHAMPIONSHIP_INFO.location}</div>
+                                    <div className="text-sm sm:text-base font-semibold text-gray-900">Venue</div>
+                                    <div className="text-sm sm:text-base text-gray-600">{CHAMPIONSHIP_INFO.venue} in {CHAMPIONSHIP_INFO.location}</div>
                                 </div>
                             </div>
-                            <div className="flex items-start gap-4">
-                                <Trophy className="h-6 w-6 text-paralympic-red mt-1" />
+                            <div className="flex items-start gap-3 sm:gap-4">
+                                <Trophy className="h-5 w-5 sm:h-6 sm:w-6 text-paralympic-red mt-1" />
                                 <div>
-                                    <div className="font-semibold text-gray-900">Medal Events</div>
-                                    <div className="text-gray-600">{CHAMPIONSHIP_INFO.medalEvents} total ({CHAMPIONSHIP_INFO.menEvents} men&apos;s, {CHAMPIONSHIP_INFO.womenEvents} women&apos;s, {CHAMPIONSHIP_INFO.mixedEvents} mixed)</div>
+                                    <div className="text-sm sm:text-base font-semibold text-gray-900">Medal Events</div>
+                                    <div className="text-sm sm:text-base text-gray-600">{CHAMPIONSHIP_INFO.medalEvents} total ({CHAMPIONSHIP_INFO.menEvents} men&apos;s, {CHAMPIONSHIP_INFO.womenEvents} women&apos;s, {CHAMPIONSHIP_INFO.mixedEvents} mixed)</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="bg-gradient-to-br from-paralympic-yellow/5 to-orange-100/50 rounded-2xl p-8">
-                        <h3 className="text-2xl font-bold text-gray-900 mb-6">Venue Information</h3>
-                        <p className="text-gray-700 mb-4">
+                    <div className="bg-gradient-to-br from-paralympic-yellow/5 to-orange-100/50 rounded-xl sm:rounded-2xl p-6 sm:p-8">
+                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Venue Information</h3>
+                        <p className="text-sm sm:text-base text-gray-700 mb-4">
                             The JLN Stadium was constructed to host the Asian Games in 1982 and later renovated and upgraded for hosting the 2010 Commonwealth Games. The venue has a seating capacity to accommodate {CHAMPIONSHIP_INFO.seatingCapacity} spectators and is maintained by the Sports Authority of India on behalf of the Ministry of Sports and Youth Affairs.
                         </p>
                         <Link href="https://sportsauthorityofindia.nic.in/sai/stadiaJln" className='flex w-fit' target='_blank'>
-                            <div className="flex items-center gap-2 text-sm text-paralympic-blue">
-                                <ExternalLink className="h-4 w-4" />
+                            <div className="flex items-center gap-2 text-xs sm:text-sm text-paralympic-blue">
+                                <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4" />
                                 <span>Learn more about the venue</span>
                             </div>
                         </Link>
@@ -412,30 +415,30 @@ const CompetitionInfoSection: React.FC = () => (
                 </div>
 
                 {/* Historical Context */}
-                <div className="space-y-8">
-                    <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-8">
-                        <h3 className="text-2xl font-bold text-gray-900 mb-6">Historical Significance</h3>
-                        <p className="text-gray-700 mb-4">
+                <div className="space-y-6 sm:space-y-8">
+                    <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl sm:rounded-2xl p-6 sm:p-8">
+                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Historical Significance</h3>
+                        <p className="text-sm sm:text-base text-gray-700 mb-4">
                             This will be the {CHAMPIONSHIP_INFO.edition} edition of the World Para Athletics Championships and the largest Para sport event ever held in India.
                         </p>
-                        <p className="text-gray-700 mb-6">
+                        <p className="text-sm sm:text-base text-gray-700 mb-4 sm:mb-6">
                             Asia has hosted the World Championships in four occasions, at Doha 2015 in Qatar, Dubai 2019 in the United Arab Emirates and Kobe 2024 in Japan.
                         </p>
-                        <div className="bg-white/60 rounded-xl p-4">
-                            <div className="text-lg font-semibold text-gray-900 mb-2">Did you know?</div>
-                            <p className="text-gray-700 text-sm">
+                        <div className="bg-white/60 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                            <div className="text-base sm:text-lg font-semibold text-gray-900 mb-2">Did you know?</div>
+                            <p className="text-gray-700 text-xs sm:text-sm">
                                 The competition programme will feature 15 more medal events than at the last edition of the championships in Kobe.
                             </p>
                         </div>
                     </div>
 
-                    <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-2xl p-8">
-                        <h3 className="text-2xl font-bold text-gray-900 mb-6">Impairment Types</h3>
-                        <div className="space-y-3">
+                    <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-xl sm:rounded-2xl p-6 sm:p-8">
+                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Impairment Types</h3>
+                        <div className="space-y-2 sm:space-y-3">
                             {CHAMPIONSHIP_INFO.impairmentTypes.map((type: string, index: number) => (
-                                <div key={index} className="flex items-center gap-3 bg-white/60 rounded-lg p-3">
-                                    <Accessibility className="h-5 w-5 text-paralympic-green" />
-                                    <span className="font-medium text-gray-800">{type}</span>
+                                <div key={index} className="flex items-center gap-2 sm:gap-3 bg-white/60 rounded-lg p-2 sm:p-3">
+                                    <Accessibility className="h-4 w-4 sm:h-5 sm:w-5 text-paralympic-green" />
+                                    <span className="text-sm sm:text-base font-medium text-gray-800">{type}</span>
                                 </div>
                             ))}
                         </div>
@@ -474,37 +477,37 @@ const TimelineSection: React.FC = () => {
     };
 
     return (
-        <section id="timeline" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
-            <div className="container mx-auto px-6">
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl font-bold text-gray-900 mb-4">Qualification and Entry Timeline</h2>
-                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        <section id="timeline" className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+            <div className="container mx-auto px-4 sm:px-6">
+                <div className="text-center mb-12 sm:mb-16">
+                    <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Qualification and Entry Timeline</h2>
+                    <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
                         Important dates and deadlines for athletes and teams participating in the championships
                     </p>
                 </div>
 
                 <div className="max-w-4xl mx-auto">
-                    <div className="space-y-6">
+                    <div className="space-y-4 sm:space-y-6">
                         {TIMELINE_EVENTS.map((event: TimelineEvent, index: number) => (
-                            <div key={index} className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                                <div className="p-6">
-                                    <div className="flex items-start gap-4">
+                            <div key={index} className="bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                                <div className="p-4 sm:p-6">
+                                    <div className="flex items-start gap-3 sm:gap-4">
                                         <div className="flex-shrink-0">
-                                            <div className={`px-3 py-1 rounded-full text-xs font-semibold ${getTypeColor(event.type)}`}>
+                                            <div className={`px-2 sm:px-3 py-1 rounded-full text-xs font-semibold ${getTypeColor(event.type)}`}>
                                                 {event.type.charAt(0).toUpperCase() + event.type.slice(1)}
                                             </div>
                                         </div>
-                                        <div className="flex-grow">
+                                        <div className="flex-grow min-w-0">
                                             <div className="flex items-start justify-between">
-                                                <div>
-                                                    <div className="text-sm font-semibold text-paralympic-blue mb-2">{event.date}</div>
-                                                    <h3 className="text-lg font-bold text-gray-900 mb-2">{event.title}</h3>
+                                                <div className="flex-grow min-w-0">
+                                                    <div className="text-xs sm:text-sm font-semibold text-paralympic-blue mb-2">{event.date}</div>
+                                                    <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2 leading-tight">{event.title}</h3>
                                                     {event.description && (
                                                         <div className="text-gray-600">
                                                             {expandedItems.has(index) ? (
-                                                                <p>{event.description}</p>
+                                                                <p className="text-sm sm:text-base">{event.description}</p>
                                                             ) : (
-                                                                <p className="line-clamp-2">{event.description}</p>
+                                                                <p className="text-sm sm:text-base line-clamp-2">{event.description}</p>
                                                             )}
                                                         </div>
                                                     )}
@@ -535,67 +538,67 @@ const TimelineSection: React.FC = () => {
 
 // Classification Section Component
 const ClassificationSection: React.FC = () => (
-    <section id="classification" className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-            <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold text-gray-900 mb-4">Classification</h2>
-                <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+    <section id="classification" className="py-12 sm:py-16 lg:py-20 bg-white">
+        <div className="container mx-auto px-4 sm:px-6">
+            <div className="text-center mb-12 sm:mb-16">
+                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Classification</h2>
+                <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
                     Essential information about the classification process and requirements
                 </p>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-12">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
                 {/* Classification Details */}
-                <div className="space-y-8">
-                    <div className="bg-gradient-to-br from-paralympic-blue/5 to-purple-50 rounded-2xl p-8">
-                        <h3 className="text-2xl font-bold text-gray-900 mb-6">Classification Schedule</h3>
-                        <div className="space-y-4">
-                            <div className="flex items-center gap-4">
-                                <Calendar className="h-6 w-6 text-paralympic-blue" />
+                <div className="space-y-6 sm:space-y-8">
+                    <div className="bg-gradient-to-br from-paralympic-blue/5 to-purple-50 rounded-xl sm:rounded-2xl p-6 sm:p-8">
+                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Classification Schedule</h3>
+                        <div className="space-y-3 sm:space-y-4">
+                            <div className="flex items-center gap-3 sm:gap-4">
+                                <Calendar className="h-5 w-5 sm:h-6 sm:w-6 text-paralympic-blue" />
                                 <div>
-                                    <div className="font-semibold text-gray-900">Classification Days</div>
-                                    <div className="text-gray-600">{CHAMPIONSHIP_INFO.classificationDates}</div>
+                                    <div className="text-sm sm:text-base font-semibold text-gray-900">Classification Days</div>
+                                    <div className="text-sm sm:text-base text-gray-600">{CHAMPIONSHIP_INFO.classificationDates}</div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-xl">
-                            <div className="flex items-start gap-3">
-                                <Info className="h-5 w-5 text-yellow-600 mt-0.5" />
+                        <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-yellow-50 border border-yellow-200 rounded-lg sm:rounded-xl">
+                            <div className="flex items-start gap-2 sm:gap-3">
+                                <Info className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-600 mt-0.5" />
                                 <div>
-                                    <div className="font-semibold text-yellow-800">Important Notice</div>
-                                    <p className="text-yellow-700 text-sm mt-1">
+                                    <div className="text-sm sm:text-base font-semibold text-yellow-800">Important Notice</div>
+                                    <p className="text-yellow-700 text-xs sm:text-sm mt-1">
                                         We are expecting that all athletes who need classification will be present for all days of classification. Therefore, please make sure to plan for this in your travel arrangements.
                                     </p>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="mt-6">
-                            <p className="text-gray-700 text-sm">
+                        <div className="mt-4 sm:mt-6">
+                            <p className="text-gray-700 text-xs sm:text-sm">
                                 The first version of the classification schedule is due at the end of August 2025.
                             </p>
                         </div>
                     </div>
 
-                    <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-2xl p-8">
-                        <h3 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h3>
-                        <div className="space-y-4">
+                    <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-xl sm:rounded-2xl p-6 sm:p-8">
+                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Contact Information</h3>
+                        <div className="space-y-3 sm:space-y-4">
                             <div>
-                                <div className="font-semibold text-gray-900 mb-2">Classification Team</div>
+                                <div className="text-sm sm:text-base font-semibold text-gray-900 mb-2">Classification Team</div>
                                 <div className="flex items-center gap-2 text-paralympic-blue">
-                                    <LinkIcon className="h-4 w-4" />
-                                    <span>classification@worldparaathletics.org</span>
+                                    <LinkIcon className="h-3 w-3 sm:h-4 sm:w-4" />
+                                    <span className="text-sm sm:text-base break-all">classification@worldparaathletics.org</span>
                                 </div>
                             </div>
                             <div>
-                                <div className="font-semibold text-gray-900 mb-2">Questions?</div>
-                                <p className="text-gray-600 text-sm">
+                                <div className="text-sm sm:text-base font-semibold text-gray-900 mb-2">Questions?</div>
+                                <p className="text-gray-600 text-xs sm:text-sm">
                                     For teams that have questions, please contact World Para Athletics through the provided link.
                                 </p>
                                 <Link
                                     href="https://forms.office.com/pages/responsepage.aspx?id=0bw-rXQtCEmH-W51IjGQgg3w0_8mbTpNsffaUdGn8a1UQVBBOUdXMUVRMlFXU0dTTEFDSEhBU0gzNS4u&route=shorturl"
-                                    className='text-sm text-paralympic-blue hover:underline font-semibold flex items-center gap-1 mt-2 w-fit'
+                                    className='text-xs sm:text-sm text-paralympic-blue hover:underline font-semibold flex items-center gap-1 mt-2 w-fit'
                                     target='_blank'
                                 >
                                     Click Here
@@ -607,17 +610,17 @@ const ClassificationSection: React.FC = () => (
 
                 {/* Classification Requirements */}
                 <div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-8">Classification Requirements</h3>
-                    <div className="space-y-6">
+                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8">Classification Requirements</h3>
+                    <div className="space-y-4 sm:space-y-6">
                         {CLASSIFICATION_REQUIREMENTS.map((requirement: ClassificationRequirement, index: number) => (
-                            <div key={index} className="bg-gradient-to-r from-white to-gray-50 rounded-xl p-6 border border-gray-100 hover:shadow-lg transition-shadow duration-300">
-                                <div className="flex items-start gap-4">
-                                    <div className="p-3 bg-paralympic-blue/10 rounded-xl">
-                                        <requirement.icon className="h-6 w-6 text-paralympic-blue" />
+                            <div key={index} className="bg-gradient-to-r from-white to-gray-50 rounded-lg sm:rounded-xl p-4 sm:p-6 border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+                                <div className="flex items-start gap-3 sm:gap-4">
+                                    <div className="p-2 sm:p-3 bg-paralympic-blue/10 rounded-lg sm:rounded-xl flex-shrink-0">
+                                        <requirement.icon className="h-5 w-5 sm:h-6 sm:w-6 text-paralympic-blue" />
                                     </div>
-                                    <div>
-                                        <h4 className="font-bold text-gray-900 mb-2">{requirement.title}</h4>
-                                        <p className="text-gray-600 text-sm">{requirement.description}</p>
+                                    <div className="min-w-0">
+                                        <h4 className="text-sm sm:text-base font-bold text-gray-900 mb-2">{requirement.title}</h4>
+                                        <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">{requirement.description}</p>
                                     </div>
                                 </div>
                             </div>
@@ -631,35 +634,35 @@ const ClassificationSection: React.FC = () => (
 
 // Key Documents Section Component
 const KeyDocumentsSection: React.FC = () => (
-    <section id="documents" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div className="container mx-auto px-6">
-            <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold text-gray-900 mb-4">Key Documents</h2>
-                <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+    <section id="documents" className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div className="container mx-auto px-4 sm:px-6">
+            <div className="text-center mb-12 sm:mb-16">
+                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Key Documents</h2>
+                <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
                     Access important documents and resources for the championships
                 </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 {KEY_DOCUMENTS.map((doc: KeyDocument, index: number) => (
-                    <div key={index} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group hover:scale-105">
-                        <div className="flex items-start justify-between mb-4">
-                            <div className="p-3 bg-paralympic-blue/10 rounded-xl group-hover:bg-paralympic-blue/20 transition-colors">
-                                <FileText className="h-6 w-6 text-paralympic-blue" />
+                    <div key={index} className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-all duration-300 group hover:scale-105">
+                        <div className="flex items-start justify-between mb-3 sm:mb-4">
+                            <div className="p-2 sm:p-3 bg-paralympic-blue/10 rounded-lg sm:rounded-xl group-hover:bg-paralympic-blue/20 transition-colors">
+                                <FileText className="h-5 w-5 sm:h-6 sm:w-6 text-paralympic-blue" />
                             </div>
                             {doc.isNew && (
-                                <span className="bg-paralympic-green text-white text-xs px-2 py-1 rounded-full font-semibold">
+                                <span className="bg-paralympic-green text-white text-xs px-1.5 sm:px-2 py-1 rounded-full font-semibold">
                                     NEW
                                 </span>
                             )}
                         </div>
-                        <h3 className="text-lg font-bold text-gray-900 mb-2">{doc.title}</h3>
-                        <p className="text-gray-600 text-sm mb-4">{doc.description}</p>
+                        <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2">{doc.title}</h3>
+                        <p className="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">{doc.description}</p>
                         <Link href={doc.link} target='_blank'>
-                            <button className="flex items-center gap-2 text-paralympic-blue hover:text-paralympic-navy font-semibold text-sm group">
+                            <button className="flex items-center gap-2 text-paralympic-blue hover:text-paralympic-navy font-semibold text-xs sm:text-sm group">
                                 {/* <Download className="h-4 w-4" /> */}
                                 <span>View Document</span>
-                                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                                <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
                             </button>
                         </Link>
                     </div>
@@ -671,26 +674,26 @@ const KeyDocumentsSection: React.FC = () => (
 
 // Team Question Box Component
 const TeamQuestionSection: React.FC = () => (
-    <section className="py-16 bg-gradient-to-r from-paralympic-blue to-paralympic-navy text-white">
-        <div className="container mx-auto px-6">
+    <section className="py-12 sm:py-16 bg-gradient-to-r from-paralympic-blue to-paralympic-navy text-white">
+        <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-4xl mx-auto text-center">
-                <div className="mb-8">
-                    <Heart className="h-12 w-12 text-paralympic-yellow mx-auto mb-4" />
-                    <h2 className="text-3xl font-bold mb-4">Team Question Box</h2>
-                    <p className="text-xl text-blue-100">
+                <div className="mb-6 sm:mb-8">
+                    <Heart className="h-10 w-10 sm:h-12 sm:w-12 text-paralympic-yellow mx-auto mb-4" />
+                    <h2 className="text-2xl sm:text-3xl font-bold mb-4">Team Question Box</h2>
+                    <p className="text-lg sm:text-xl text-blue-100">
                         For teams that have questions, please contact World Para Athletics through our support channels.
                     </p>
                 </div>
 
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
-                    <h3 className="text-xl font-bold mb-4">Need Help?</h3>
-                    <p className="text-blue-100 mb-4">
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6">
+                    <h3 className="text-lg sm:text-xl font-bold mb-4">Need Help?</h3>
+                    <p className="text-blue-100 text-sm sm:text-base mb-4">
                         Our dedicated support team is here to assist teams with any questions about registration, qualification, or event logistics.
                     </p>
-                    
+
                     <div className='flex items-center justify-center'>
                         <Link href="/contact" className='flex w-fit'>
-                            <button className="bg-paralympic-yellow text-paralympic-navy px-6 py-3 rounded-xl font-semibold hover:bg-yellow-300 transition-colors">
+                            <button className="bg-paralympic-yellow text-paralympic-navy px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-yellow-300 transition-colors">
                                 Contact Support Team
                             </button>
                         </Link>
@@ -703,79 +706,79 @@ const TeamQuestionSection: React.FC = () => (
 
 // Additional Sections Component
 const AdditionalInfoSection: React.FC = () => (
-    <section className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-            <div className="grid lg:grid-cols-3 gap-12">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white">
+        <div className="container mx-auto px-4 sm:px-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
                 {/* Accessibility & Inclusion */}
-                <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-2xl p-8">
-                    <div className="p-3 bg-paralympic-green/10 rounded-xl w-fit mb-6">
-                        <Accessibility className="h-8 w-8 text-paralympic-green" />
+                <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-xl sm:rounded-2xl p-6 sm:p-8">
+                    <div className="p-2 sm:p-3 bg-paralympic-green/10 rounded-lg sm:rounded-xl w-fit mb-4 sm:mb-6">
+                        <Accessibility className="h-6 w-6 sm:h-8 sm:w-8 text-paralympic-green" />
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Accessibility & Inclusion</h3>
-                    <p className="text-gray-700 mb-6">
+                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Accessibility & Inclusion</h3>
+                    <p className="text-sm sm:text-base text-gray-700 mb-4 sm:mb-6">
                         We are committed to ensuring the championships are fully accessible to all participants, officials, and spectators. The venue features comprehensive accessibility infrastructure and support services.
                     </p>
-                    <div className="space-y-2 text-sm">
+                    <div className="space-y-2 text-xs sm:text-sm">
                         <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-paralympic-green rounded-full"></div>
+                            <div className="w-2 h-2 bg-paralympic-green rounded-full flex-shrink-0"></div>
                             <span>Wheelchair accessible facilities</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-paralympic-green rounded-full"></div>
+                            <div className="w-2 h-2 bg-paralympic-green rounded-full flex-shrink-0"></div>
                             <span>Audio-visual assistance available</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-paralympic-green rounded-full"></div>
+                            <div className="w-2 h-2 bg-paralympic-green rounded-full flex-shrink-0"></div>
                             <span>Multilingual support services</span>
                         </div>
                     </div>
                 </div>
 
                 {/* Legacy & Impact */}
-                <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8">
-                    <div className="p-3 bg-purple-600/10 rounded-xl w-fit mb-6">
-                        <Globe className="h-8 w-8 text-purple-600" />
+                <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl sm:rounded-2xl p-6 sm:p-8">
+                    <div className="p-2 sm:p-3 bg-purple-600/10 rounded-lg sm:rounded-xl w-fit mb-4 sm:mb-6">
+                        <Globe className="h-6 w-6 sm:h-8 sm:w-8 text-purple-600" />
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Legacy & Impact</h3>
-                    <p className="text-gray-700 mb-6">
+                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Legacy & Impact</h3>
+                    <p className="text-sm sm:text-base text-gray-700 mb-4 sm:mb-6">
                         This championship will leave a lasting legacy for Para athletics in India and across Asia, inspiring a new generation of Para athletes and promoting inclusive sports development.
                     </p>
-                    <div className="space-y-2 text-sm">
+                    <div className="space-y-2 text-xs sm:text-sm">
                         <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
+                            <div className="w-2 h-2 bg-purple-600 rounded-full flex-shrink-0"></div>
                             <span>Youth development programs</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
+                            <div className="w-2 h-2 bg-purple-600 rounded-full flex-shrink-0"></div>
                             <span>Community engagement initiatives</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
+                            <div className="w-2 h-2 bg-purple-600 rounded-full flex-shrink-0"></div>
                             <span>Infrastructure improvements</span>
                         </div>
                     </div>
                 </div>
 
                 {/* Media & Broadcasting */}
-                <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl p-8">
-                    <div className="p-3 bg-orange-600/10 rounded-xl w-fit mb-6">
-                        <Globe className="h-8 w-8 text-orange-600" />
+                <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-xl sm:rounded-2xl p-6 sm:p-8">
+                    <div className="p-2 sm:p-3 bg-orange-600/10 rounded-lg sm:rounded-xl w-fit mb-4 sm:mb-6">
+                        <Globe className="h-6 w-6 sm:h-8 sm:w-8 text-orange-600" />
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Global Coverage</h3>
-                    <p className="text-gray-700 mb-6">
+                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Global Coverage</h3>
+                    <p className="text-sm sm:text-base text-gray-700 mb-4 sm:mb-6">
                         The championships will be broadcast globally, showcasing the incredible athletic performances to millions of viewers worldwide and promoting Para athletics on an international scale.
                     </p>
-                    <div className="space-y-2 text-sm">
+                    <div className="space-y-2 text-xs sm:text-sm">
                         <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-orange-600 rounded-full"></div>
+                            <div className="w-2 h-2 bg-orange-600 rounded-full flex-shrink-0"></div>
                             <span>Live streaming coverage</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-orange-600 rounded-full"></div>
+                            <div className="w-2 h-2 bg-orange-600 rounded-full flex-shrink-0"></div>
                             <span>Multi-language commentary</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-orange-600 rounded-full"></div>
+                            <div className="w-2 h-2 bg-orange-600 rounded-full flex-shrink-0"></div>
                             <span>Digital content platforms</span>
                         </div>
                     </div>
@@ -787,13 +790,13 @@ const AdditionalInfoSection: React.FC = () => (
 
 // Footer CTA Section
 const FooterCTASection: React.FC = () => (
-    <section className="py-16 bg-gradient-to-r from-paralympic-navy via-paralympic-blue to-purple-900 text-white">
-        <div className="container mx-auto px-6 text-center">
+    <section className="py-12 sm:py-16 bg-gradient-to-r from-paralympic-navy via-paralympic-blue to-purple-900 text-white">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
             <div className="max-w-4xl mx-auto">
-                <h2 className="text-4xl font-bold mb-6">
+                <h2 className="text-3xl sm:text-4xl font-bold mb-6">
                     Be Part of <span className="text-paralympic-yellow">History</span>
                 </h2>
-                <p className="text-xl text-blue-100 mb-8">
+                <p className="text-lg sm:text-xl text-blue-100 mb-6 sm:mb-8">
                     Join us for the largest Para sport event ever held in India. Whether you&apos;re an athlete, official, or spectator, this championship promises to be an unforgettable celebration of athletic excellence and human determination.
                 </p>
 
@@ -809,18 +812,18 @@ const FooterCTASection: React.FC = () => (
                     </button>
                 </div> */}
 
-                <div className="grid md:grid-cols-3 gap-8 text-center">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 text-center">
                     <div>
-                        <div className="text-3xl font-bold text-paralympic-yellow mb-2">Sep 27 - Oct 5</div>
-                        <div className="text-blue-200">Competition Dates</div>
+                        <div className="text-2xl sm:text-3xl font-bold text-paralympic-yellow mb-2">Sep 27 - Oct 5</div>
+                        <div className="text-blue-200 text-sm sm:text-base">Competition Dates</div>
                     </div>
                     <div>
-                        <div className="text-3xl font-bold text-paralympic-green mb-2">New Delhi</div>
-                        <div className="text-blue-200">JLN Stadium</div>
+                        <div className="text-2xl sm:text-3xl font-bold text-paralympic-green mb-2">New Delhi</div>
+                        <div className="text-blue-200 text-sm sm:text-base">JLN Stadium</div>
                     </div>
                     <div>
-                        <div className="text-3xl font-bold text-white mb-2">1,000+</div>
-                        <div className="text-blue-200">Athletes</div>
+                        <div className="text-2xl sm:text-3xl font-bold text-white mb-2">1,000+</div>
+                        <div className="text-blue-200 text-sm sm:text-base">Athletes</div>
                     </div>
                 </div>
             </div>
