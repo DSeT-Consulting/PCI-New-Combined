@@ -517,45 +517,47 @@ const NextEventsPreviewSection: React.FC = () => {
                     })}
 
                     {/* View Complete Schedule Card - Always visible */}
-                    <div className="group bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-purple-900 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer border border-transparent hover:border-white/20 relative overflow-hidden">
-                        {/* Background Pattern */}
-                        <div className="absolute inset-0 opacity-20">
-                            <div className="absolute top-4 right-4 w-16 h-16 bg-paralympic-yellow rounded-full blur-xl"></div>
-                            <div className="absolute bottom-2 left-2 w-12 h-12 bg-paralympic-green rounded-full blur-lg"></div>
-                        </div>
-
-                        <div className="relative z-10">
-                            <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                                <Calendar className="h-6 w-6 text-white" />
+                    <Link href="/wpa-new-delhi-2025/schedule">
+                        <div className="group bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-purple-900 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer border border-transparent hover:border-white/20 relative overflow-hidden">
+                            {/* Background Pattern */}
+                            <div className="absolute inset-0 opacity-20">
+                                <div className="absolute top-4 right-4 w-16 h-16 bg-paralympic-yellow rounded-full blur-xl"></div>
+                                <div className="absolute bottom-2 left-2 w-12 h-12 bg-paralympic-green rounded-full blur-lg"></div>
                             </div>
 
-                            <div className="space-y-3 text-white">
-                                <div>
-                                    <h3 className="font-bold text-sm sm:text-base group-hover:text-paralympic-yellow transition-colors duration-200">
-                                        Complete Schedule
-                                    </h3>
+                            <div className="relative z-10">
+                                <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                                    <Calendar className="h-6 w-6 text-white" />
                                 </div>
 
-                                <div className="space-y-2">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-xs">9 Days</span>
-                                        <span className="text-xs">
-                                            186 Events
-                                        </span>
+                                <div className="space-y-3 text-white">
+                                    <div>
+                                        <h3 className="font-bold text-sm sm:text-base group-hover:text-paralympic-yellow transition-colors duration-200">
+                                            Complete Schedule
+                                        </h3>
                                     </div>
 
-                                    <div className="flex items-center gap-1">
-                                        <Clock className="h-3 w-3 text-paralympic-green" />
-                                        <span className="text-xs text-blue-200">Full Details</span>
-                                    </div>
-                                </div>
+                                    <div className="space-y-2">
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-xs">9 Days</span>
+                                            <span className="text-xs">
+                                                186 Events
+                                            </span>
+                                        </div>
 
-                                <div className="pt-2 border-t border-white/20 flex items-center justify-center">
-                                    <ArrowRight className="h-4 w-4 text-white group-hover:text-paralympic-yellow group-hover:translate-x-1 transition-all duration-200" />
+                                        <div className="flex items-center gap-1">
+                                            <Clock className="h-3 w-3 text-paralympic-green" />
+                                            <span className="text-xs text-blue-200">Full Details</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="pt-2 border-t border-white/20 flex items-center justify-center">
+                                        <ArrowRight className="h-4 w-4 text-white group-hover:text-paralympic-yellow group-hover:translate-x-1 transition-all duration-200" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </Link>
                 </div>
             </div>
         </section>
@@ -753,11 +755,10 @@ const Delhi2025HighlightsSection: React.FC = () => {
                             <button
                                 key={index}
                                 onClick={() => goToSlide(index)}
-                                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                                    currentSlide === index
+                                className={`w-2 h-2 rounded-full transition-all duration-300 ${currentSlide === index
                                         ? 'bg-white w-8'
                                         : 'bg-white/50 hover:bg-white/70'
-                                }`}
+                                    }`}
                             />
                         ))}
                     </div>
@@ -770,11 +771,10 @@ const Delhi2025HighlightsSection: React.FC = () => {
                             <button
                                 key={highlight.id}
                                 onClick={() => goToSlide(index)}
-                                className={`relative flex-shrink-0 w-20 h-12 sm:w-24 sm:h-14 rounded-lg overflow-hidden transition-all duration-300 ${
-                                    currentSlide === index
+                                className={`relative flex-shrink-0 w-20 h-12 sm:w-24 sm:h-14 rounded-lg overflow-hidden transition-all duration-300 ${currentSlide === index
                                         ? 'ring-2 ring-paralympic-blue ring-offset-2 scale-105'
                                         : 'opacity-70 hover:opacity-100'
-                                }`}
+                                    }`}
                             >
                                 <Image
                                     src={highlight.src}
