@@ -21,7 +21,15 @@ import {
     User,
     Accessibility,
     FileText,
-    Link as LinkIcon
+    Link as LinkIcon,
+    ChevronLeft,
+    ChevronRight,
+    Play,
+    Pause,
+    Volume2,
+    Maximize,
+    Eye,
+    Camera
 } from 'lucide-react';
 import Navbar from '~/components/modules/Navbar';
 import Footer from '~/components/modules/Footer';
@@ -554,6 +562,249 @@ const NextEventsPreviewSection: React.FC = () => {
     );
 };
 
+// Delhi 2025 Highlights Reel Section
+const Delhi2025HighlightsSection: React.FC = () => {
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const [isPlaying, setIsPlaying] = useState(true);
+    const [isHovered, setIsHovered] = useState(false);
+    const [touchStart, setTouchStart] = useState(0);
+    const [touchEnd, setTouchEnd] = useState(0);
+
+    const highlights = [
+        {
+            id: 1,
+            type: 'image' as const,
+            src: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOTk5Ij5KTE4gU3RhZGl1bSBQcmVwYXJhdGlvbjwvdGV4dD48L3N2Zz4=',
+            alt: 'JLN Stadium preparation for Delhi 2025',
+            title: 'World-Class Venue Ready',
+            description: 'Jawaharlal Nehru Stadium undergoes major upgrades for the championships',
+            category: 'Venue'
+        },
+        {
+            id: 2,
+            type: 'image' as const,
+            src: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZTNmMmZkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjNjM2NmYxIj5BdGhsZXRlcyBUcmFpbmluZzwvdGV4dD48L3N2Zz4=',
+            alt: 'Athletes training for Delhi 2025',
+            title: 'Elite Athletes Prepare',
+            description: 'Watch world-class para athletes gear up for the biggest event in India',
+            category: 'Training'
+        },
+        {
+            id: 3,
+            type: 'image' as const,
+            src: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZmVmM2UyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjZjU5ZTBiIj5DdWx0dXJhbCBDZWxlYnJhdGlvbnM8L3RleHQ+PC9zdmc+',
+            alt: 'Delhi cultural preparations',
+            title: 'Cultural Celebrations Planned',
+            description: 'India prepares to showcase its rich heritage during the championships',
+            category: 'Culture'
+        },
+        {
+            id: 4,
+            type: 'image' as const,
+            src: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmZGY0Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjMTU5MDNkIj5QYXJhbHltcGljIEF0aGxldGVzPC90ZXh0Pjwvc3ZnPg==',
+            alt: 'Paralympic athletes in action',
+            title: 'Record-Breaking Performances Expected',
+            description: 'Athletes aim to set new world records in Delhi',
+            category: 'Performance'
+        },
+        {
+            id: 5,
+            type: 'image' as const,
+            src: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZmVmMmY0Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjZGMxNjU5Ij5EZWxoaSAyMDI1IFByb21vPC90ZXh0Pjwvc3ZnPg==',
+            alt: 'Delhi 2025 promotional highlights',
+            title: 'The Journey Begins',
+            description: 'Official Delhi 2025 promotional highlights showcasing the excitement',
+            category: 'Promotion'
+        }
+    ];
+
+    // Auto-advance functionality
+    React.useEffect(() => {
+        if (!isPlaying || isHovered) return;
+
+        const interval = setInterval(() => {
+            setCurrentSlide((prev) => (prev + 1) % highlights.length);
+        }, 4000);
+
+        return () => clearInterval(interval);
+    }, [isPlaying, isHovered, highlights.length]);
+
+    // Touch/swipe support
+    const handleTouchStart = (e: React.TouchEvent) => {
+        setTouchEnd(0);
+        if (e.touches[0]) {
+            setTouchStart(e.touches[0].clientX);
+        }
+    };
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        if (e.touches[0]) {
+            setTouchEnd(e.touches[0].clientX);
+        }
+    };
+
+    const handleTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > 50;
+        const isRightSwipe = distance < -50;
+
+        if (isLeftSwipe) {
+            setCurrentSlide((prev) => (prev + 1) % highlights.length);
+        }
+        if (isRightSwipe) {
+            setCurrentSlide((prev) => (prev - 1 + highlights.length) % highlights.length);
+        }
+    };
+
+    const goToSlide = (index: number) => {
+        setCurrentSlide(index);
+    };
+
+    const nextSlide = () => {
+        setCurrentSlide((prev) => (prev + 1) % highlights.length);
+    };
+
+    const prevSlide = () => {
+        setCurrentSlide((prev) => (prev - 1 + highlights.length) % highlights.length);
+    };
+
+    const currentHighlight = highlights[currentSlide];
+
+    if (!currentHighlight) {
+        return null;
+    }
+
+    return (
+        <section className="py-12 sm:py-16 bg-white">
+            <div className="container mx-auto px-4 sm:px-6">
+                {/* Header */}
+                <div className="text-center mb-8 sm:mb-12">
+                    <div className="inline-flex items-center gap-2 bg-red-50 px-4 py-2 rounded-full mb-4">
+                        <Camera className="h-4 w-4 text-red-600" />
+                        <span className="text-sm font-medium text-red-600">Live Updates</span>
+                    </div>
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                        Delhi 2025 Highlights Reel
+                    </h2>
+                    <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+                        Experience the excitement and preparation leading up to the biggest Para athletics event in India
+                    </p>
+                </div>
+
+                {/* Main Slideshow */}
+                <div
+                    className="relative bg-gray-900 rounded-2xl overflow-hidden shadow-2xl group"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
+                >
+                    {/* Slideshow Container */}
+                    <div className="relative aspect-video sm:aspect-[21/9] overflow-hidden">
+                        <div className="relative w-full h-full">
+                            <Image
+                                src={currentHighlight.src}
+                                alt={currentHighlight.alt}
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                priority={currentSlide === 0}
+                            />
+                        </div>
+
+                        {/* Overlay Gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+                        {/* Content Overlay */}
+                        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 lg:p-8 text-white">
+                            {/* Tags - Hidden on mobile */}
+                            <div className="hidden sm:flex items-center gap-2 mb-3">
+                                <span className="inline-flex items-center gap-1 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium">
+                                    <Eye className="h-3 w-3" /> Photo
+                                </span>
+                                <span className="text-xs text-gray-300">{currentHighlight.category}</span>
+                            </div>
+
+                            {/* Title */}
+                            <h3 className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold leading-tight mb-2 sm:mb-2">
+                                {currentHighlight.title}
+                            </h3>
+
+                            {/* Description - Hidden on mobile */}
+                            <p className="hidden sm:block text-sm lg:text-base text-gray-200 max-w-2xl">
+                                {currentHighlight.description}
+                            </p>
+                        </div>
+
+                        {/* Navigation Arrows */}
+                        <button
+                            onClick={prevSlide}
+                            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-2 rounded-full transition-all duration-200 opacity-0 group-hover:opacity-100"
+                        >
+                            <ChevronLeft className="h-6 w-6" />
+                        </button>
+                        <button
+                            onClick={nextSlide}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-2 rounded-full transition-all duration-200 opacity-0 group-hover:opacity-100"
+                        >
+                            <ChevronRight className="h-6 w-6" />
+                        </button>
+
+                        {/* Play/Pause Button */}
+                        <button
+                            onClick={() => setIsPlaying(!isPlaying)}
+                            className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-2 rounded-full transition-all duration-200 opacity-0 group-hover:opacity-100"
+                        >
+                            {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
+                        </button>
+                    </div>
+
+                    {/* Navigation Dots */}
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                        {highlights.map((_, index) => (
+                            <button
+                                key={index}
+                                onClick={() => goToSlide(index)}
+                                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                                    currentSlide === index
+                                        ? 'bg-white w-8'
+                                        : 'bg-white/50 hover:bg-white/70'
+                                }`}
+                            />
+                        ))}
+                    </div>
+                </div>
+
+                {/* Thumbnail Navigation */}
+                <div className="mt-6 sm:mt-8">
+                    <div className="flex gap-3 sm:gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                        {highlights.map((highlight, index) => (
+                            <button
+                                key={highlight.id}
+                                onClick={() => goToSlide(index)}
+                                className={`relative flex-shrink-0 w-20 h-12 sm:w-24 sm:h-14 rounded-lg overflow-hidden transition-all duration-300 ${
+                                    currentSlide === index
+                                        ? 'ring-2 ring-paralympic-blue ring-offset-2 scale-105'
+                                        : 'opacity-70 hover:opacity-100'
+                                }`}
+                            >
+                                <Image
+                                    src={highlight.src}
+                                    alt={highlight.alt}
+                                    fill
+                                    className="object-cover"
+                                />
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
 // Essential Information Overview Section
 const EssentialInfoSection: React.FC = () => (
     <section id="essential-info" className="py-12 sm:py-16 lg:py-20 bg-white">
@@ -891,6 +1142,9 @@ const WPADelhi2025Page: React.FC = () => {
 
             {/* Next Events Preview */}
             <NextEventsPreviewSection />
+
+            {/* Delhi 2025 Highlights Reel */}
+            <Delhi2025HighlightsSection />
 
             {/* Essential Information Overview */}
             <EssentialInfoSection />
