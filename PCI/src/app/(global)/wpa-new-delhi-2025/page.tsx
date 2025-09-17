@@ -574,47 +574,34 @@ const Delhi2025HighlightsSection: React.FC = () => {
         {
             id: 1,
             type: 'image' as const,
-            src: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOTk5Ij5KTE4gU3RhZGl1bSBQcmVwYXJhdGlvbjwvdGV4dD48L3N2Zz4=',
+            src: '/assets/wpa/wpa-reel-1.png',
             alt: 'JLN Stadium preparation for Delhi 2025',
             title: 'World-Class Venue Ready',
             description: 'Jawaharlal Nehru Stadium undergoes major upgrades for the championships',
-            category: 'Venue'
         },
         {
             id: 2,
             type: 'image' as const,
-            src: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZTNmMmZkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjNjM2NmYxIj5BdGhsZXRlcyBUcmFpbmluZzwvdGV4dD48L3N2Zz4=',
+            src: '/assets/wpa/wpa-reel-2.png',
             alt: 'Athletes training for Delhi 2025',
             title: 'Elite Athletes Prepare',
             description: 'Watch world-class para athletes gear up for the biggest event in India',
-            category: 'Training'
         },
         {
             id: 3,
             type: 'image' as const,
-            src: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZmVmM2UyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjZjU5ZTBiIj5DdWx0dXJhbCBDZWxlYnJhdGlvbnM8L3RleHQ+PC9zdmc+',
-            alt: 'Delhi cultural preparations',
-            title: 'Cultural Celebrations Planned',
-            description: 'India prepares to showcase its rich heritage during the championships',
-            category: 'Culture'
+            src: '/assets/wpa/wpa-reel-3.png',
+            alt: 'Paralympic athletes in action',
+            title: 'Record-Breaking Performances Expected',
+            description: 'Athletes aim to set new world records in Delhi',
         },
         {
             id: 4,
             type: 'image' as const,
-            src: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmZGY0Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjMTU5MDNkIj5QYXJhbHltcGljIEF0aGxldGVzPC90ZXh0Pjwvc3ZnPg==',
-            alt: 'Paralympic athletes in action',
-            title: 'Record-Breaking Performances Expected',
-            description: 'Athletes aim to set new world records in Delhi',
-            category: 'Performance'
-        },
-        {
-            id: 5,
-            type: 'image' as const,
-            src: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZmVmMmY0Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjZGMxNjU5Ij5EZWxoaSAyMDI1IFByb21vPC90ZXh0Pjwvc3ZnPg==',
+            src: '/assets/wpa/wpa-reel-4.png',
             alt: 'Delhi 2025 promotional highlights',
             title: 'The Journey Begins',
             description: 'Official Delhi 2025 promotional highlights showcasing the excitement',
-            category: 'Promotion'
         }
     ];
 
@@ -724,7 +711,6 @@ const Delhi2025HighlightsSection: React.FC = () => {
                                 <span className="inline-flex items-center gap-1 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium">
                                     <Eye className="h-3 w-3" /> Photo
                                 </span>
-                                <span className="text-xs text-gray-300">{currentHighlight.category}</span>
                             </div>
 
                             {/* Title */}
