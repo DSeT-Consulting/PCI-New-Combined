@@ -151,6 +151,7 @@ export default function NewsPage() {
 
       setNewsPageData(pageData);
       setAllSections(pageData.sections);
+      console.log("pageData.sections-------", pageData.sections);
       setCategories(categoriesData);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load news data");
@@ -306,7 +307,7 @@ export default function NewsPage() {
         <Navbar />
         <div className="min-h-screen bg-white">
           {/* Hero Section with loading */}
-          <section className="relative overflow-hidden bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-paralympic-green py-20 text-white">
+          <section className="relative overflow-hidden bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-paralympic-green py-8 md:py-20 text-white">
             <div className="container relative z-10 mx-auto px-4">
               <div className="mx-auto max-w-4xl text-center">
                 <div className="mb-6 inline-block animate-pulse rounded-full bg-white/10 px-6 py-2 backdrop-blur-sm">
@@ -407,7 +408,7 @@ export default function NewsPage() {
 
       <div className="min-h-screen bg-white">
         {/* Hero Section */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-paralympic-green py-20 text-white">
+        <section className="relative overflow-hidden bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-paralympic-green py-8 md:py-20 text-white">
           {/* Enhanced Animated background */}
           <div className="absolute inset-0">
             {/* Floating orbs */}
@@ -445,28 +446,28 @@ export default function NewsPage() {
           <div className="container relative z-10 mx-auto px-4">
             <div className="mx-auto max-w-4xl text-center">
               {/* Animated badge */}
-              <div className="mb-6 inline-block transform animate-fade-in rounded-full bg-white/10 px-6 py-2 backdrop-blur-sm transition-all duration-300 hover:scale-105">
-                <span className="relative font-bold text-paralympic-yellow">
+              <div className="mb-3 sm:mb-4 lg:mb-6 inline-block transform animate-fade-in rounded-full bg-white/10 px-3 py-1.5 sm:px-4 sm:py-2 lg:px-6 lg:py-3 backdrop-blur-sm transition-all duration-300 hover:scale-105">
+                <span className="relative font-bold text-paralympic-yellow text-xs sm:text-sm lg:text-base">
                   <span className="animate-pulse">🔥</span> LATEST UPDATES
                 </span>
               </div>
 
               {/* Animated title */}
               <h1
-                className="mb-6 animate-fade-in text-5xl font-bold md:text-7xl"
+                className="mb-3 sm:mb-4 lg:mb-6 animate-fade-in text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight"
                 style={{ animationDelay: "0.3s" }}
               >
                 <span className="inline-block hover:animate-bounce">
                   Paralympic
                 </span>
-                <span className="block animate-pulse bg-gradient-to-r from-paralympic-yellow to-paralympic-green bg-clip-text text-transparent">
+                <span className="block animate-pulse bg-gradient-to-r from-paralympic-yellow to-paralympic-green bg-clip-text text-transparent pb-1 sm:pb-2">
                   News Hub
                 </span>
               </h1>
 
               {/* Typing effect simulation */}
               <p
-                className="mx-auto mb-8 max-w-3xl animate-fade-in text-xl text-paralympic-gray md:text-2xl"
+                className="mx-auto mb-6 sm:mb-8 lg:mb-12 max-w-3xl animate-fade-in text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-paralympic-gray px-4 sm:px-6"
                 style={{ animationDelay: "0.6s" }}
               >
                 Stay informed with the latest news, achievements, and inspiring
@@ -528,21 +529,20 @@ export default function NewsPage() {
             {/* Main filters row */}
             <div className="mb-3 flex flex-col items-start justify-between gap-3 xl:flex-row xl:items-center">
               {/* Category Filter */}
-              <div className="flex flex-1 items-center space-x-3 overflow-x-auto pb-2 xl:pb-0">
+              <div className="w-full flex flex-col md:flex-row flex-1 md:items-center space-x-3 overflow-x-auto pb-2 xl:pb-0">
                 <span className="flex items-center whitespace-nowrap text-sm font-medium text-paralympic-navy">
                   <span className="mr-2 animate-pulse">📂</span>
                   Categories:
                 </span>
-                <div className="flex space-x-1.5 overflow-y-hidden py-2">
+                <div className="flex space-x-1.5 overflow-y-hidden py-2 ">
                   {dynamicCategories.map((category, index) => (
                     <button
                       key={category.id}
                       onClick={() => setSelectedCategory(category.name)}
-                      className={`transform whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-medium transition-all hover:scale-105 hover:shadow-md ${
-                        selectedCategory === category.name
-                          ? "bg-paralympic-blue text-white"
-                          : "border border-transparent bg-white text-paralympic-navy hover:border-paralympic-blue hover:bg-paralympic-blue/10"
-                      }`}
+                      className={`transform whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-medium transition-all hover:scale-105 hover:shadow-md ${selectedCategory === category.name
+                        ? "bg-paralympic-blue text-white"
+                        : "border border-transparent bg-white text-paralympic-navy hover:border-paralympic-blue hover:bg-paralympic-blue/10"
+                        }`}
                       style={{ animationDelay: `${index * 0.1}s` }}
                     >
                       {category.name}
@@ -650,15 +650,15 @@ export default function NewsPage() {
             </div>
 
             <div className="container relative z-10 mx-auto px-4">
-              <div className="mb-12 animate-fade-in">
+              <div className="mb-8 sm:mb-10 lg:mb-12 animate-fade-in">
                 {/* Enhanced breaking badge without blinking */}
-                <div className="group mb-4 inline-block rounded-full bg-paralympic-red px-4 py-1 hover:animate-bounce">
-                  <span className="flex items-center font-semibold text-white">
-                    <span className="mr-2">⚡</span>
+                <div className="group mb-3 sm:mb-4 inline-block rounded-full bg-paralympic-red px-3 py-1 sm:px-4 sm:py-1.5 lg:px-4 lg:py-2 hover:animate-bounce">
+                  <span className="flex items-center font-semibold text-white text-xs sm:text-sm lg:text-base">
+                    <span className="mr-1 sm:mr-2">⚡</span>
                     Breaking News
                   </span>
                 </div>
-                <h2 className="transform text-4xl font-bold text-paralympic-navy transition-transform duration-300 hover:scale-105">
+                <h2 className="transform text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-paralympic-navy transition-transform duration-300 hover:scale-105">
                   Featured Stories
                 </h2>
               </div>
@@ -680,11 +680,10 @@ export default function NewsPage() {
                           src={item.featuredImage ?? "/assets/home/news1.png"}
                           alt={item.title}
                           fill
-                          className={`object-cover transition-all duration-700 ${
-                            hoveredCard === item.id
-                              ? "scale-110 brightness-110"
-                              : "scale-100"
-                          }`}
+                          className={`object-cover transition-all duration-700 ${hoveredCard === item.id
+                            ? "scale-110 brightness-110"
+                            : "scale-100"
+                            }`}
                         />
                         {/* Animated overlay */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent transition-all duration-500 group-hover:from-black/40"></div>
@@ -800,11 +799,10 @@ export default function NewsPage() {
                               }
                               alt={item.title}
                               fill
-                              className={`object-cover transition-transform duration-700 ${
-                                hoveredCard === item.id
-                                  ? "scale-110"
-                                  : "scale-100"
-                              }`}
+                              className={`object-cover transition-transform duration-700 ${hoveredCard === item.id
+                                ? "scale-110"
+                                : "scale-100"
+                                }`}
                             />
                             <div className="absolute left-4 top-4 rounded-full bg-paralympic-blue px-3 py-1 text-sm font-semibold text-white">
                               {item.category.name}
@@ -928,152 +926,158 @@ export default function NewsPage() {
         ) : (
           /* Classification-based Sections */
           <div className="bg-paralympic-gray/30">
-            {allSections.map((section, sectionIndex) => (
-              <section key={section.classification.id} className="py-16">
-                <div className="container mx-auto px-4">
-                  <div className="mb-12">
-                    <h2 className="mb-4 text-4xl font-bold text-paralympic-navy">
-                      {section.classification.name}
-                    </h2>
-                    {/* <p className="text-lg text-gray-600">
+            {allSections
+              .filter((section) => section.classification.name.toLowerCase() !== 'featured')
+              .map((section, sectionIndex) => (
+              <section key={section.classification.id} className="">
+                {
+                  section.articles.length > 0 && (
+                    <div className="container mx-auto px-4 py-16">
+                      <div className="mb-8 sm:mb-10 lg:mb-12">
+                        <h2 className="mb-3 sm:mb-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-paralympic-navy">
+                          {section.classification.name}
+                        </h2>
+                        {/* <p className="text-lg text-gray-600">
                       {section.totalCount} articles in this section
                     </p> */}
-                  </div>
-
-                  {section.articles.length > 0 ? (
-                    <>
-                      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-                        {section.articles.map((item) => (
-                          <Link
-                            key={item.id}
-                            href={`/news/${item.slug}`}
-                            className="group"
-                            onMouseEnter={() => setHoveredCard(item.id)}
-                            onMouseLeave={() => setHoveredCard(null)}
-                          >
-                            <div className="flex h-full transform flex-col overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-                              <div className="relative h-56 w-full overflow-hidden">
-                                <Image
-                                  src={
-                                    item.featuredImage ??
-                                    "/assets/home/news1.png"
-                                  }
-                                  alt={item.title}
-                                  fill
-                                  className={`object-cover transition-transform duration-700 ${
-                                    hoveredCard === item.id
-                                      ? "scale-110"
-                                      : "scale-100"
-                                  }`}
-                                />
-                                <div className="absolute left-4 top-4 rounded-full bg-paralympic-blue px-3 py-1 text-sm font-semibold text-white">
-                                  {item.category.name}
-                                </div>
-                                {item.isBreaking && (
-                                  <div className="absolute right-4 top-4 animate-pulse rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
-                                    BREAKING
-                                  </div>
-                                )}
-                                <div className="absolute bottom-4 right-4 rounded bg-black/70 px-2 py-1 text-xs text-white">
-                                  {item.readTime} min
-                                </div>
-                              </div>
-
-                              <div className="flex flex-grow flex-col p-6">
-                                <span className="mb-2 text-sm text-gray-500">
-                                  {formatDate(item.publishedAt)}
-                                </span>
-                                <h3 className="mb-3 text-xl font-bold text-paralympic-navy transition-colors group-hover:text-paralympic-blue">
-                                  {item.title}
-                                </h3>
-                                <p className="mb-4 flex-grow text-gray-600">
-                                  {item.excerpt}
-                                </p>
-
-                                <div className="mb-4 flex flex-wrap gap-2">
-                                  {item.tags.slice(0, 2).map((tag) => (
-                                    <span
-                                      key={tag.id}
-                                      className="rounded bg-paralympic-gray px-2 py-1 text-xs text-paralympic-navy"
-                                    >
-                                      {tag.name}
-                                    </span>
-                                  ))}
-                                </div>
-
-                                <div className="flex items-center font-medium text-paralympic-blue">
-                                  <span>Read more</span>
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="ml-2 h-4 w-4 transform transition-transform group-hover:translate-x-1"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth={2}
-                                      d="M14 5l7 7m0 0l-7 7m7-7H3"
-                                    />
-                                  </svg>
-                                </div>
-                              </div>
-                            </div>
-                          </Link>
-                        ))}
                       </div>
 
-                      {/* Load More for this section */}
-                      {section.hasMore && (
-                        <div className="mt-12 text-center">
-                          {loadingSection === section.classification.id ? (
-                            <div className="flex animate-fade-in items-center justify-center space-x-3">
-                              <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-paralympic-blue"></div>
-                              <span className="animate-pulse font-medium text-paralympic-navy">
-                                Loading more articles...
-                              </span>
-                            </div>
-                          ) : (
-                            <button
-                              onClick={() =>
-                                loadMoreSectionArticles(
-                                  sectionIndex,
-                                  section.classification.id,
-                                )
-                              }
-                              className="group transform rounded-full bg-paralympic-blue px-6 py-3 font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-paralympic-green hover:shadow-lg"
-                            >
-                              <span className="flex items-center">
-                                <span className="mr-2">📰</span>
-                                Load More {section.classification.name}
-                                <svg
-                                  className="ml-2 h-4 w-4 group-hover:animate-bounce"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
+                      {section.articles.length > 0 && (
+                        <>
+                          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                            {section.articles.map((item) => (
+                              <Link
+                                key={item.id}
+                                href={`/news/${item.slug}`}
+                                className="group"
+                                onMouseEnter={() => setHoveredCard(item.id)}
+                                onMouseLeave={() => setHoveredCard(null)}
+                              >
+                                <div className="flex h-full transform flex-col overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                                  <div className="relative h-56 w-full overflow-hidden">
+                                    <Image
+                                      src={
+                                        item.featuredImage ??
+                                        "/assets/home/news1.png"
+                                      }
+                                      alt={item.title}
+                                      fill
+                                      className={`object-cover transition-transform duration-700 ${hoveredCard === item.id
+                                        ? "scale-110"
+                                        : "scale-100"
+                                        }`}
+                                    />
+                                    <div className="absolute left-4 top-4 rounded-full bg-paralympic-blue px-3 py-1 text-sm font-semibold text-white">
+                                      {item.category.name}
+                                    </div>
+                                    {item.isBreaking && (
+                                      <div className="absolute right-4 top-4 animate-pulse rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
+                                        BREAKING
+                                      </div>
+                                    )}
+                                    <div className="absolute bottom-4 right-4 rounded bg-black/70 px-2 py-1 text-xs text-white">
+                                      {item.readTime} min
+                                    </div>
+                                  </div>
+
+                                  <div className="flex flex-grow flex-col p-6">
+                                    <span className="mb-2 text-sm text-gray-500">
+                                      {formatDate(item.publishedAt)}
+                                    </span>
+                                    <h3 className="mb-3 text-xl font-bold text-paralympic-navy transition-colors group-hover:text-paralympic-blue">
+                                      {item.title}
+                                    </h3>
+                                    <p className="mb-4 flex-grow text-gray-600">
+                                      {item.excerpt}
+                                    </p>
+
+                                    <div className="mb-4 flex flex-wrap gap-2">
+                                      {item.tags.slice(0, 2).map((tag) => (
+                                        <span
+                                          key={tag.id}
+                                          className="rounded bg-paralympic-gray px-2 py-1 text-xs text-paralympic-navy"
+                                        >
+                                          {tag.name}
+                                        </span>
+                                      ))}
+                                    </div>
+
+                                    <div className="flex items-center font-medium text-paralympic-blue">
+                                      <span>Read more</span>
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="ml-2 h-4 w-4 transform transition-transform group-hover:translate-x-1"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                      >
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeWidth={2}
+                                          d="M14 5l7 7m0 0l-7 7m7-7H3"
+                                        />
+                                      </svg>
+                                    </div>
+                                  </div>
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+
+                          {/* Load More for this section */}
+                          {section.hasMore && (
+                            <div className="mt-12 text-center">
+                              {loadingSection === section.classification.id ? (
+                                <div className="flex animate-fade-in items-center justify-center space-x-3">
+                                  <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-paralympic-blue"></div>
+                                  <span className="animate-pulse font-medium text-paralympic-navy">
+                                    Loading more articles...
+                                  </span>
+                                </div>
+                              ) : (
+                                <button
+                                  onClick={() =>
+                                    loadMoreSectionArticles(
+                                      sectionIndex,
+                                      section.classification.id,
+                                    )
+                                  }
+                                  className="group transform rounded-full bg-paralympic-blue px-6 py-3 font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-paralympic-green hover:shadow-lg"
                                 >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                                  />
-                                </svg>
-                              </span>
-                            </button>
+                                  <span className="flex items-center">
+                                    <span className="mr-2">📰</span>
+                                    Load More {section.classification.name}
+                                    <svg
+                                      className="ml-2 h-4 w-4 group-hover:animate-bounce"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                                      />
+                                    </svg>
+                                  </span>
+                                </button>
+                              )}
+                            </div>
                           )}
-                        </div>
+                        </>
                       )}
-                    </>
-                  ) : (
+                      {/* : (
                     <div className="py-12 text-center">
                       <p className="text-lg text-gray-600">
                         No articles in this section yet.
                       </p>
                     </div>
-                  )}
-                </div>
+                  )} */}
+                    </div>
+                  )
+                }
               </section>
             ))}
           </div>

@@ -22,15 +22,12 @@ import Navbar from '~/components/modules/Navbar';
 import Footer from '~/components/modules/Footer';
 
 // Type definitions
-type Priority = 'high' | 'medium' | 'low';
-
 interface Update {
     readonly id: number;
     readonly date: string;
     readonly title: string;
     readonly category: string;
     readonly type: string;
-    readonly priority: Priority;
     readonly url: string;
 }
 
@@ -44,13 +41,7 @@ interface Category {
 interface Stats {
     readonly total: number;
     readonly thisMonth: number;
-    readonly highPriority: number;
     readonly categories: number;
-}
-
-interface PriorityBadge {
-    readonly text: string;
-    readonly color: string;
 }
 
 // Constants
@@ -61,7 +52,6 @@ const LATEST_UPDATES: readonly Update[] = [
         title: "National Para Shooting Selection Trial 3 & 4 for 2025 OF Shotgun events at AMU",
         category: "Selection Trials",
         type: "pdf",
-        priority: "high",
         url: "/docs/para-shooting-selection-trial-3-4.pdf"
     },
     {
@@ -70,7 +60,6 @@ const LATEST_UPDATES: readonly Update[] = [
         title: "Circular – Cairo 2025 Para Powerlifting World Championships",
         category: "Championships",
         type: "pdf",
-        priority: "medium",
         url: "/docs/cairo-2025-para-powerlifting.pdf"
     },
     {
@@ -79,7 +68,6 @@ const LATEST_UPDATES: readonly Update[] = [
         title: "Notice – Para Shooting",
         category: "Notices",
         type: "pdf",
-        priority: "medium",
         url: "/docs/para-shooting-notice.pdf"
     },
     {
@@ -88,7 +76,6 @@ const LATEST_UPDATES: readonly Update[] = [
         title: "Selection Trials Registration",
         category: "Registration",
         type: "pdf",
-        priority: "high",
         url: "/docs/selection-trials-registration.pdf"
     },
     {
@@ -97,7 +84,6 @@ const LATEST_UPDATES: readonly Update[] = [
         title: "7th Indian Open Para Athletics International Championship 2025 – Information Package",
         category: "Championships",
         type: "pdf",
-        priority: "medium",
         url: "/docs/indian-open-para-athletics-2025.pdf"
     },
     {
@@ -106,7 +92,6 @@ const LATEST_UPDATES: readonly Update[] = [
         title: "English Press Release PCI 10.05.2025",
         category: "Press Release",
         type: "pdf",
-        priority: "low",
         url: "/docs/english-press-release-may-2025.pdf"
     },
     {
@@ -115,7 +100,6 @@ const LATEST_UPDATES: readonly Update[] = [
         title: "Hindi Press Release PCI 10.05.2025",
         category: "Press Release",
         type: "pdf",
-        priority: "low",
         url: "/docs/hindi-press-release-may-2025.pdf"
     },
     {
@@ -124,7 +108,6 @@ const LATEST_UPDATES: readonly Update[] = [
         title: "Circular Beijing 2025 World Cup Powerlifting",
         category: "Championships",
         type: "pdf",
-        priority: "medium",
         url: "/docs/beijing-2025-world-cup-powerlifting.pdf"
     },
     {
@@ -133,7 +116,6 @@ const LATEST_UPDATES: readonly Update[] = [
         title: "Notice – Extension closing date for application submission – Inviting Applications From Eligible Candidates For Appointment In Various Grades Of Coaching Cadre On A Contractual Basis For Para Shooting Sports",
         category: "Recruitment",
         type: "pdf",
-        priority: "high",
         url: "/docs/coaching-cadre-extension-notice.pdf"
     },
     {
@@ -142,7 +124,6 @@ const LATEST_UPDATES: readonly Update[] = [
         title: "Notice – Inviting Applications From Eligible Candidates For Appointment In Various Grades Of Coaching Cadre On A Contractual Basis For Para Shooting Sports",
         category: "Recruitment",
         type: "pdf",
-        priority: "high",
         url: "/docs/coaching-cadre-recruitment.pdf"
     },
     {
@@ -151,7 +132,6 @@ const LATEST_UPDATES: readonly Update[] = [
         title: "Results – New Delhi 2025 World Para Athletics Grand Prix",
         category: "Results",
         type: "pdf",
-        priority: "medium",
         url: "/docs/new-delhi-2025-grand-prix-results.pdf"
     },
     {
@@ -160,7 +140,6 @@ const LATEST_UPDATES: readonly Update[] = [
         title: "Invitation of Tender – Tender Enquiry For Supply Of Para Athletics Implement & Equipment",
         category: "Tenders",
         type: "pdf",
-        priority: "medium",
         url: "/docs/para-athletics-equipment-tender.pdf"
     },
     {
@@ -169,7 +148,6 @@ const LATEST_UPDATES: readonly Update[] = [
         title: "Schedule – Para Athletics National Technical Official (PA – NTO) Seminar Cum Examination, 2025",
         category: "Training",
         type: "pdf",
-        priority: "medium",
         url: "/docs/pa-nto-seminar-schedule-2025.pdf"
     },
     {
@@ -178,7 +156,6 @@ const LATEST_UPDATES: readonly Update[] = [
         title: "Invitation for 2nd Winter Para-Sport Comp, organized by the Himachal Pradesh Parasports Association (HPPA) and PCI",
         category: "Competitions",
         type: "pdf",
-        priority: "medium",
         url: "/docs/2nd-winter-para-sport-comp.pdf"
     },
     {
@@ -187,7 +164,6 @@ const LATEST_UPDATES: readonly Update[] = [
         title: "New Delhi 2025 WPA Grand Prix",
         category: "Championships",
         type: "pdf",
-        priority: "medium",
         url: "/docs/new-delhi-2025-wpa-grand-prix.pdf"
     },
     {
@@ -196,7 +172,6 @@ const LATEST_UPDATES: readonly Update[] = [
         title: "Notice – Para Athletics National Technical Official (PA – NTO) Seminar Cum Examination, 2025",
         category: "Training",
         type: "pdf",
-        priority: "medium",
         url: "/docs/pa-nto-seminar-notice-2025.pdf"
     }
 ] as const;
@@ -246,17 +221,6 @@ const CATEGORIES: readonly Category[] = [
     }
 ] as const;
 
-const PRIORITY_COLORS: Record<Priority, string> = {
-    high: 'border-l-4 border-l-red-500 bg-red-50',
-    medium: 'border-l-4 border-l-yellow-500 bg-yellow-50',
-    low: 'border-l-4 border-l-green-500 bg-green-50'
-} as const;
-
-const PRIORITY_BADGES: Record<Priority, PriorityBadge> = {
-    high: { text: 'High Priority', color: 'bg-red-100 text-red-800 border-red-200' },
-    medium: { text: 'Medium', color: 'bg-yellow-100 text-yellow-800 border-yellow-200' },
-    low: { text: 'Low', color: 'bg-green-100 text-green-800 border-green-200' }
-} as const;
 
 // Utility functions
 const parseDate = (dateString: string): Date => {
@@ -365,13 +329,11 @@ const QuickStats: React.FC<{ updates: readonly Update[] }> = ({ updates }) => {
             return updateDate.getMonth() === currentMonth && updateDate.getFullYear() === currentYear;
         }).length;
 
-        const highPriorityUpdates = updates.filter(update => update.priority === 'high').length;
         const uniqueCategories = new Set(updates.map(update => update.category));
 
         return {
             total: updates.length,
             thisMonth: thisMonthUpdates,
-            highPriority: highPriorityUpdates,
             categories: uniqueCategories.size
         };
     }, [updates]);
@@ -392,13 +354,6 @@ const QuickStats: React.FC<{ updates: readonly Update[] }> = ({ updates }) => {
             borderColor: 'hover:border-paralympic-green/20'
         },
         {
-            icon: <AlertCircle className="w-6 h-6 text-white" />,
-            value: stats.highPriority,
-            label: 'High Priority',
-            bgColor: 'bg-paralympic-red',
-            borderColor: 'hover:border-paralympic-red/20'
-        },
-        {
             icon: <Filter className="w-6 h-6 text-paralympic-navy" />,
             value: stats.categories,
             label: 'Categories',
@@ -410,7 +365,7 @@ const QuickStats: React.FC<{ updates: readonly Update[] }> = ({ updates }) => {
     return (
         <section className="py-12 bg-gradient-to-r from-gray-50 to-white">
             <div className="container mx-auto px-4">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {statItems.map((item, index) => (
                         <div
                             key={index}
@@ -505,60 +460,49 @@ const UpdatesList: React.FC<{
     }
 
     return (
-        <section className="py-12 bg-gray-50">
+        <section className="py-6 bg-gray-50">
             <div className="container mx-auto px-4">
-                <div className="space-y-4">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                     {filteredUpdates.map((update, index) => {
-                        const priorityBadge = PRIORITY_BADGES[update.priority];
                         const dateParts = getDateParts(update.date);
 
                         return (
                             <div
                                 key={update.id}
-                                className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 ${PRIORITY_COLORS[update.priority]} overflow-hidden group animate-fade-in-up`}
-                                style={{ animationDelay: `${index * 0.1}s` }}
+                                className="bg-white rounded-lg shadow hover:shadow-md transition-all duration-300 overflow-hidden group animate-fade-in-up border border-gray-100"
+                                style={{ animationDelay: `${index * 0.05}s` }}
                             >
-                                <div className="p-6">
-                                    <div className="flex flex-col lg:flex-row lg:items-center gap-4">
+                                <div className="p-3">
+                                    <div className="flex items-center gap-3">
                                         <div className="flex-shrink-0">
-                                            <div className="bg-paralympic-blue text-white rounded-xl p-3 text-center min-w-[120px]">
-                                                <div className="text-sm font-medium opacity-90">{dateParts.day}</div>
-                                                <div className="text-lg font-bold">{dateParts.month}</div>
-                                                <div className="text-sm opacity-90">{dateParts.year}</div>
+                                            <div className="bg-paralympic-blue text-white rounded-lg p-2 text-center min-w-[70px]">
+                                                <div className="text-xs font-bold">{dateParts.day}</div>
+                                                <div className="text-xs opacity-90">{dateParts.month}</div>
+                                                <div className="text-xs opacity-90">{dateParts.year}</div>
                                             </div>
                                         </div>
 
                                         <div className="flex-1 min-w-0">
-                                            <div className="flex flex-wrap items-center gap-2 mb-2">
-                                                <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border ${priorityBadge.color}`}>
-                                                    <AlertCircle className="w-3 h-3" />
-                                                    {priorityBadge.text}
-                                                </span>
-                                                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+                                            <div className="flex flex-wrap items-center gap-2 mb-1">
+                                                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
                                                     <FileText className="w-3 h-3" />
                                                     {update.category}
                                                 </span>
                                             </div>
 
-                                            <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-paralympic-blue transition-colors duration-200">
+                                            <h3 className="text-sm font-semibold text-gray-900 group-hover:text-paralympic-blue transition-colors duration-200 leading-tight">
                                                 {update.title}
                                             </h3>
-
-                                            <p className="text-gray-600 text-sm">
-                                                Click to view the complete document with all details and requirements.
-                                            </p>
                                         </div>
 
                                         <div className="flex-shrink-0">
                                             <button
                                                 onClick={() => handleUpdateClick(update)}
-                                                className="flex items-center gap-2 bg-paralympic-blue hover:bg-paralympic-navy text-white px-6 py-3 rounded-xl font-medium transition-all duration-200 hover:shadow-lg group-hover:scale-105"
+                                                className="flex items-center gap-1 bg-paralympic-blue hover:bg-paralympic-navy text-white px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200 hover:shadow-lg"
                                                 aria-label={`Open ${update.title}`}
                                             >
-                                                <Download className="w-4 h-4" />
-                                                <span className="hidden sm:inline">View PDF</span>
-                                                <span className="sm:hidden">PDF</span>
-                                                <ExternalLink className="w-4 h-4" />
+                                                <Download className="w-3 h-3" />
+                                                <span className="hidden sm:inline">PDF</span>
                                             </button>
                                         </div>
                                     </div>

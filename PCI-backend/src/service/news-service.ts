@@ -90,7 +90,7 @@ const ensureUniqueSlug = async (baseSlug: string, excludeId?: number): Promise<s
 // Calculate read time based on content (average 200 words per minute)
 const calculateReadTime = (content: string): number => {
   const wordCount = content.split(/\s+/).length;
-  return Math.ceil(wordCount / 200);
+  return Math.ceil(wordCount / 100);
 };
 
 export const create = async (input: CreateNewsInput) => {

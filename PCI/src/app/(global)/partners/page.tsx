@@ -17,7 +17,7 @@ const PartnersHero = () => {
     }, []);
 
     return (
-        <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-paralympic-green py-10">
+        <section className="relative lg:min-h-[85vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-paralympic-green py-10">
             {/* Animated background elements */}
             <div className="absolute inset-0">
                 <div className="absolute top-20 left-10 w-64 h-64 bg-paralympic-yellow/10 rounded-full blur-3xl animate-pulse-slow"></div>
@@ -28,21 +28,21 @@ const PartnersHero = () => {
             <div className="relative z-20 container mx-auto px-4 text-center">
                 <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     {/* Badge */}
-                    <div className="inline-flex items-center bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full mb-8 border border-white/20">
-                        <Award className="w-5 h-5 text-paralympic-yellow mr-2" />
-                        <span className="text-white font-semibold">Join Our Winning Team</span>
+                    <div className="inline-flex items-center bg-white/10 backdrop-blur-sm px-3 py-1.5 sm:px-4 sm:py-2 lg:px-6 lg:py-3 rounded-full mb-3 sm:mb-4 lg:mb-8 border border-white/20">
+                        <Award className="w-4 h-4 sm:w-5 sm:h-5 text-paralympic-yellow mr-2" />
+                        <span className="text-white font-semibold text-xs sm:text-sm lg:text-base">Join Our Winning Team</span>
                     </div>
 
                     {/* Main Heading */}
-                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-tight">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 sm:mb-4 lg:mb-6 xl:mb-8 leading-tight">
                         Our
-                        <span className="block bg-gradient-to-r from-paralympic-yellow via-white to-paralympic-green bg-clip-text text-transparent">
+                        <span className="block bg-gradient-to-r from-paralympic-yellow via-white to-paralympic-green bg-clip-text text-transparent pb-1 sm:pb-2">
                             Partners
                         </span>
                     </h1>
 
                     {/* Subtitle */}
-                    <p className="text-xl md:text-2xl text-gray-200 mb-12 max-w-4xl mx-auto leading-relaxed">
+                    <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-200 mb-6 sm:mb-8 lg:mb-12 max-w-4xl mx-auto leading-relaxed px-4 sm:px-6">
                         Together, we&apos;re building a future where every athlete can achieve their Paralympic dreams.
                         Join us in empowering champions and creating lasting impact.
                     </p>
@@ -95,9 +95,9 @@ const PrinciplePartners = () => {
             <div className="container mx-auto px-4">
                 {/* Section Header */}
                 <div className="text-center mb-5">
-                    <div className="inline-flex items-center bg-gradient-to-r from-paralympic-blue/10 to-paralympic-green/10 px-6 py-3 rounded-full mb-6">
-                        <Shield className="w-5 h-5 text-paralympic-blue mr-2" />
-                        <span className="text-paralympic-navy font-semibold">Principle Partners</span>
+                    <div className="inline-flex items-center bg-gradient-to-r from-paralympic-blue/10 to-paralympic-green/10 px-3 py-1.5 sm:px-4 sm:py-2 lg:px-6 lg:py-3 rounded-full mb-3 sm:mb-4 lg:mb-6">
+                        <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-paralympic-blue mr-2" />
+                        <span className="text-paralympic-navy font-semibold text-xs sm:text-sm lg:text-base">Principle Partners</span>
                     </div>
                     {/* <h2 className="text-4xl md:text-6xl font-bold text-paralympic-navy mb-6">
                         Our Foundation
@@ -233,9 +233,9 @@ const IndustryExclusivePartners = () => {
             <div className="container mx-auto px-4">
                 {/* Section Header */}
                 <div className="text-center mb-5">
-                    <div className="inline-flex items-center bg-gradient-to-r from-paralympic-green/10 to-paralympic-blue/10 px-6 py-3 rounded-full mb-6">
-                        <Users className="w-5 h-5 text-paralympic-green mr-2" />
-                        <span className="text-paralympic-navy font-semibold">Industry Exclusive Partners</span>
+                    <div className="inline-flex items-center bg-gradient-to-r from-paralympic-green/10 to-paralympic-blue/10 px-3 py-1.5 sm:px-4 sm:py-2 lg:px-6 lg:py-3 rounded-full mb-3 sm:mb-4 lg:mb-6">
+                        <Users className="w-4 h-4 sm:w-5 sm:h-5 text-paralympic-green mr-2" />
+                        <span className="text-paralympic-navy font-semibold text-xs sm:text-sm lg:text-base">Industry Exclusive Partners</span>
                     </div>
                     {/* <h2 className="text-4xl md:text-6xl font-bold text-paralympic-navy mb-6">
                         Specialized
@@ -376,9 +376,9 @@ const CSRPartners = () => {
             <div className="container mx-auto px-4">
                 {/* Section Header */}
                 <div className="text-center mb-10">
-                    <div className="inline-flex items-center bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20">
-                        <Heart className="w-5 h-5 text-paralympic-yellow mr-2" />
-                        <span className="text-white font-semibold">CSR Partners</span>
+                    <div className="inline-flex items-center bg-white/10 backdrop-blur-sm px-3 py-1.5 sm:px-4 sm:py-2 lg:px-6 lg:py-3 rounded-full border border-white/20">
+                        <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-paralympic-yellow mr-2" />
+                        <span className="text-white font-semibold text-xs sm:text-sm lg:text-base">CSR Partners</span>
                     </div>
                     {/* <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
                         Social Impact
@@ -495,10 +495,10 @@ const BecomePartnerSection = () => {
                 <div className="max-w-6xl mx-auto">
                     {/* Header */}
                     <div className="text-center mb-16">
-                        <h2 className="text-4xl md:text-6xl font-bold text-paralympic-navy mb-6">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-paralympic-navy mb-3 sm:mb-4 lg:mb-6">
                             Join Our Mission
                         </h2>
-                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-4 sm:px-6">
                             Partner with us to create opportunities, break barriers, and build a more inclusive sporting future for India.
                         </p>
                     </div>
@@ -510,10 +510,10 @@ const BecomePartnerSection = () => {
                                 <div className="bg-gradient-to-br from-paralympic-blue to-paralympic-green rounded-2xl p-6 text-white mb-6 mx-auto w-20 h-20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                                     {benefit.icon}
                                 </div>
-                                <h3 className="text-xl font-bold text-paralympic-navy mb-3">
+                                <h3 className="text-lg sm:text-xl font-bold text-paralympic-navy mb-2 sm:mb-3">
                                     {benefit.title}
                                 </h3>
-                                <p className="text-gray-600">
+                                <p className="text-sm sm:text-base text-gray-600">
                                     {benefit.description}
                                 </p>
                             </div>
@@ -522,10 +522,10 @@ const BecomePartnerSection = () => {
 
                     {/* CTA Section */}
                     <div className="bg-gradient-to-r from-paralympic-blue to-paralympic-green rounded-3xl p-12 text-center text-white">
-                        <h3 className="text-3xl md:text-4xl font-bold mb-6">
+                        <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6">
                             Ready to Make a Difference?
                         </h3>
-                        <p className="text-xl mb-8 opacity-90">
+                        <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-6 sm:mb-8 opacity-90 px-4 sm:px-6">
                             Let&apos;s discuss how your organization can contribute to India&apos;s Paralympic success story.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-6 justify-center">

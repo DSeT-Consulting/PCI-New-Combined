@@ -249,7 +249,7 @@ const AboutUsPage = () => {
             <Navbar />
             <div className="min-h-screen bg-white">
                 {/* Hero Section */}
-                <section className="relative h-[70vh] sm:h-[80vh] lg:h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-paralympic-green">
+                <section className="relative lg:h-[80vh] lg:h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-paralympic-green">
                     <div className="absolute inset-0">
                         <div className="absolute top-8 left-3 sm:top-16 sm:left-16 lg:top-20 lg:left-20 w-24 h-24 sm:w-40 sm:h-40 lg:w-64 lg:h-64 bg-paralympic-yellow/20 rounded-full blur-3xl animate-pulse"></div>
                         <div className="absolute bottom-8 right-3 sm:bottom-16 sm:right-16 lg:bottom-20 lg:right-20 w-28 h-28 sm:w-48 sm:h-48 lg:w-80 lg:h-80 bg-paralympic-red/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
@@ -274,14 +274,14 @@ const AboutUsPage = () => {
                             Empowering India&apos;s para-athletes, fostering inclusivity, and driving excellence to place the nation at the forefront of the global Paralympic movement.
                         </p>
 
-                        <div className="flex flex-row gap-3 sm:gap-4 justify-center items-center max-w-md sm:max-w-lg mx-auto">
+                        <div className="flex flex-row gap-2 sm:gap-4 justify-center items-center max-w-md sm:max-w-lg mx-auto">
                             <Link href="/committee-members" className="flex-1">
-                                <button className="w-full bg-paralympic-yellow text-paralympic-navy px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold text-xs sm:text-sm lg:text-base hover:bg-white transition-all duration-300 transform hover:scale-105">
+                                <button className="w-full border-2 border-paralympic-yellow bg-paralympic-yellow text-paralympic-navy px-2 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold text-xs sm:text-sm lg:text-base hover:bg-white transition-all duration-300 transform hover:scale-105">
                                     Committee Members
                                 </button>
                             </Link>
                             <Link href="/partners" className="flex-1">
-                                <button className="w-full border-2 border-white text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold text-xs sm:text-sm lg:text-base hover:bg-white hover:text-paralympic-navy transition-all duration-300 transform hover:scale-105">
+                                <button className="w-full border-2 border-white text-white px-2 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold text-xs sm:text-sm lg:text-base hover:bg-white hover:text-paralympic-navy transition-all duration-300 transform hover:scale-105">
                                     Our Partners
                                 </button>
                             </Link>
