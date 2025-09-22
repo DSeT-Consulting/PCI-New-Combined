@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pci-backend-staging
+  namespace: pci-app
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: pci-backend-staging
+  namespace: pci-app
+subsets:
+- addresses:
+  - ip: 10.0.88.143  # Backend service IP from pci-staging
+  ports:
+  - port: 80
+    name: http
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pci-frontend-staging
+  namespace: pci-app
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: pci-frontend-staging
+  namespace: pci-app
+subsets:
+- addresses:
+  - ip: 10.0.4.181  # Frontend service IP from pci-staging
+  ports:
+  - port: 80
+    name: http

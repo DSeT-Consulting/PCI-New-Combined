@@ -1,0 +1,114 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  AZURE_RESOURCE_GROUP: PCI-prod
+  AKS_CLUSTER_NAME: pci-aks-cluster
+  ACR_NAME: pciregistry
+  NAMESPACE: pci-prod
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Login to ACR
+      run: |
+        az acr login --name ${{ env.ACR_NAME }}
+
+    - name: Build and push Backend image
+      run: |
+        cd PCI-backend
+        docker build -t ${{ env.ACR_NAME }}.azurecr.io/pci-backend:${{ github.sha }} .
+        docker tag ${{ env.ACR_NAME }}.azurecr.io/pci-backend:${{ github.sha }} ${{ env.ACR_NAME }}.azurecr.io/pci-backend:latest
+        docker push ${{ env.ACR_NAME }}.azurecr.io/pci-backend:${{ github.sha }}
+        docker push ${{ env.ACR_NAME }}.azurecr.io/pci-backend:latest
+
+    - name: Build and push Frontend image
+      run: |
+        cd PCI
+        docker build -t ${{ env.ACR_NAME }}.azurecr.io/pci-frontend:${{ github.sha }} .
+        docker tag ${{ env.ACR_NAME }}.azurecr.io/pci-frontend:${{ github.sha }} ${{ env.ACR_NAME }}.azurecr.io/pci-frontend:latest
+        docker push ${{ env.ACR_NAME }}.azurecr.io/pci-frontend:${{ github.sha }}
+        docker push ${{ env.ACR_NAME }}.azurecr.io/pci-frontend:latest
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Get AKS credentials
+      run: |
+        az aks get-credentials --resource-group ${{ env.AZURE_RESOURCE_GROUP }} --name ${{ env.AKS_CLUSTER_NAME }}
+
+    - name: Create namespace if not exists
+      run: |
+        kubectl create namespace ${{ env.NAMESPACE }} --dry-run=client -o yaml | kubectl apply -f -
+
+    - name: Create secrets
+      run: |
+        # Create database secrets
+        kubectl create secret generic pci-postgres-secrets \
+          --namespace=${{ env.NAMESPACE }} \
+          --from-literal=postgres-user=${{ secrets.POSTGRES_USER }} \
+          --from-literal=postgres-password=${{ secrets.POSTGRES_PASSWORD }} \
+          --dry-run=client -o yaml | kubectl apply -f -
+        
+        # Create backend secrets
+        kubectl create secret generic pci-backend-secrets \
+          --namespace=${{ env.NAMESPACE }} \
+          --from-literal=database-url=${{ secrets.DATABASE_URL }} \
+          --dry-run=client -o yaml | kubectl apply -f -
+        
+        # Create frontend secrets
+        kubectl create secret generic pci-frontend-secrets \
+          --namespace=${{ env.NAMESPACE }} \
+          --from-literal=nextauth-secret=${{ secrets.NEXTAUTH_SECRET }} \
+          --from-literal=database-url=${{ secrets.DATABASE_URL }} \
+          --dry-run=client -o yaml | kubectl apply -f -
+
+    - name: Update image tags in manifests
+      run: |
+        # Update backend deployment image
+        sed -i "s|pciregistry.azurecr.io/pci-backend:latest|${{ env.ACR_NAME }}.azurecr.io/pci-backend:${{ github.sha }}|g" k8s/base/backend-deployment.yaml
+        
+        # Update frontend deployment image
+        sed -i "s|pciregistry.azurecr.io/pci-frontend:latest|${{ env.ACR_NAME }}.azurecr.io/pci-frontend:${{ github.sha }}|g" k8s/base/frontend-deployment.yaml
+
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl apply -f k8s/base/ --namespace=${{ env.NAMESPACE }}
+        kubectl apply -f k8s/overlays/production/ --namespace=${{ env.NAMESPACE }}
+
+    - name: Wait for deployments
+      run: |
+        kubectl rollout status deployment/pci-backend --namespace=${{ env.NAMESPACE }} --timeout=300s
+        kubectl rollout status deployment/pci-frontend --namespace=${{ env.NAMESPACE }} --timeout=300s
+        kubectl rollout status statefulset/pci-postgres --namespace=${{ env.NAMESPACE }} --timeout=300s
+
+    - name: Run database migrations
+      run: |
+        # Get backend pod name
+        POD_NAME=$(kubectl get pods -n ${{ env.NAMESPACE }} -l app=pci-backend -o jsonpath='{.items[0].metadata.name}')
+        
+        # Run migrations
+        kubectl exec -n ${{ env.NAMESPACE }} $POD_NAME -- npm run drizzle:migrate

@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pci-backend-config
+data:
+  cors-origin: "https://staging.paralympicindia.com"
+  max-upload-size: "10485760" # 10MB for staging
+  api-version: "v1"
+  log-level: "debug"

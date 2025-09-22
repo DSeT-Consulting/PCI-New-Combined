@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pci-frontend
+  labels:
+    app: pci-frontend
+    component: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pci-frontend
+      component: frontend
+  template:
+    metadata:
+      labels:
+        app: pci-frontend
+        component: frontend
+    spec:
+      containers:
+      - name: pci-frontend
+        image: pcistaging.azurecr.io/pci-frontend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+          name: http
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: NEXT_PUBLIC_API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: pci-frontend-config
+              key: api-url
+        - name: NEXT_PUBLIC_BACKEND_URL
+          valueFrom:
+            configMapKeyRef:
+              name: pci-frontend-config
+              key: backend-url
+        - name: NEXTAUTH_URL
+          valueFrom:
+            configMapKeyRef:
+              name: pci-frontend-config
+              key: nextauth-url
+        - name: NEXTAUTH_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: pci-frontend-secrets
+              key: nextauth-secret
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: pci-frontend-secrets
+              key: database-url
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+      imagePullSecrets:
+      - name: acr-secret

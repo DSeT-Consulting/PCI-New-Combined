@@ -490,9 +490,7 @@ export const findAllPublished = async (filters: NewsFilters = {}) => {
   // Transform for public consumption - add full image URLs
   return articles.map((article) => ({
     ...article,
-    featuredImage: article.featuredImage
-      ? `${process.env.BACKEND_URL || "http://localhost:8080"}${article.featuredImage}`
-      : null,
+    featuredImage: article.featuredImage || null,
     // Transform classifications to match frontend expectations
     isFeatured: article.classifications.some((c) => c.name?.toLowerCase() === "featured"),
     isBreaking: article.classifications.some((c) => c.name?.toLowerCase() === "breaking"),
@@ -552,9 +550,7 @@ export const findFeaturedNews = async (limit: number = 3) => {
 
       return {
         ...article,
-        featuredImage: article.featuredImage
-          ? `${process.env.BACKEND_URL || "http://localhost:8080"}${article.featuredImage}`
-          : null,
+        featuredImage: article.featuredImage || null,
         tags: tags.filter((tag) => tag.id),
         classifications: classifications.filter((cls) => cls.id),
         isFeatured: true,
@@ -601,9 +597,7 @@ export const findRelatedNews = async (slug: string, limit: number = 3) => {
 
   return relatedNews.map((article) => ({
     ...article,
-    featuredImage: article.featuredImage
-      ? `${process.env.BACKEND_URL || "http://localhost:8080"}${article.featuredImage}`
-      : null,
+    featuredImage: article.featuredImage || null,
   }));
 };
 
@@ -691,9 +685,7 @@ export const findBySlugPublished = async (slug: string) => {
 
   return {
     ...article,
-    featuredImage: article.featuredImage
-      ? `${process.env.BACKEND_URL || "http://localhost:8080"}${article.featuredImage}`
-      : null,
+    featuredImage: article.featuredImage || null,
     tags: tags.filter((tag) => tag.id),
     classifications: classifications.filter((cls) => cls.id),
     isFeatured: classifications.some((c) => c.name?.toLowerCase() === "featured"),
@@ -802,9 +794,7 @@ export const getNewsByClassification = async (classificationId: number, limit: n
 
       return {
         ...article,
-        featuredImage: article.featuredImage
-          ? `${process.env.BACKEND_URL || "http://localhost:8080"}${article.featuredImage}`
-          : null,
+        featuredImage: article.featuredImage || null,
         tags: tags.filter((tag) => tag.id),
         classifications: classifications.filter((cls) => cls.id),
         // For compatibility with frontend
@@ -937,9 +927,7 @@ export const searchPublishedNews = async (filters: {
 
       return {
         ...article,
-        featuredImage: article.featuredImage
-          ? `${process.env.BACKEND_URL || "http://localhost:8080"}${article.featuredImage}`
-          : null,
+        featuredImage: article.featuredImage || null,
         tags: tags.filter((tag) => tag.id),
         classifications: classifications.filter((cls) => cls.id),
         featured: classifications.some((c) => c.name?.toLowerCase() === "featured"),

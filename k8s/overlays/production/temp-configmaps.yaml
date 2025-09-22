@@ -1,0 +1,21 @@
+# Temporary configuration patches for testing before real domain switch
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pci-backend-config
+data:
+  cors-origin: "*"  # Allow all origins for testing (will restrict later)
+  max-upload-size: "52428800" # 50MB for production
+  api-version: "v1"
+  log-level: "info"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pci-frontend-config
+data:
+  api-url: "http://pci-backend/api"
+  nextauth-url: "http://TEMP-DOMAIN-TO-BE-SET"  # Will be updated when you get the IP
+  public-url: "http://TEMP-DOMAIN-TO-BE-SET"    # Will be updated when you get the IP

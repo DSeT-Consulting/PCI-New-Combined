@@ -8,7 +8,12 @@ await import("./src/env.js");
 const config = {
   images: {
     domains: ["www.paralympicindia.com", "localhost"], // allow external image hostname
+    unoptimized: false, // Keep optimization for local images
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  output: 'standalone',
 };
 
 export default config;

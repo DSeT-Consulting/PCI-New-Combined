@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: pci-production
+
+resources:
+- ../../base
+
+patches:
+- path: backend-deployment-patch.yaml
+- path: frontend-deployment-patch.yaml
+- path: backend-configmap-patch.yaml
+- path: frontend-configmap-patch.yaml
+
+images:
+- name: pcistaging.azurecr.io/pci-backend
+  newName: pciregistry.azurecr.io/pci-backend
+  newTag: latest
+- name: pcistaging.azurecr.io/pci-frontend
+  newName: pciregistry.azurecr.io/pci-frontend
+  newTag: latest
+
+replicas:
+- name: pci-backend
+  count: 3
+- name: pci-frontend
+  count: 3

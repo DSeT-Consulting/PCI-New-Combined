@@ -1,0 +1,98 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pci-production-router
+  namespace: production
+  labels:
+    app: pci-production-router
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pci-production-router
+  template:
+    metadata:
+      labels:
+        app: pci-production-router
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: production-nginx-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: production-nginx-config
+  namespace: production
+data:
+  nginx.conf: |
+    events {
+        worker_connections 1024;
+    }
+    
+    http {
+        upstream frontend {
+            server pci-frontend-prod:80;
+        }
+        
+        upstream backend {
+            server pci-backend-prod:80;
+        }
+        
+        server {
+            listen 80;
+            
+            # Route API calls to backend
+            location /api/ {
+                proxy_pass http://backend/api/;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+            }
+            
+            # Route uploads (images) to backend
+            location /uploads/ {
+                proxy_pass http://backend/uploads/;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+            }
+            
+            # Route everything else to frontend
+            location / {
+                proxy_pass http://frontend/;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+            }
+        }
+    }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pci-production-router-lb
+  namespace: production
+  labels:
+    app: pci-production-router
+spec:
+  type: LoadBalancer
+  selector:
+    app: pci-production-router
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP

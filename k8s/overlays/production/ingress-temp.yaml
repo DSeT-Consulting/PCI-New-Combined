@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pci-ingress-temp
+  labels:
+    app: pci
+    component: ingress-temp
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"  # Disable SSL redirect for testing
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:  # No specific host - will work with any domain pointing to the IP
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: pci-backend
+            port:
+              number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: pci-frontend
+            port:
+              number: 80

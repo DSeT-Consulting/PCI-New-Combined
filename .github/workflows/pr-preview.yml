@@ -1,0 +1,211 @@
+name: PR Preview Environment
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+      - develop
+    types: [opened, synchronize, reopened]
+
+env:
+  AZURE_RESOURCE_GROUP: PCI
+  AKS_CLUSTER_NAME: pci-staging-aks
+  ACR_NAME: pcistaging
+
+jobs:
+  build-pr-preview:
+    runs-on: ubuntu-latest
+    if: github.event.action != 'closed'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set PR namespace
+      id: pr-namespace
+      run: |
+        PR_NUMBER=${{ github.event.number }}
+        NAMESPACE="pr-${PR_NUMBER}"
+        echo "namespace=${NAMESPACE}" >> $GITHUB_OUTPUT
+        echo "PR_NAMESPACE=${NAMESPACE}" >> $GITHUB_ENV
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS_STAGING }}
+
+    - name: Login to ACR
+      run: |
+        az acr login --name ${{ env.ACR_NAME }}
+
+    - name: Build and push Backend image
+      run: |
+        cd PCI-backend
+        docker build -t ${{ env.ACR_NAME }}.azurecr.io/pci-backend:pr-${{ github.event.number }} .
+        docker push ${{ env.ACR_NAME }}.azurecr.io/pci-backend:pr-${{ github.event.number }}
+
+    - name: Build and push Frontend image
+      run: |
+        cd PCI
+        docker build -t ${{ env.ACR_NAME }}.azurecr.io/pci-frontend:pr-${{ github.event.number }} .
+        docker push ${{ env.ACR_NAME }}.azurecr.io/pci-frontend:pr-${{ github.event.number }}
+
+    - name: Get AKS credentials
+      run: |
+        az aks get-credentials --resource-group ${{ env.AZURE_RESOURCE_GROUP }} --name ${{ env.AKS_CLUSTER_NAME }}
+
+    - name: Create PR namespace
+      run: |
+        kubectl create namespace ${{ env.PR_NAMESPACE }} --dry-run=client -o yaml | kubectl apply -f -
+        kubectl label namespace ${{ env.PR_NAMESPACE }} pr-number=${{ github.event.number }}
+
+    - name: Deploy PR Preview
+      run: |
+        # Create temporary kustomization for PR
+        mkdir -p k8s/overlays/pr-${{ github.event.number }}
+        
+        cat > k8s/overlays/pr-${{ github.event.number }}/kustomization.yaml << EOF
+        apiVersion: kustomize.config.k8s.io/v1beta1
+        kind: Kustomization
+        
+        namespace: ${{ env.PR_NAMESPACE }}
+        
+        resources:
+        - ../../base
+        
+        images:
+        - name: pcistaging.azurecr.io/pci-backend
+          newTag: pr-${{ github.event.number }}
+        - name: pcistaging.azurecr.io/pci-frontend
+          newTag: pr-${{ github.event.number }}
+        
+        replicas:
+        - name: pci-backend
+          count: 1
+        - name: pci-frontend
+          count: 1
+        EOF
+        
+        # Apply PR deployment
+        kubectl apply -k k8s/overlays/pr-${{ github.event.number }}/ --namespace=${{ env.PR_NAMESPACE }}
+
+    - name: Create temporary secrets
+      run: |
+        # Create basic secrets for PR environment
+        kubectl create secret generic pci-postgres-secrets \
+          --namespace=${{ env.PR_NAMESPACE }} \
+          --from-literal=postgres-user=pci \
+          --from-literal=postgres-password=pr-test-password \
+          --dry-run=client -o yaml | kubectl apply -f -
+        
+        kubectl create secret generic pci-backend-secrets \
+          --namespace=${{ env.PR_NAMESPACE }} \
+          --from-literal=database-url="postgresql://pci:pr-test-password@pci-postgres:5432/pci" \
+          --dry-run=client -o yaml | kubectl apply -f -
+        
+        kubectl create secret generic pci-frontend-secrets \
+          --namespace=${{ env.PR_NAMESPACE }} \
+          --from-literal=nextauth-secret="pr-test-secret-${{ github.event.number }}" \
+          --from-literal=database-url="postgresql://pci:pr-test-password@pci-postgres:5432/pci" \
+          --dry-run=client -o yaml | kubectl apply -f -
+
+    - name: Wait for deployment
+      run: |
+        kubectl rollout status deployment/pci-backend --namespace=${{ env.PR_NAMESPACE }} --timeout=300s
+        kubectl rollout status deployment/pci-frontend --namespace=${{ env.PR_NAMESPACE }} --timeout=300s
+
+    - name: Get PR preview URL
+      id: get-url
+      run: |
+        # Wait for external IP
+        sleep 60
+        EXTERNAL_IP=$(kubectl get service ingress-nginx-controller -n ingress-nginx -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+        if [ -z "$EXTERNAL_IP" ]; then
+          EXTERNAL_IP="<pending>"
+        fi
+        echo "preview_url=http://${EXTERNAL_IP}/pr-${{ github.event.number }}" >> $GITHUB_OUTPUT
+        echo "PREVIEW_URL=http://${EXTERNAL_IP}/pr-${{ github.event.number }}" >> $GITHUB_ENV
+
+    - name: Comment PR with preview URL
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const { data: comments } = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+          });
+          
+          const botComment = comments.find(comment => 
+            comment.user.login === 'github-actions[bot]' && 
+            comment.body.includes('🏆 Paralympic Committee of India - PR Preview')
+          );
+          
+          const body = `🏆 **Paralympic Committee of India - PR Preview**
+          
+          ✅ Your PR preview environment has been deployed!
+          
+          **Preview URL**: ${{ env.PREVIEW_URL }}
+          **PR Number**: #${{ github.event.number }}
+          **Namespace**: \`${{ env.PR_NAMESPACE }}\`
+          **Backend Image**: \`${{ env.ACR_NAME }}.azurecr.io/pci-backend:pr-${{ github.event.number }}\`
+          **Frontend Image**: \`${{ env.ACR_NAME }}.azurecr.io/pci-frontend:pr-${{ github.event.number }}\`
+          
+          This preview will be automatically cleaned up when the PR is closed.`;
+          
+          if (botComment) {
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: botComment.id,
+              body: body
+            });
+          } else {
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: body
+            });
+          }
+
+  cleanup-pr-preview:
+    runs-on: ubuntu-latest
+    if: github.event.action == 'closed'
+    steps:
+    - name: Set PR namespace
+      run: |
+        PR_NUMBER=${{ github.event.number }}
+        NAMESPACE="pr-${PR_NUMBER}"
+        echo "PR_NAMESPACE=${NAMESPACE}" >> $GITHUB_ENV
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS_STAGING }}
+
+    - name: Get AKS credentials
+      run: |
+        az aks get-credentials --resource-group ${{ env.AZURE_RESOURCE_GROUP }} --name ${{ env.AKS_CLUSTER_NAME }}
+
+    - name: Cleanup PR environment
+      run: |
+        # Delete namespace (this removes all resources)
+        kubectl delete namespace ${{ env.PR_NAMESPACE }} --ignore-not-found=true
+        
+        # Remove temporary kustomization directory
+        rm -rf k8s/overlays/pr-${{ github.event.number }}
+
+    - name: Comment PR cleanup
+      uses: actions/github-script@v7
+      with:
+        script: |
+          await github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            body: `🧹 **PR Preview Cleanup**
+            
+            The preview environment for PR #${{ github.event.number }} has been cleaned up.
+            Namespace \`${{ env.PR_NAMESPACE }}\` has been deleted.`
+          });

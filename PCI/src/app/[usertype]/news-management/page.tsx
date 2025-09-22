@@ -1326,9 +1326,7 @@ const NewsContent = () => {
                   <div className="relative h-20 w-20 rounded-lg overflow-hidden">
                     <Image
                       src={
-                        article.featuredImage
-                          ? `${process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:8080"}${article.featuredImage}`
-                          : "/assets/placeholder-image.png" // Add a placeholder image in your public folder
+                        article.featuredImage ?? "/assets/placeholder-image.png"
                       }
                       alt={article.title}
                       fill
@@ -1549,9 +1547,7 @@ const NewsContent = () => {
                   </label>
                   <ImageUpload
                     currentImageUrl={
-                      articleForm.featuredImage
-                        ? `${process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:8080"}${articleForm.featuredImage}`
-                        : undefined
+                      articleForm.featuredImage ?? undefined
                     }
                     onFileSelect={(file) => setSelectedImageFile(file)}
                     onImageRemove={() => {

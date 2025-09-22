@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pci-temp-ingress
+  labels:
+    app: pci
+    component: temp-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:  # No host specified - accepts any host/IP
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: pci-backend
+            port:
+              number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: pci-frontend
+            port:
+              number: 80
