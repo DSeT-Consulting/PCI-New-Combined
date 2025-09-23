@@ -91,7 +91,7 @@ const PrinciplePartners = () => {
     ];
 
     return (
-        <section id="principle-partners" className="py-24 bg-white">
+        <section id="principle-partners" className="pt-16 pb-20 md:py-24 bg-white">
             <div className="container mx-auto px-4">
                 {/* Section Header */}
                 <div className="text-center mb-5">
@@ -124,23 +124,23 @@ const PrinciplePartners = () => {
                         {partners.map((partner, index) => (
                             <div
                                 key={index}
-                                className="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-border-paralympic-blue/10 hover:border-paralympic-blue/20 transform hover:scale-105 w-full min-w-[30vw] max-w-[350px]"
+                                className="group bg-white rounded-3xl p-4 md:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-border-paralympic-blue/10 hover:border-paralympic-blue/20 transform hover:scale-105 w-full min-w-[30vw] max-w-[350px]"
                             >
                                 {/* Logo */}
-                                <div className="bg-gray-50 rounded-2xl p-4 mb-6 group-hover:bg-gradient-to-br group-hover:from-paralympic-blue/5 group-hover:to-paralympic-green/5 transition-all duration-300">
-                                    <div className="relative h-40 flex items-center justify-center">
+                                <div className="bg-gray-50 rounded-2xl p-3 md:p-4 md:mb-6 group-hover:bg-gradient-to-br group-hover:from-paralympic-blue/5 group-hover:to-paralympic-green/5 transition-all duration-300">
+                                    <div className="relative h-40 flex items-center justify-center rounded-xl">
                                         <Image
                                             src={partner.logo}
                                             alt={partner.name}
                                             width={500}
                                             height={500}
-                                            className="w-auto h-full max-w-[150px] object-contain filter transition-all duration-300 rounded-lg"
+                                            className="w-auto h-full max-w-[150px] object-contain filter transition-all duration-300 rounded-xl"
                                         />
                                     </div>
                                 </div>
 
                                 {/* Content */}
-                                <h3 className="text-2xl font-bold text-paralympic-navy group-hover:text-paralympic-blue transition-colors">
+                                <h3 className="hidden md:block text-2xl font-bold text-paralympic-navy group-hover:text-paralympic-blue transition-colors">
                                     {partner.name}
                                 </h3>
                                 {/* <p className="text-gray-600 mb-6 leading-relaxed">
@@ -217,19 +217,24 @@ const IndustryExclusivePartners = () => {
             description: ""
         },
         {
-            name: "AMFI",
-            logo: "/assets/partners/AMFI Logo.png",
+            name: "Mutual Funds Sahi Hai",
+            logo: "/assets/partners/Mutual Funds Sahi Hai Logo.png",
             description: ""
         },
         {
-            name: "AMFI",
+            name: "Jai Balaji Group",
+            logo: "/assets/partners/JBG Logo.png",
+            description: ""
+        },
+        {
+            name: "Ottobock",
             logo: "/assets/partners/Ottobock Logo.png",
             description: ""
-        }
+        },
     ]
 
     return (
-        <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+        <section className="pt-10 pb-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
             <div className="container mx-auto px-4">
                 {/* Section Header */}
                 <div className="text-center mb-5">
@@ -266,7 +271,7 @@ const IndustryExclusivePartners = () => {
                             {/* Partners Grid */}
                             {false && (<div className="w-full flex justify-center">
                                 <div
-                                    className={`grid gap-8 ${category.partners.length === 1
+                                    className={`grid gap-4 md:gap-8 ${category.partners.length === 1
                                         ? 'grid-cols-1'
                                         : category.partners.length === 2
                                             ? 'grid-cols-2'
@@ -278,7 +283,7 @@ const IndustryExclusivePartners = () => {
                                             key={partnerIndex}
                                             className="group bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-border-paralympic-green/10 hover:border-paralympic-green/20 w-full min-w-[30vw] max-w-[350px]"
                                         >
-                                            <div className="bg-gray-50 rounded-xl p-4 mb-6 group-hover:bg-gradient-to-br group-hover:from-paralympic-green/5 group-hover:to-paralympic-navy/5 transition-all duration-300">
+                                            <div className="bg-gray-50 rounded-xl p-4 mb-0 md:mb-6 group-hover:bg-gradient-to-br group-hover:from-paralympic-green/5 group-hover:to-paralympic-navy/5 transition-all duration-300">
                                                 <div className="relative h-40 flex items-center justify-center">
                                                     <Image
                                                         src={partner.logo}
@@ -303,32 +308,34 @@ const IndustryExclusivePartners = () => {
 
                 <div className="w-full flex justify-center">
                     <div
-                        className={`grid gap-8 ${partners.length === 1
+                        className={`grid gap-x-4 gap-y-8 md:gap-8 ${partners.length === 1
                             ? 'grid-cols-1'
                             : partners.length === 2
                                 ? 'grid-cols-2'
-                                : 'grid-cols-1 md:grid-cols-3'
+                                : 'grid-cols-2 lg:grid-cols-4'
                             }`}
                     >
                         {partners.map((partner, partnerIndex) => (
                             <div
                                 key={partnerIndex}
-                                className="group bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-border-paralympic-green/10 hover:border-paralympic-green/20 w-full min-w-[30vw] max-w-[350px]"
+                                className="group bg-white rounded-2xl p-1.5 md:p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-border-paralympic-green/10 hover:border-paralympic-green/20 w-full min-w-[10vw] max-w-[350px]"
                             >
-                                <div className="bg-gray-50 rounded-xl p-4 mb-6 group-hover:bg-gradient-to-br group-hover:from-paralympic-green/5 group-hover:to-paralympic-navy/5 transition-all duration-300">
-                                    <div className="relative h-40 flex items-center justify-center">
+                                <div className="bg-gray-50 rounded-xl p-1.5 md:p-4 md:mb-6 group-hover:bg-gradient-to-br group-hover:from-paralympic-green/5 group-hover:to-paralympic-navy/5 transition-all duration-300">
+                                    <div className="relative md:h-40 flex items-center justify-center">
                                         <Image
                                             src={partner.logo}
                                             alt={partner.name}
                                             width={500}
                                             height={500}
-                                            className="w-auto h-full max-w-[150px] object-contain filter transition-all duration-300 rounded-lg"
+                                            className="w-full md:w-auto h-auto md:h-full max-w-[150px] object-contain filter transition-all duration-300 rounded-lg"
                                         />
                                     </div>
                                 </div>
-                                <h4 className="text-xl font-bold text-paralympic-navy mb-2">
-                                    {partner.name}
-                                </h4>
+                                <div className="hidden md:block">
+                                    <h4 className="hidden md:block text-xl font-bold text-paralympic-navy mb-2">
+                                        {partner.name}
+                                    </h4>
+                                </div>
                                 {/* <p className="text-gray-600 font-medium"> {partner.description} </p> */}
                             </div>
                         ))}
@@ -372,7 +379,7 @@ const CSRPartners = () => {
     ];
 
     return (
-        <section className="py-24 bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-paralympic-green">
+        <section className="pt-16 pb-20 md:py-24 bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-paralympic-green">
             <div className="container mx-auto px-4">
                 {/* Section Header */}
                 <div className="text-center mb-10">
@@ -395,31 +402,31 @@ const CSRPartners = () => {
                 {/* Partners Grid */}
                 <div className="w-full flex justify-center">
                     <div
-                        className={`grid gap-8 ${csrPartners.length === 1
+                        className={`grid gap-x-4 gap-y-8 md:gap-8 ${csrPartners.length === 1
                             ? 'grid-cols-1'
-                            : 'grid-cols-1 md:grid-cols-2'
+                            : 'grid-cols-2 lg:grid-cols-4'
                             }`}
                     >
                         {csrPartners.map((partner, index) => (
                             <div
                                 key={index}
-                                className="group bg-white/5 backdrop-blur-sm rounded-3xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-500 hover:transform hover:scale-105 w-full min-w-[40vw] max-w-[500px]"
+                                className="group bg-white/5 backdrop-blur-sm rounded-3xl p-0 md:p-6 border border-white/10 hover:bg-white/10 transition-all duration-500 hover:transform hover:scale-105 w-full min-w-[20vw] max-w-[500px]"
                             >
                                 {/* Logo */}
-                                <div className="bg-white/10 rounded-2xl p-4 mb-6 group-hover:bg-white/20 transition-all duration-300">
-                                    <div className="relative h-44 flex items-center justify-center">
+                                <div className="bg-white/10 rounded-2xl p-4 md:mb-6 group-hover:bg-white/20 transition-all duration-300">
+                                    <div className="relative md:h-44 flex items-center justify-center">
                                         <Image
                                             src={partner.logo}
                                             alt={partner.name}
                                             width={120}
                                             height={60}
-                                            className="w-auto h-full max-w-[200px] object-contain transition-all duration-300 rounded-lg"
+                                            className="w-full md:w-auto h-auto md:h-full max-w-[200px] object-contain transition-all duration-300 rounded-lg"
                                         />
                                     </div>
                                 </div>
 
                                 {/* Content */}
-                                <h3 className="text-2xl font-bold text-white text-center">
+                                <h3 className="hidden md:block text-2xl font-bold text-white text-center">
                                     {partner.name}
                                 </h3>
                                 {/* <div className="flex items-center justify-between mb-4">

@@ -117,7 +117,7 @@ export default function Footer() {
 
         <div className="mt-6 pt-5 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
           <p className="text-xs text-paralympic-gray mb-4 md:mb-0">
-            &copy; {currentYear} Paralympic Movement. All rights reserved.
+            &copy; {currentYear} PCI. All rights reserved.
           </p>
           <div className="flex space-x-6 text-xs text-paralympic-gray">
             <Link href="/terms" className="hover:text-white transition-colors">Terms of Use</Link>

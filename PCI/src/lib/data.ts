@@ -581,9 +581,9 @@ export const SPONSORS: Sponsor[] = [
     },
     {
         id: 2,
-        name: 'AMFI',
+        name: 'Jai Balaji Group',
         tier: '',
-        logoUrl: '/assets/partners/AMFI Logo.png',
+        logoUrl: '/assets/partners/JBG Logo.png',
         websiteUrl: '/',
         description: ''
     },
@@ -605,6 +605,14 @@ export const SPONSORS: Sponsor[] = [
     },
     {
         id: 5,
+        name: 'Mutual Funds Sahi Hai',
+        tier: '',
+        logoUrl: '/assets/partners/Mutual Funds Sahi Hai Logo.png',
+        websiteUrl: '/',
+        description: ''
+    },
+    {
+        id: 6,
         name: 'Hero We-Care',
         tier: '',
         logoUrl: '/assets/partners/Hero We-Care Logo.png',
@@ -612,7 +620,7 @@ export const SPONSORS: Sponsor[] = [
         description: ''
     },
     {
-        id: 6,
+        id: 7,
         name: 'IFFCO TOKIO',
         tier: '',
         logoUrl: '/assets/partners/IFFCO TOKIO Logo.png',
@@ -620,7 +628,7 @@ export const SPONSORS: Sponsor[] = [
         description: ''
     },
     {
-        id: 7,
+        id: 8,
         name: 'ICRC',
         tier: '',
         logoUrl: '/assets/partners/ICRC Logo.png',
@@ -628,7 +636,7 @@ export const SPONSORS: Sponsor[] = [
         description: ''
     },
     {
-        id: 8,
+        id: 9,
         name: 'India Shelter',
         tier: '',
         logoUrl: '/assets/partners/India Shelter Logo.png',

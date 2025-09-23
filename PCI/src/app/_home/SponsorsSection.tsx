@@ -34,7 +34,7 @@ export default function SponsorsSection() {
 
     let animationFrame: number;
     let startTime: number | null = null;
-    const totalDuration = 35000; // 35s in milliseconds
+    const totalDuration = 25000; // 25s in milliseconds
     const totalDistance = -50; // -50% as per the keyframes
 
     const step = (timestamp: number) => {
@@ -112,10 +112,10 @@ export default function SponsorsSection() {
               href={sponsor.websiteUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0 mx-6 group relative"
+              className="flex-shrink-0 mx-6 md:mx-20 group relative"
               aria-label={`${sponsor.name}`}
             >
-              <div className="relative h-16 w-40 bg-white rounded-lg shadow-sm p-3 flex items-center justify-center transition-all duration-300 transform group-hover:scale-105 group-hover:shadow-md">
+              <div className="relative h-40 w-40 bg-white rounded-lg shadow-sm p-3 flex items-center justify-center transition-all duration-300 transform group-hover:scale-105 group-hover:shadow-md">
                 <Image
                   src={sponsor.logoUrl}
                   alt={`${sponsor.name} logo`}
@@ -138,7 +138,7 @@ export default function SponsorsSection() {
 
       <div className="container mx-auto px-4 mt-12 text-center">
         <Link
-          href="/sponsors"
+          href="/partners"
           className="inline-flex items-center font-medium text-paralympic-blue hover:text-paralympic-green transition-colors"
         >
           <span>Learn more about our sponsors</span>
