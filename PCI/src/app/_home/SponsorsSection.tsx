@@ -22,10 +22,23 @@ export default function SponsorsSection() {
   const [duplicatedSponsors, setDuplicatedSponsors] = useState<Sponsor[]>([]);
   const marqueeRef = useRef<HTMLDivElement>(null);
   const [marqueePosition, setMarqueePosition] = useState({ transform: 'translateX(0)' });
+  const [isMobile, setIsMobile] = useState(false);
 
   // Duplicate sponsors to create seamless loop
   useEffect(() => {
     setDuplicatedSponsors([...SPONSORS, ...SPONSORS]);
+  }, []);
+
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768); // md breakpoint
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   // Animation control using pure JS, not CSS animation
@@ -34,8 +47,10 @@ export default function SponsorsSection() {
 
     let animationFrame: number;
     let startTime: number | null = null;
-    const totalDuration = 25000; // 25s in milliseconds
-    const totalDistance = -50; // -50% as per the keyframes
+    // Faster scrolling on mobile (shorter duration) since fewer logos are visible
+    const totalDuration = isMobile ? 20000 : 35000; // milliseconds - increased to show all sponsors
+    // Since we duplicated sponsors, we need to move 50% to show all original sponsors before seamless loop
+    const totalDistance = -50; // -50% to show all original sponsors before looping
 
     const step = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
@@ -69,7 +84,7 @@ export default function SponsorsSection() {
         setMarqueePosition({ transform: computedStyle.transform });
       }
     };
-  }, [isHovered]);
+  }, [isHovered, isMobile]);
 
   // Apply stored position when hovered
   useEffect(() => {

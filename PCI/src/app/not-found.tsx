@@ -68,8 +68,8 @@ export default function NotFound() {
               Page Not Found
             </h2>
             <p className="text-base sm:text-lg md:text-lg text-gray-200 max-w-2xl mx-auto leading-relaxed">
-              The page you're looking for seems to have taken a different route to the finish line.
-              Let's get you back on track to explore the Paralympic Movement.
+              The page you&apos;re looking for seems to have taken a different route to the finish line.
+              Let&apos;s get you back on track to explore the Paralympic Movement.
             </p>
           </div>
 
