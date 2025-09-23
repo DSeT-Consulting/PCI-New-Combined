@@ -32,11 +32,11 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="bg-paralympic-navy text-white pt-16 pb-8">
+    <footer className="bg-paralympic-navy text-white pt-6 md:pt-12 pb-8 md:pb-5">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
           {/* Logo and Description */}
-          <div className="lg:col-span-2">
+          <div className="col-span-2 md:col-span-3 lg:col-span-2">
             <Link href="/" className="inline-block mb-6">
               <Image
                 src="/assets/logo-lightbg.png"
@@ -115,7 +115,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+        <div className="mt-6 pt-5 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
           <p className="text-xs text-paralympic-gray mb-4 md:mb-0">
             &copy; {currentYear} Paralympic Movement. All rights reserved.
           </p>
@@ -124,6 +124,35 @@ export default function Footer() {
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/cookies" className="hover:text-white transition-colors">Cookie Policy</Link>
           </div>
+        </div>
+
+        {/* DSeT Branding Section */}
+        <div className="mt-5 pt-5 lg:pt-3 border-t border-gray-800/50">
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+            <div className="flex items-center space-x-3">
+              <span className="text-xs text-paralympic-gray">Powered by</span>
+              <Link
+                href="https://dsetconsulting.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 hover:opacity-80 transition-opacity group"
+              >
+                <Image
+                  src="/assets/DSeT light logo.png"
+                  alt="DSeT Consulting Logo"
+                  width={80}
+                  height={24}
+                  className="h-10 md:h-12 w-auto group-hover:scale-105 transition-transform duration-200"
+                />
+                <span className="text-xs text-paralympic-gray group-hover:text-white transition-colors font-medium">
+                  DSeT Consulting Pvt. Ltd.
+                </span>
+              </Link>
+            </div>
+          </div>
+          <p className="text-center text-xs text-paralympic-gray/70 mt-2">
+            Website developed, managed & supported by DSeT Consulting
+          </p>
         </div>
       </div>
     </footer>

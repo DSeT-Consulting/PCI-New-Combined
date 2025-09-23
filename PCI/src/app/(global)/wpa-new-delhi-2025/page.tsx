@@ -226,6 +226,46 @@ const HeroSection: React.FC = () => (
     </section>
 );
 
+// Responsive Iframe Section Component
+const LiveStreamSection: React.FC = () => (
+    <section className="w-full bg-gray-50 py-8 sm:py-12 lg:py-16">
+        <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-6 sm:mb-8">
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
+                        Live Championships Experience
+                    </h2>
+                    <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+                        Follow the action live from New Delhi 2025 World Para Athletics Championships
+                    </p>
+                </div>
+
+                {/* Responsive iframe container */}
+                <div className="relative w-full overflow-hidden rounded-xl shadow-lg md:shadow-2xl">
+                    {/* Aspect ratio container - 16:9 for desktop, adjustable for mobile */}
+                    <div className="relative w-full h-[50vh] md:h-0 pb-[56.25%] sm:pb-[50%] lg:pb-[45%]">
+                        <iframe
+                            src="https://lrs-atvr25-azefd5ddhyajaah5.a02.azurefd.net/"
+                            className="absolute top-0 left-0 w-full h-full border-0"
+                            allowFullScreen
+                            title="New Delhi 2025 World Para Athletics Championships Live Stream"
+                            loading="lazy"
+                            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation"
+                        />
+                    </div>
+                </div>
+
+                {/* Optional overlay for loading state */}
+                <div className="mt-4 text-center">
+                    <p className="text-sm text-gray-500">
+                        Having trouble viewing? <a href="https://lrs-atvr25-azefd5ddhyajaah5.a02.azurefd.net/" target="_blank" rel="noopener noreferrer" className="text-paralympic-blue hover:underline">Open in new window</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+);
+
 // Hero Section Component
 const GradientSection: React.FC = () => (
     <section className="relative min-h-[60vh] sm:min-h-[70vh] lg:min-h-[80vh] bg-gradient-to-br from-paralympic-navy via-paralympic-blue to-purple-900 text-white overflow-hidden">
@@ -1122,6 +1162,9 @@ const WPADelhi2025Page: React.FC = () => {
 
             {/* Hero Section */}
             <HeroSection />
+
+            {/* Live Stream Section */}
+            <LiveStreamSection />
 
             {/* Quick Info Section */}
             <QuickInfoSection />
