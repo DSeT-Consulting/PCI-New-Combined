@@ -7,7 +7,7 @@ await import("./src/env.js");
 /** @type {import("next").NextConfig} */
 const config = {
   images: {
-    domains: ["www.paralympicindia.com", "localhost"], // allow external image hostname
+    domains: ["www.paralympicindia.com", "paralympicindia.com", "localhost", "4.187.228.16"], // allow external image hostname
     unoptimized: false, // Keep optimization for local images
   },
   eslint: {

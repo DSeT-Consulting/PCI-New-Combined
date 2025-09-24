@@ -14,7 +14,9 @@ app.use(
     origin: [
       "http://localhost:3000",
       "https://www.paralympicindia.com",
-      "https://staging.paralympicindia.com"
+      "https://paralympicindia.com",
+      "https://staging.paralympicindia.com",
+      "http://4.187.228.16" // Keep IP for fallback
     ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   })

@@ -6,7 +6,7 @@ metadata:
     app: pci-frontend
     component: frontend
 data:
-  api-url: "http://pci-backend/api"
-  backend-url: "http://pci-backend"
+  api-url: "/api"
+  backend-url: "https://www.paralympicindia.com"
   nextauth-url: "https://www.paralympicindia.com"
   public-url: "https://www.paralympicindia.com"
