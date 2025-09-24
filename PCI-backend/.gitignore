@@ -1,7 +1,6 @@
 ### Node.js ###
 dist/
 node_modules/
-drizzle/
 
 ### Jest ###
 coverage/
