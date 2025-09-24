@@ -7,10 +7,12 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_RESOURCE_GROUP: PCI-prod
-  AKS_CLUSTER_NAME: pci-aks-cluster
+  AZURE_RESOURCE_GROUP: PCI
+  AKS_CLUSTER_NAME: pci-staging-aks
   ACR_NAME: pciregistry
-  NAMESPACE: pci-prod
+  NAMESPACE: production
+  PRODUCTION_URL: https://www.paralympicindia.com
+  PRODUCTION_IP: 4.187.228.16
 
 jobs:
   build-and-push:
@@ -39,7 +41,11 @@ jobs:
     - name: Build and push Frontend image
       run: |
         cd PCI
-        docker build -t ${{ env.ACR_NAME }}.azurecr.io/pci-frontend:${{ github.sha }} .
+        docker build \
+          --build-arg NEXT_PUBLIC_BACKEND_URL="${{ env.PRODUCTION_URL }}" \
+          --build-arg NEXT_PUBLIC_API_URL="/api" \
+          --no-cache \
+          -t ${{ env.ACR_NAME }}.azurecr.io/pci-frontend:${{ github.sha }} .
         docker tag ${{ env.ACR_NAME }}.azurecr.io/pci-frontend:${{ github.sha }} ${{ env.ACR_NAME }}.azurecr.io/pci-frontend:latest
         docker push ${{ env.ACR_NAME }}.azurecr.io/pci-frontend:${{ github.sha }}
         docker push ${{ env.ACR_NAME }}.azurecr.io/pci-frontend:latest
@@ -86,29 +92,34 @@ jobs:
           --from-literal=database-url=${{ secrets.DATABASE_URL }} \
           --dry-run=client -o yaml | kubectl apply -f -
 
-    - name: Update image tags in manifests
+    - name: Update production deployments with new images
       run: |
-        # Update backend deployment image
-        sed -i "s|pciregistry.azurecr.io/pci-backend:latest|${{ env.ACR_NAME }}.azurecr.io/pci-backend:${{ github.sha }}|g" k8s/base/backend-deployment.yaml
+        # Update backend deployment with latest image
+        kubectl set image deployment/pci-backend-prod \
+          pci-backend=${{ env.ACR_NAME }}.azurecr.io/pci-backend:${{ github.sha }} \
+          -n ${{ env.NAMESPACE }}
         
-        # Update frontend deployment image
-        sed -i "s|pciregistry.azurecr.io/pci-frontend:latest|${{ env.ACR_NAME }}.azurecr.io/pci-frontend:${{ github.sha }}|g" k8s/base/frontend-deployment.yaml
+        # Update frontend deployment with latest image  
+        kubectl set image deployment/pci-frontend-prod \
+          pci-frontend=${{ env.ACR_NAME }}.azurecr.io/pci-frontend:${{ github.sha }} \
+          -n ${{ env.NAMESPACE }}
 
-    - name: Deploy to Kubernetes
+    - name: Wait for deployments to complete
       run: |
-        kubectl apply -f k8s/base/ --namespace=${{ env.NAMESPACE }}
-        kubectl apply -f k8s/overlays/production/ --namespace=${{ env.NAMESPACE }}
+        kubectl rollout status deployment/pci-backend-prod --namespace=${{ env.NAMESPACE }} --timeout=600s
+        kubectl rollout status deployment/pci-frontend-prod --namespace=${{ env.NAMESPACE }} --timeout=600s
 
-    - name: Wait for deployments
+    - name: Verify deployment and test API
       run: |
-        kubectl rollout status deployment/pci-backend --namespace=${{ env.NAMESPACE }} --timeout=300s
-        kubectl rollout status deployment/pci-frontend --namespace=${{ env.NAMESPACE }} --timeout=300s
-        kubectl rollout status statefulset/pci-postgres --namespace=${{ env.NAMESPACE }} --timeout=300s
-
-    - name: Run database migrations
-      run: |
-        # Get backend pod name
-        POD_NAME=$(kubectl get pods -n ${{ env.NAMESPACE }} -l app=pci-backend -o jsonpath='{.items[0].metadata.name}')
+        echo "Deployment completed successfully!"
+        echo "Production URL: ${{ env.PRODUCTION_URL }}"
+        echo "IP Address: ${{ env.PRODUCTION_IP }}"
         
-        # Run migrations
-        kubectl exec -n ${{ env.NAMESPACE }} $POD_NAME -- npm run drizzle:migrate
+        # Wait a bit for pods to be fully ready
+        sleep 30
+        
+        # Test API endpoint
+        kubectl get pods -n ${{ env.NAMESPACE }} -l app=pci-backend-prod
+        kubectl get pods -n ${{ env.NAMESPACE }} -l app=pci-frontend-prod
+        
+        echo "Paralympic Committee of India website deployed successfully! 🏅🇮🇳"

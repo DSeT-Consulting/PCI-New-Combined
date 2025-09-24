@@ -40,9 +40,9 @@ RUN pnpm install --frozen-lockfile --production
 
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/drizzle ./drizzle
 
-# Copy database initialization files
+# Copy database-related files directly from source (not from builder)
+COPY drizzle/ ./drizzle/
 COPY init-db/ ./init-db/
 
 # Copy uploads directory with images
