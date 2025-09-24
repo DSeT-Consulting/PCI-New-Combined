@@ -41,12 +41,10 @@ RUN pnpm install --frozen-lockfile --production
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
 
-# Copy database-related files directly from source (not from builder)
-COPY drizzle/ ./drizzle/
-COPY init-db/ ./init-db/
-
-# Copy uploads directory with images
-COPY uploads/ ./uploads/
+# Copy database-related files directly from source
+COPY drizzle ./drizzle
+COPY init-db ./init-db
+COPY uploads ./uploads
 
 # Create non-root user
 RUN addgroup -g 1001 -S nodejs
