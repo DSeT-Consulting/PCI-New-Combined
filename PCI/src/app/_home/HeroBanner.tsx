@@ -13,18 +13,47 @@ export default function HeroBanner() {
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
 
+  // Preload next images when component mounts
+  useEffect(() => {
+    // Preload next 2-3 images after first render
+    const preloadImages = () => {
+      const imagesToPreload = [1, 2, 3]; // preload next 3 images after first
+
+      imagesToPreload.forEach((index) => {
+        const slide = BANNER_SLIDES[index];
+        if (slide) {
+          const img = document.createElement('img');
+          img.src = slide.imageUrl;
+        }
+      });
+    };
+
+    // Delay preloading slightly to prioritize first image
+    const timer = setTimeout(preloadImages, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   // Use useCallback to memoize the nextSlide function
   const nextSlide = useCallback(() => {
     if (isTransitioning) return;
 
     setIsTransitioning(true);
-    setActiveSlide((prev) => (prev === BANNER_SLIDES.length - 1 ? 0 : prev + 1));
+    const nextIndex = activeSlide === BANNER_SLIDES.length - 1 ? 0 : activeSlide + 1;
+    setActiveSlide(nextIndex);
+
+    // Preload the image after next one
+    const preloadIndex = nextIndex === BANNER_SLIDES.length - 1 ? 0 : nextIndex + 1;
+    const slideToPreload = BANNER_SLIDES[preloadIndex];
+    if (slideToPreload) {
+      const img = document.createElement('img');
+      img.src = slideToPreload.imageUrl;
+    }
 
     // Reset transition lock after animation completes
     setTimeout(() => {
       setIsTransitioning(false);
     }, 800);
-  }, [isTransitioning]);
+  }, [isTransitioning, activeSlide]);
 
   const prevSlide = () => {
     if (isTransitioning) return;
@@ -138,15 +167,20 @@ export default function HeroBanner() {
             className={`absolute inset-0 h-full w-full transition-opacity duration-800 ease-in-out ${activeSlide === index ? 'opacity-100 z-10' : 'opacity-0 z-0'
               }`}
           >
-            {/* Image with overlay */}
-            <div
-              className="relative h-full w-full bg-center bg-no-repeat"
-              style={{
-                backgroundImage: `url(${slide.imageUrl})`,
-                backgroundSize: 'contain',
-                backgroundPosition: 'center center',
-              }}
-            >
+            {/* Optimized Image with overlay - Render current, next, and previous slides */}
+            <div className="relative h-full w-full">
+              <Image
+                src={slide.imageUrl}
+                alt={slide.title || `Paralympic Banner ${index + 1}`}
+                fill
+                className="object-contain"
+                priority={index === 0} // Only preload first image with priority
+                loading={index <= 2 ? "eager" : "lazy"} // Load first 3 images eagerly
+                quality={85}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+                placeholder="blur"
+                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAAAAAAB/8QAFxEBAQEBAAAAAAAAAAAAAAAAAAERAv/aAAwDAQACEQMRAD8Anz9vYWtjb20UcKKqKFUKBgADgADoAK4v/9k="
+              />
               <div className="absolute inset-0 bg-gradient-to-r from-paralympic-navy/80 to-transparent"></div>
             </div>
 

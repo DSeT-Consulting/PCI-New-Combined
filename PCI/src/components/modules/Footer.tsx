@@ -21,10 +21,10 @@ const FOOTER_LINKS = {
     { name: 'Contact Us', href: '/contact' },
   ],
   social: [
-    { name: 'Twitter', href: 'https://twitter.com/', icon: 'twitter' },
-    { name: 'Facebook', href: 'https://facebook.com/', icon: 'facebook' },
-    { name: 'Instagram', href: 'https://instagram.com/', icon: 'instagram' },
-    { name: 'YouTube', href: 'https://youtube.com/', icon: 'youtube' },
+    { name: 'Facebook', href: 'https://www.facebook.com/ParalympicCommitteeOfIndia/', icon: 'facebook' },
+    { name: 'Twitter', href: 'https://x.com/pci_in_official', icon: 'twitter' },
+    { name: 'Instagram', href: 'https://www.instagram.com/paralympicsindia_official/', icon: 'instagram' },
+    { name: 'YouTube', href: 'https://www.youtube.com/channel/UCVjWRjTUTAp75oq-SEj3c8g', icon: 'youtube' },
   ],
 };
 

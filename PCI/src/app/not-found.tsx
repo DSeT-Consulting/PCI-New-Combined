@@ -4,10 +4,13 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Home, Trophy, ArrowLeft, Search } from 'lucide-react';
+import { Home, Trophy, ArrowLeft, Search, X } from 'lucide-react';
+import { useNotFoundHandler } from '~/hooks/useNavigation';
+import { NotFoundModal } from '~/components/NotFoundModal';
 
 export default function NotFound() {
   const [mounted, setMounted] = useState(false);
+  const { showModal, closeModal } = useNotFoundHandler();
 
   useEffect(() => {
     setMounted(true);
@@ -15,6 +18,11 @@ export default function NotFound() {
 
   if (!mounted) {
     return null; // Prevent hydration issues
+  }
+
+  // If should show modal, render modal instead
+  if (showModal) {
+    return <NotFoundModal onClose={closeModal} />;
   }
 
   return (
