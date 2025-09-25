@@ -1,0 +1,28 @@
+/* Sora Font - Self-hosted for better performance */
+
+/* sora-400-normal */
+@font-face {
+  font-family: 'Sora';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('./sora-400-normal.woff2') format('woff2');
+}
+
+/* sora-600-normal */
+@font-face {
+  font-family: 'Sora';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url('./sora-600-normal.woff2') format('woff2');
+}
+
+/* sora-700-normal */
+@font-face {
+  font-family: 'Sora';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url('./sora-700-normal.woff2') format('woff2');
+}
