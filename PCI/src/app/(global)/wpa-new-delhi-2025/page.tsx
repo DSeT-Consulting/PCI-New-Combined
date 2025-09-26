@@ -427,7 +427,7 @@ const NextEventsPreviewSection: React.FC = () => {
         {
             id: 1,
             title: "Opening Ceremony",
-            date: "27 Sep",
+            date: "25 Sep",
             day: "Friday",
             time: "19:00",
             type: "ceremony",
@@ -437,7 +437,7 @@ const NextEventsPreviewSection: React.FC = () => {
         {
             id: 2,
             title: "Track Events - Day 1",
-            date: "28 Sep",
+            date: "27 Sep",
             day: "Saturday",
             time: "09:00",
             type: "track",
@@ -447,7 +447,7 @@ const NextEventsPreviewSection: React.FC = () => {
         {
             id: 3,
             title: "Field Events - Day 1",
-            date: "28 Sep",
+            date: "27 Sep",
             day: "Saturday",
             time: "10:30",
             type: "field",
@@ -457,7 +457,7 @@ const NextEventsPreviewSection: React.FC = () => {
         {
             id: 4,
             title: "Marathon Events",
-            date: "29 Sep",
+            date: "28 Sep",
             day: "Sunday",
             time: "07:00",
             type: "marathon",
