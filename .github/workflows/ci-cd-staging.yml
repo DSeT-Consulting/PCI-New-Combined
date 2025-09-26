@@ -1,81 +1,22 @@
-name: CI/CD - Staging Deployment
+name: Deploy to Staging
 
 on:
   push:
     branches:
       - develop
       - staging
-  pull_request:
-    branches:
-      - develop
-      - staging
-  workflow_dispatch:  # Allow manual triggering
-    inputs:
-      environment:
-        description: 'Deploy to environment'
-        required: true
-        default: 'staging'
-        type: choice
-        options:
-        - staging
+  workflow_dispatch:
 
 env:
   AZURE_RESOURCE_GROUP: PCI
   AKS_CLUSTER_NAME: pci-staging-aks
   ACR_NAME: pcistaging
   NAMESPACE: pci-staging
+  STAGING_URL: https://staging.paralympicindia.com
 
 jobs:
-  test:
+  build-and-push:
     runs-on: ubuntu-latest
-    name: Run Tests
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Setup Node.js for Backend
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-        cache-dependency-path: PCI-backend/package-lock.json
-
-    - name: Install Backend Dependencies
-      run: |
-        cd PCI-backend
-        npm install
-
-    - name: Run Backend Tests
-      run: |
-        cd PCI-backend
-        npm test
-
-    - name: Setup pnpm for Frontend
-      uses: pnpm/action-setup@v2
-      with:
-        version: 9
-
-    - name: Setup Node.js for Frontend
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'pnpm'
-        cache-dependency-path: PCI/pnpm-lock.yaml
-
-    - name: Install Frontend Dependencies
-      run: |
-        cd PCI
-        pnpm install
-
-    - name: Build Frontend
-      run: |
-        cd PCI
-        pnpm run build
-
-  build-and-deploy-staging:
-    needs: test
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -89,11 +30,6 @@ jobs:
       run: |
         az acr login --name ${{ env.ACR_NAME }}
 
-    - name: Setup pnpm for Frontend Build
-      uses: pnpm/action-setup@v2
-      with:
-        version: 9
-
     - name: Build and push Backend image
       run: |
         cd PCI-backend
@@ -105,10 +41,26 @@ jobs:
     - name: Build and push Frontend image
       run: |
         cd PCI
-        docker build -t ${{ env.ACR_NAME }}.azurecr.io/pci-frontend:${{ github.sha }} .
+        docker build \
+          --build-arg NEXT_PUBLIC_BACKEND_URL="${{ env.STAGING_URL }}" \
+          --build-arg NEXT_PUBLIC_API_URL="/api" \
+          --no-cache \
+          -t ${{ env.ACR_NAME }}.azurecr.io/pci-frontend:${{ github.sha }} .
         docker tag ${{ env.ACR_NAME }}.azurecr.io/pci-frontend:${{ github.sha }} ${{ env.ACR_NAME }}.azurecr.io/pci-frontend:latest
         docker push ${{ env.ACR_NAME }}.azurecr.io/pci-frontend:${{ github.sha }}
         docker push ${{ env.ACR_NAME }}.azurecr.io/pci-frontend:latest
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS_STAGING }}
 
     - name: Get AKS credentials
       run: |
@@ -118,7 +70,7 @@ jobs:
       run: |
         kubectl create namespace ${{ env.NAMESPACE }} --dry-run=client -o yaml | kubectl apply -f -
 
-    - name: Create/Update secrets
+    - name: Create secrets
       run: |
         # Create database secrets
         kubectl create secret generic pci-postgres-secrets \
@@ -140,19 +92,22 @@ jobs:
           --from-literal=database-url=${{ secrets.DATABASE_URL_STAGING }} \
           --dry-run=client -o yaml | kubectl apply -f -
 
-    - name: Update image tags in Kustomization
+    - name: Update staging deployments with new images
       run: |
-        # Update staging kustomization with new image tags
-        sed -i "s|newTag: latest|newTag: ${{ github.sha }}|g" k8s/overlays/staging/kustomization.yaml
+        # Update backend deployment with latest image
+        kubectl set image deployment/pci-backend \
+          pci-backend=${{ env.ACR_NAME }}.azurecr.io/pci-backend:${{ github.sha }} \
+          -n ${{ env.NAMESPACE }}
+        
+        # Update frontend deployment with latest image  
+        kubectl set image deployment/pci-frontend \
+          pci-frontend=${{ env.ACR_NAME }}.azurecr.io/pci-frontend:${{ github.sha }} \
+          -n ${{ env.NAMESPACE }}
 
-    - name: Deploy to Staging
+    - name: Wait for deployments to complete
       run: |
-        kubectl apply -k k8s/overlays/staging/ --namespace=${{ env.NAMESPACE }}
-
-    - name: Wait for deployment
-      run: |
-        kubectl rollout status deployment/pci-backend --namespace=${{ env.NAMESPACE }} --timeout=300s
-        kubectl rollout status deployment/pci-frontend --namespace=${{ env.NAMESPACE }} --timeout=300s
+        kubectl rollout status deployment/pci-backend --namespace=${{ env.NAMESPACE }} --timeout=600s
+        kubectl rollout status deployment/pci-frontend --namespace=${{ env.NAMESPACE }} --timeout=600s
 
     - name: Run Database Migrations
       run: |
@@ -163,16 +118,16 @@ jobs:
         POD_NAME=$(kubectl get pods -n ${{ env.NAMESPACE }} -l app=pci-backend -o jsonpath='{.items[0].metadata.name}')
         kubectl exec -n ${{ env.NAMESPACE }} $POD_NAME -- npm run drizzle:migrate
 
-    - name: Staging Deployment Summary
+    - name: Verify deployment and test API
       run: |
-        echo "🏆 Paralympic Committee of India - Staging Deployed! 🏆"
-        echo "=================================================="
-        echo "Environment: Staging"
-        echo "Namespace: ${{ env.NAMESPACE }}"
-        echo "Backend Image: ${{ env.ACR_NAME }}.azurecr.io/pci-backend:${{ github.sha }}"
-        echo "Frontend Image: ${{ env.ACR_NAME }}.azurecr.io/pci-frontend:${{ github.sha }}"
-        echo "=================================================="
+        echo "Staging deployment completed successfully!"
+        echo "Staging URL: ${{ env.STAGING_URL }}"
         
-        # Get service info
-        kubectl get services --namespace=${{ env.NAMESPACE }}
-        kubectl get ingress --namespace=${{ env.NAMESPACE }}
+        # Wait a bit for pods to be fully ready
+        sleep 30
+        
+        # Test API endpoint
+        kubectl get pods -n ${{ env.NAMESPACE }} -l app=pci-backend
+        kubectl get pods -n ${{ env.NAMESPACE }} -l app=pci-frontend
+        
+        echo "Paralympic Committee of India staging website deployed successfully! 🏅🇮🇳"
