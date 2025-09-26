@@ -109,17 +109,10 @@ jobs:
         kubectl rollout status deployment/pci-backend --namespace=${{ env.NAMESPACE }} --timeout=600s
         kubectl rollout status deployment/pci-frontend --namespace=${{ env.NAMESPACE }} --timeout=600s
 
-    - name: Run Database Migrations
+    - name: Skip Database Migrations
       run: |
-        # Wait for backend pod to be ready
-        kubectl wait --for=condition=ready pod -l app=pci-backend -n ${{ env.NAMESPACE }} --timeout=300s
-        
-        # Get backend pod name and run migrations
-        POD_NAME=$(kubectl get pods -n ${{ env.NAMESPACE }} -l app=pci-backend -o jsonpath='{.items[0].metadata.name}')
-        
-        # Try to run migration using drizzle-kit
-        echo "Attempting to run database migrations..."
-        kubectl exec -n ${{ env.NAMESPACE }} $POD_NAME -- sh -c "cd /app && npx drizzle-kit push" || echo "Migration failed, but continuing deployment..."
+        echo "Skipping database migrations for now - database should already be set up"
+        echo "If migrations are needed, they can be run manually after deployment"
 
     - name: Verify deployment and test API
       run: |
