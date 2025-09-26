@@ -116,7 +116,7 @@ jobs:
         
         # Get backend pod name and run migrations
         POD_NAME=$(kubectl get pods -n ${{ env.NAMESPACE }} -l app=pci-backend -o jsonpath='{.items[0].metadata.name}')
-        kubectl exec -n ${{ env.NAMESPACE }} $POD_NAME -- npm run drizzle:migrate
+        kubectl exec -n ${{ env.NAMESPACE }} $POD_NAME -- node dist/db/migrate-standalone.js
 
     - name: Verify deployment and test API
       run: |
