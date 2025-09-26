@@ -428,8 +428,8 @@ const NextEventsPreviewSection: React.FC = () => {
             id: 1,
             title: "Opening Ceremony",
             date: "25 Sep",
-            day: "Friday",
-            time: "19:00",
+            day: "Thursday",
+            time: "10:00",
             type: "ceremony",
             description: "Grand opening ceremony with cultural performances",
             color: "from-paralympic-blue to-purple-600"

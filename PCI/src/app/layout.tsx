@@ -1,9 +1,9 @@
 import "~/styles/globals.css";
-
-import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
+import { GeistSans } from "geist/font/sans";
 import { NewsProvider } from '~/contexts/NewsContext';
 import { NavigationHandler } from '~/components/NavigationHandler';
+import ServiceWorker from '~/components/ServiceWorker';
 
 export const metadata: Metadata = {
   title: "Paralympic Movement | Official Website",
@@ -19,10 +19,24 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable} scroll-smooth`}>
       <head>
-        {/* Optimized font loading - direct stylesheet with font-display: swap */}
+        {/* Self-hosted fonts for better performance */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap"
+          rel="preload"
+          href="/fonts/sora-400-normal.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/sora-600-normal.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
           rel="stylesheet"
+          href="/fonts/sora.css"
         />
         {/* Preload LCP image */}
         <link
@@ -33,6 +47,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <ServiceWorker />
         <NewsProvider>
           <NavigationHandler />
           {children}

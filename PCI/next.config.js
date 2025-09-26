@@ -19,8 +19,29 @@ const config = {
   },
   // Performance optimizations
   experimental: {
-    optimizePackageImports: ['lucide-react', 'next/image'],
+    optimizePackageImports: ['lucide-react', 'next/image', '@radix-ui/react-slot', 'clsx', 'tailwind-merge'],
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
+  // Bundle analyzer - enable with ANALYZE=true
+  ...(process.env.ANALYZE === 'true' && {
+    webpack: (config) => {
+      const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+      config.plugins.push(
+        new BundleAnalyzerPlugin({
+          analyzerMode: 'static',
+          openAnalyzer: false, 
+        })
+      );
+      return config;
+    },
+  }),
   // Compress responses
   compress: true,
   // Bundle optimization
