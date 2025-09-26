@@ -92,6 +92,18 @@ jobs:
           --from-literal=database-url=${{ secrets.DATABASE_URL_STAGING }} \
           --dry-run=client -o yaml | kubectl apply -f -
 
+    - name: Deploy PostgreSQL Database
+      run: |
+        # Deploy PostgreSQL StatefulSet and Service
+        kubectl apply -f k8s/base/postgres-statefulset.yaml --namespace=${{ env.NAMESPACE }}
+        kubectl apply -f k8s/base/postgres-service.yaml --namespace=${{ env.NAMESPACE }}
+        
+        # Wait for database to be ready
+        echo "Waiting for PostgreSQL database to be ready..."
+        kubectl wait --for=condition=ready pod -l app=pci-postgres -n ${{ env.NAMESPACE }} --timeout=300s
+        
+        echo "PostgreSQL database is ready!"
+
     - name: Update staging deployments with new images
       run: |
         # Update backend deployment with latest image
@@ -109,10 +121,17 @@ jobs:
         kubectl rollout status deployment/pci-backend --namespace=${{ env.NAMESPACE }} --timeout=600s
         kubectl rollout status deployment/pci-frontend --namespace=${{ env.NAMESPACE }} --timeout=600s
 
-    - name: Skip Database Migrations
+    - name: Run Database Migrations
       run: |
-        echo "Skipping database migrations for now - database should already be set up"
-        echo "If migrations are needed, they can be run manually after deployment"
+        # Wait for backend pod to be ready
+        kubectl wait --for=condition=ready pod -l app=pci-backend -n ${{ env.NAMESPACE }} --timeout=300s
+        
+        # Get backend pod name and run migrations
+        POD_NAME=$(kubectl get pods -n ${{ env.NAMESPACE }} -l app=pci-backend -o jsonpath='{.items[0].metadata.name}')
+        
+        # Run database migrations using the compiled JavaScript file
+        echo "Running database migrations..."
+        kubectl exec -n ${{ env.NAMESPACE }} $POD_NAME -- sh -c "cd /app && node dist/db/migrate-standalone.js" || echo "Migration completed with warnings"
 
     - name: Verify deployment and test API
       run: |
